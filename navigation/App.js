@@ -2,6 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View ,Button,ActivityIndicator, AsyncStorage,Alert} from 'react-native';
 import ChatBot from 'react-native-chatbot';
 import Add from './Add';
+import SCORE2T4 from '../screens/SCORE2T4';
+import SCORE5T8 from '../screens/SCORE5T8';
+import SCORE9T16 from '../screens/SCORE9T16';
+import SCORE17P from '../screens/SCORE17P';
 
 
 
@@ -24,12 +28,8 @@ class App extends React.Component {
   };
 
 
-  showMoreApp = () => {
-    this.props.navigator.push({
-           Add: 'Add',
-           Bot: 'App',
-
-        });
+  SCORE2T4 = () => {
+      this.props.navigation.navigate('SCORE2T4');
   };
 
 
@@ -59,7 +59,7 @@ handleEnd({ steps, values }) {
    //เนื่องจากตอนเก็บคะแนนใส่ values เป็นเลข0 ไม่ได้จึงเปลี่ยน เป็นเลข1 แทน แล้วมี8ตำถามคะแนนจึงลบ 8
   if (score == 9) {
     // `คะแนน ที่คุณได้: ${score-9}  จากการประเมินเบื้องต้นเราพบว่าคุณไม่มีความเสี่ยงในการทำร้ายตนเองและการฆ่าตัวตาย`);
-const AppStack = createStackNavigator({ Add: Add  });
+const AppStack = createStackNavigator({ Add: Add , SCORE2T4:SCORE2T4 });
   Alert.alert(
 'รายงานผลแบบประเมิน',
 `คะแนน ที่คุณได้: ${score-9}  จากการประเมินเบื้องต้นเราพบว่าคุณไม่มีความเสี่ยงในการทำร้ายตนเองและการฆ่าตัวตาย`,
@@ -85,11 +85,6 @@ const AppStack = createStackNavigator({ Add: Add  });
   render() {
     return (
 
-
-
-
-
-
        <ChatBot
               handleEnd={this.handleEnd}
 
@@ -97,7 +92,15 @@ const AppStack = createStackNavigator({ Add: Add  });
                 {
                   id: '1',
                   message: 'สวัสดีจ้า ฉันชื่อว่า Mindbot , แล้วคุณล่ะชื่ออะไร?',
-                  trigger: 'askName',
+                  trigger: 'ggwp',
+                },
+                {
+                  id: 'ggwp',
+                  component: (
+                    <Button title="new page :)" onPress={this.SCORE2T4} />
+
+                  ),
+                  trigger: 'HowToSleepChoice',
                 },
                 {
                 id: 'askName',
@@ -984,7 +987,7 @@ const AppStack = createStackNavigator({ Add: Add  });
   }
 }
 
-const AppStack = createStackNavigator({Bot : App ,  Add: Add  });
+const AppStack = createStackNavigator({Bot : App ,  Add: Add , SCORE2T4:SCORE2T4 });
 
 export default createAppContainer(createSwitchNavigator(
     {

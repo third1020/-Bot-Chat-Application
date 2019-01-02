@@ -23,18 +23,42 @@ import SCORE17P from '../screens/SCORE17P';
 import Check_me from '../screens/Check_me';
 import Let_talk from '../screens/Let_talk';
 import Need_help from '../screens/Need_help';
-import { Button } from 'react-native-elements';
+import { Button,Header,Icon,PricingCard,SocialIcon } from 'react-native-elements'
 
 
 
 class HomeScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Welcome to the app!',
-    };
+    static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam('HomeScreen', 'Welcome to my App'),
+    //   headerStyle: {
+    //   backgroundColor: '#f4511e',
+    // },
+    // headerTintColor: '#fff',
+    // headerTitleStyle: {
+    //   fontWeight: 'bold',
+    // },
+    header: (
 
-    _showMoreApp = () => {
-        this.props.navigation.navigate('Bot');
+      <Header
+    statusBarProps={{ barStyle: 'light-content' }}
+    leftComponent={{ icon: 'menu', color: '#fff', onPress: () => console.log("test") }}
+    centerComponent={{ text: 'Mindbot', style: { color: '#fff' } }}
+    outerContainerStyles={{ backgroundColor: '#3D6CCC' }}
+    innerContainerStyles={{ justifyContent: 'space-around' }}
+  />
+    ),
+    // headerLeft: (
+    //   <Button
+    //     onPress={() => alert('This is a button!')}
+    //     title="Info"
+    //     color="#fff"
+    //   />
+    // ),
     };
+  };
+
+
 
     _AddData = () => {
         this.props.navigation.navigate('Add');
@@ -65,12 +89,22 @@ class HomeScreen extends React.Component {
 
     render() {
         return (
+
             <View>
+            <PricingCard
+                    color='#4f9deb'
+                    title='Free'
+                    price='$0'
+                    info={['1 User', 'Basic Support', 'All Core Features']}
+                    button={{ title: 'GET STARTED', icon: 'flight-takeoff' }}
+             />
             <Button  large
                      icon={{name: 'envira', type: 'font-awesome'}}
                      title='Chat with Bot'
                      onPress={this._showMoreApp}
             />
+
+
 
                 <Button title="Form Add data :)" onPress={this._AddData} />
                 <Button title="_2T4 :)" onPress={this._2T4} />
@@ -81,6 +115,22 @@ class HomeScreen extends React.Component {
                 <Button title="Check_me :)" onPress={this.Check_me} />
                 <Button title="Let_talk :)" onPress={this.Let_talk} />
                 <Button title="Need_help :)" onPress={this.Need_help} />
+                <Icon
+                     raised
+                     name='heartbeat'
+                     type='font-awesome'
+                     color='#f50'
+                     onPress={() => console.log('hello')} />
+
+
+
+                 <Icon
+                    reverse
+                    name='ios-american-football'
+                    type='ionicon'
+                    color='#517fa4'
+                  />
+
 
             </View>
         );
