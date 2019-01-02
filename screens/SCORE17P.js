@@ -13,24 +13,26 @@ import {
     createStackNavigator,
     createAppContainer,
 } from 'react-navigation';
+import Add from '../navigation/Add';
 
-class OtherScreen extends React.Component {
+class SCORE17P extends React.Component {
     static navigationOptions = {
-        title: 'Form Add Data',
+        title: 'Point Upper 17',
     };
 
     render() {
         return (
-            <View>
-                <Text>หน้านี้ภูมิทำนะ เอาโค้ดมาใส่หน้านี้</Text>
-            </View>
+          <View >
+
+              <Button title="go back to login screen" onPress={() => this.props.navigation.popToTop()} />
+          </View>
         );
     }
 }
 
 
 
-const AppStack = createStackNavigator({  Other: OtherScreen });
+const AppStack = createStackNavigator({  SCORE17P: SCORE17P ,Add: Add });
 
 
 export default createAppContainer(createSwitchNavigator(
@@ -38,3 +40,11 @@ export default createAppContainer(createSwitchNavigator(
         App: AppStack,
     },
 ));
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+});
