@@ -24,7 +24,6 @@ class App extends React.Component {
   };
 
 
-
   showMoreApp = () => {
     this.props.navigator.push({
            Add: 'Add',
@@ -32,10 +31,6 @@ class App extends React.Component {
 
         });
   };
-
-
-
-
 
 
   componentDidMount() {
