@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Button,ActivityIndicator, AsyncStorage,Alert} from 'react-native';
+import { StyleSheet, Text, View ,ActivityIndicator, AsyncStorage,Alert} from 'react-native';
 import ChatBot from 'react-native-chatbot';
-import Add from './Add';
+import HomeScreen from './HomeScreen';
 import SCORE2T4 from '../screens/SCORE2T4';
 import SCORE5T8 from '../screens/SCORE5T8';
-import SCORE9T16 from '../screens/SCORE9T16';
-import SCORE17P from '../screens/SCORE17P';
+import Check_me from '../screens/Check_me';
+import { Button } from 'react-native-elements';
+
+
 
 
 
@@ -15,10 +17,116 @@ import {
     createAppContainer,
 } from 'react-navigation';
 
+import PropTypes from 'prop-types';
+
+class ShowResult extends React.Component {
+    static navigationOptions = {
+        title: 'ShowResult',
+    };
+
+    constructor(props) {
+    super(props);
+
+    this.state = {
+      askName: '',
+      selfHarmQuestionChoice: '',
+      selfHarmQuestionChoice2: '',
+      selfHarmQuestionChoice3: '',
+      selfHarmQuestionChoice3_1: '',
+      selfHarmQuestionChoice4: '',
+      selfHarmQuestionChoice5: '',
+      selfHarmQuestionChoice6: '',
+      selfHarmQuestionChoice7: '',
+      selfHarmQuestionChoice8: '',
+
+
+    };
+  }
+
+  componentWillMount() {
+    const { steps } = this.props;
+
+
+    const { askName,selfHarmQuestionChoice,selfHarmQuestionChoice2,
+            selfHarmQuestionChoice3,selfHarmQuestionChoice3_1,
+            selfHarmQuestionChoice4,selfHarmQuestionChoice5,selfHarmQuestionChoice6,
+            selfHarmQuestionChoice7,selfHarmQuestionChoice8} = steps;
+
+    this.setState({ askName,selfHarmQuestionChoice,selfHarmQuestionChoice2,
+            selfHarmQuestionChoice3,selfHarmQuestionChoice3_1,
+            selfHarmQuestionChoice4,selfHarmQuestionChoice5,selfHarmQuestionChoice6,
+            selfHarmQuestionChoice7,selfHarmQuestionChoice8});
+
+
+                      score = selfHarmQuestionChoice.value+selfHarmQuestionChoice2.value+selfHarmQuestionChoice3.value
+                              +selfHarmQuestionChoice4.value+selfHarmQuestionChoice5.value
+                              +selfHarmQuestionChoice6.value+selfHarmQuestionChoice7.value+selfHarmQuestionChoice8.value;
+
+
+                     if (selfHarmQuestionChoice3_1.value == 8){
+                      score+=8;
+                    }
+                    if (selfHarmQuestionChoice3_1.value == 0){
+                     score+=0;
+                   }
+
+                    if (score == 0) {word = " จากการประเมินเบื้องต้นเราพบว่าคุณไม่มีความเสี่ยงในการทำร้ายตนเองและการฆ่าตัวตาย"
+
+                                     // ,help="ขอบคุณนะ Mindbot",
+                                     // nohelp="แล้วเจอกันอีกนะ Mindbot"
+                                   } //score =0
+                    else if (score > 0 && score < 2 ) {word =" จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับปานกลาง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย"
+                                                       // ,help="ขอบคุณนะ Mindbot",
+                                                       // nohelp="แล้วเจอกันอีกนะ Mindbot"
+                                                     }//score =1-2
+
+                    else if (score >= 2 && score < 5 ) {word =" จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับสูง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย"
+                                                       // ,help="ฉันต้องกำรควำมช่วยเหลือ",
+                                                       // nohelp="ฉันยังไม่ต้องกำรควำมช่วยเหลือ"
+                                                     }//score =3-4
+
+                    else if (score >= 5 && score < 9) {word =" จากการประเมินเบื้องต้นเราพบว่าึถณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย"
+                                                       // ,help="ฉันต้องกำรควำมช่วยเหลือ",
+                                                       // nohelp="ฉันยังไม่ต้องกำรควำมช่วยเหลือ"
+                                                     }//score =5-9
+
+                    else if (score >= 9 && score < 17) {word =" จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และความเสี่ยงในการฆ่าตัวตายในระดับปานกลาง"
+                                                       // ,help="ฉันต้องกำรควำมช่วยเหลืออย่างเร่งด่วน",
+                                                       // nohelp="ฉันต้องกำรควำมช่วยเหลือ"
+                                                     }//score =10-16
+
+                    else if (score >= 17) { word =" จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และมีความเสี่ยงในการฆ่าตัวตายในระดับสูง"
+                                                       // ,help="ฉันต้องกำรควำมช่วยเหลืออย่างเร่งด่วน",
+                                                       // nohelp="ฉันต้องกำรควำมช่วยเหลือ"
+                                                     }//score > 16
+                    else { word= "Error" }
 
 
 
 
+
+  }
+
+  render() {
+    const { askName,selfHarmQuestionChoice,selfHarmQuestionChoice2,
+            selfHarmQuestionChoice3,
+            selfHarmQuestionChoice4,selfHarmQuestionChoice5,selfHarmQuestionChoice6,
+            selfHarmQuestionChoice7,selfHarmQuestionChoice8} = this.state;
+    return (
+
+            <Text onPress={this._5T8}> คะแนนที่คุณได้คือ {score}{word}</Text>
+
+    );
+  }
+}
+
+ShowResult.propTypes = {
+  steps: PropTypes.object,
+};
+
+ShowResult.defaultProps = {
+  steps: undefined,
+};
 
 
 class App extends React.Component {
@@ -27,80 +135,35 @@ class App extends React.Component {
       title: 'Mindbot',
   };
 
-
-  SCORE2T4 = () => {
-      this.props.navigation.navigate('SCORE2T4');
+  _5T8 = () => {
+      this.props.navigation.navigate('SCORE5T8');
+  };
+  Check_me = () => {
+      this.props.navigation.navigate('Check_me');
   };
 
-
-  componentDidMount() {
-  this.handleEnd = this.handleEnd.bind(this);
-}
-
-handleEnd({ steps, values }) {
-  var score,text,i;
-  var result;
-   console.log(steps);
-   console.log(values);
-
-  //values[0] คือ ชื่อผู้ใช้
-  //valuse[1] คือ คุณกำลังทำอะไรอย
-  //valuse[2-10] คือ เก็บตะแนนแบบทดสอบ
-
-  // for(i = 2; i <= 9; i++ ){
-  //   score += values[i];
-  // }
-
-  score = values[2]+values[3]+values[4]+values[5]+values[6]+values[7]+values[8]+values[9]+values[10];
-
-
-
+  // score = values[2]+values[3]+values[4]+values[5]+values[6]+values[7]+values[8]+values[9]+values[10];
 
    //เนื่องจากตอนเก็บคะแนนใส่ values เป็นเลข0 ไม่ได้จึงเปลี่ยน เป็นเลข1 แทน แล้วมี8ตำถามคะแนนจึงลบ 8
-  if (score == 9) {
-    // `คะแนน ที่คุณได้: ${score-9}  จากการประเมินเบื้องต้นเราพบว่าคุณไม่มีความเสี่ยงในการทำร้ายตนเองและการฆ่าตัวตาย`);
-const AppStack = createStackNavigator({ Add: Add , SCORE2T4:SCORE2T4 });
-  Alert.alert(
-'รายงานผลแบบประเมิน',
-`คะแนน ที่คุณได้: ${score-9}  จากการประเมินเบื้องต้นเราพบว่าคุณไม่มีความเสี่ยงในการทำร้ายตนเองและการฆ่าตัวตาย`,
-[
-  {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-  {text: 'OK', onPress: this.showMoreApp},
-
-],
-{ cancelable: false }
-)
-
-
-  } //score =0
-  else if (score >= 9 && score <= 10 ) { alert(`คะแนน ที่คุณได้: ${score-9}  จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับปานกลาง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย`); }//score =1-2
-  else if (score >= 11 && score <= 12 ) {alert(`คะแนน ที่คุณได้: ${score-9} จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับสูง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย`); }//score =3-4
-  else if (score > 12 && score < 16) {alert(`คะแนน ที่คุณได้: ${score-9} จากการประเมินเบื้องต้นเราพบว่าึถณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย`); }//score =5-9
-  else if (score > 17 && score < 25) {alert(`คะแนน ที่คุณได้: ${score-9}จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และความเสี่ยงในการฆ่าตัวตายในระดับปานกลาง`); }//score =10-16
-  else if (score > 24) { alert(`คะแนน ที่คุณได้: ${score-9}จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และมีความเสี่ยงในการฆ่าตัวตายในระดับสูง`); }//score > 16
-  else { alert(`${score}`); }
-
-}
+  // if (score == 9) {
+  //
+  //   `คะแนน ที่คุณได้: ${score-9}  จากการประเมินเบื้องต้นเราพบว่าคุณไม่มีความเสี่ยงในการทำร้ายตนเองและการฆ่าตัวตาย`);
+  // } //score =0
+  // else if (score >= 9 && score <= 10 ) { alert(`คะแนน ที่คุณได้: ${score-9}  จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับปานกลาง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย`); }//score =1-2
+  // else if (score >= 11 && score <= 12 ) {alert(`คะแนน ที่คุณได้: ${score-9} จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับสูง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย`); }//score =3-4
+  // else if (score > 12 && score < 16) {alert(`คะแนน ที่คุณได้: ${score-9} จากการประเมินเบื้องต้นเราพบว่าึถณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย`); }//score =5-9
+  // else if (score > 17 && score < 25) {alert(`คะแนน ที่คุณได้: ${score-9}จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และความเสี่ยงในการฆ่าตัวตายในระดับปานกลาง`); }//score =10-16
+  // else if (score > 24) { alert(`คะแนน ที่คุณได้: ${score-9}จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และมีความเสี่ยงในการฆ่าตัวตายในระดับสูง`); }//score > 16
+  // else { const AppStack = createStackNavigator({SCORE2T4: SCORE2T4 }); }
 
   render() {
     return (
-
        <ChatBot
-              handleEnd={this.handleEnd}
-
               steps={[
                 {
                   id: '1',
                   message: 'สวัสดีจ้า ฉันชื่อว่า Mindbot , แล้วคุณล่ะชื่ออะไร?',
-                  trigger: 'ggwp',
-                },
-                {
-                  id: 'ggwp',
-                  component: (
-                    <Button title="new page :)" onPress={this.SCORE2T4} />
-
-                  ),
-                  trigger: 'HowToSleepChoice',
+                  trigger: 'askName',
                 },
                 {
                 id: 'askName',
@@ -110,8 +173,10 @@ const AppStack = createStackNavigator({ Add: Add , SCORE2T4:SCORE2T4 });
                 {
                   id: 'userName',
                   message: 'ยินดีที่ได้รู้จัก {previousValue}!',
-                  trigger: 'HowToSleep',
+
+                  trigger: 'introduce' ,
                 },
+
                 {
                   id: 'introduce',
                   message: 'ฉันคือหุ่นยนต์ตัวน้อยๆ ที่ถูกสร้างขึ้นมาเพื่อปฎิบัติภารกิจอันยิ่งใหญ่ที่ได้รับมอบหมายมาจากผู้สร้าง',
@@ -121,7 +186,7 @@ const AppStack = createStackNavigator({ Add: Add , SCORE2T4:SCORE2T4 });
                     id: 'introduceChoice',
                     options: [
                       {  label: 'ภารกิจที่ว่านั้นคืออะไรเหรอ?', trigger: '2' },
-                      {  label: '🤔', trigger: '2' },
+
                     ]
                   },
                   {
@@ -260,11 +325,7 @@ const AppStack = createStackNavigator({ Add: Add , SCORE2T4:SCORE2T4 });
                   message: 'แล้วคุณสามารถควมคุมความอยากฆ่าตัวตายที่คุณคิดอยู่ในขณะนั้นได้หรือไม่?',
                   trigger: 'selfHarmQuestionChoice3_1',
                 },
-                {
-                  id: 'selfHarmQuestion3_2',
-                  message: 'ดีแล้วแหละครับ คุณจะไม่ฆ่าตัวตายแน่นอนใช่ไหม?',
-                  trigger: 'selfHarmQuestionChoice3_2',
-                },
+
                 {
                   id: 'selfHarmQuestion4',
                   message: 'ในเดือนที่ผ่านมาจนถึงวันนี้ คุณได้มีแผนการที่จะฆ่าตัวตายบ้างหรือไม่?',
@@ -293,73 +354,67 @@ const AppStack = createStackNavigator({ Add: Add , SCORE2T4:SCORE2T4 });
                 {
                 id: 'selfHarmQuestionChoice',
                   options: [
-                    { value:2, label: 'ใช่', trigger: 'selfHarmQuestion2' },
-                    { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion2' },
+                    { value:1, label: 'ใช่', trigger: 'selfHarmQuestion2' },
+                    { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion2' },
                   ],
                 },
                 {
                   id: 'selfHarmQuestionChoice2',
                     options: [
-                      { value:3, label: 'ใช่', trigger: 'selfHarmQuestion3' },
-                      { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3' },
+                      { value:2, label: 'ใช่', trigger: 'selfHarmQuestion3' },
+                      { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3' },
                     ],
                   },
                   {
                     id: 'selfHarmQuestionChoice3',
                       options: [
-                        { value:7, label: 'ใช่', trigger: 'selfHarmQuestion3_1' },
-                        { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3_2' },
+                        { value:6, label: 'ใช่', trigger: 'selfHarmQuestion3_1' },
+                        { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion4' },
                       ],
                     },
 
                     {
                       id: 'selfHarmQuestionChoice3_1',
                         options: [
-                          { value:1, label: 'ควบคุมได้', trigger: 'selfHarmQuestion4' },
-                          { value:9, label: 'ควบคุมไม่ได้', trigger: 'selfHarmQuestion4' },
+                          { value:0, label: 'ควบคุมได้', trigger: 'selfHarmQuestion4' },
+                          { value:8, label: 'ควบคุมไม่ได้', trigger: 'selfHarmQuestion4' },
                         ],
                       },
-                      {
-                        id: 'selfHarmQuestionChoice3_2',
-                          options: [
-                            { value:1, label: 'แน่นอน', trigger: 'selfHarmQuestion4' },
 
-                          ],
-                        },
                     {
                       id: 'selfHarmQuestionChoice4',
                         options: [
-                          { value:9, label: 'มี', trigger: 'selfHarmQuestion5' },
-                          { value:1, label: 'ไม่มี', trigger: 'selfHarmQuestion5' },
+                          { value:8, label: 'มี', trigger: 'selfHarmQuestion5' },
+                          { value:0, label: 'ไม่มี', trigger: 'selfHarmQuestion5' },
                         ],
                       },
 
                       {
                         id: 'selfHarmQuestionChoice5',
                           options: [
-                            { value:10, label: 'ใช่', trigger: 'selfHarmQuestion6' },
-                            { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion6' },
+                            { value:9, label: 'ใช่', trigger: 'selfHarmQuestion6' },
+                            { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion6' },
                           ],
                         },
                         {
                           id: 'selfHarmQuestionChoice6',
                             options: [
-                              { value:5, label: 'ใช่', trigger: 'selfHarmQuestion7' },
-                              { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion7' },
+                              { value:4, label: 'ใช่', trigger: 'selfHarmQuestion7' },
+                              { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion7' },
                             ],
                           },
                           {
                             id: 'selfHarmQuestionChoice7',
                               options: [
-                                { value:11, label: 'ใช่', trigger: 'selfHarmQuestion8' },
-                                { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion8' },
+                                { value:10, label: 'ใช่', trigger: 'selfHarmQuestion8' },
+                                { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion8' },
                               ],
                             },
                             {
                               id: 'selfHarmQuestionChoice8',
                                 options: [
-                                  { value:5, label: 'ใช่', trigger: 'HowWasIt' },
-                                  { value:1, label: 'ไม่ใช่', trigger: 'HowWasIt' },
+                                  { value:4, label: 'ใช่', trigger: 'HowWasIt' },
+                                  { value:0, label: 'ไม่ใช่', trigger: 'HowWasIt' },
                                 ],
                               },
                 {
@@ -565,7 +620,29 @@ const AppStack = createStackNavigator({ Add: Add , SCORE2T4:SCORE2T4 });
                                 {
                                   id: 'seeu',
                                   message: 'แล้วพบกันอีกนะ  😊' ,
-                                  trigger: 'seeuChoice',
+                                  trigger: 'intheend',
+                                },
+                                {
+                                  id: 'intheend',
+                                component: (<ShowResult />),
+
+                                asMessage: true,
+                                trigger: 'help',
+
+                                },
+                                {
+                                id: 'help',
+                                component: (
+                                <Button title="ฉันต้องกำรควำมช่วยเหลือ" onPress={this._5T8}/>
+                                 ),
+                                trigger: 'nohelp',
+                                },
+                                {
+                                id: 'nohelp',
+                                component: (
+                                <Button title="ฉันไม่ต้องกำรควำมช่วยเหลือ" onPress={this.Check_me}/>
+                                 ),
+                                trigger: 'seeuChoice',
                                 },
 
                                 {
@@ -715,6 +792,7 @@ const AppStack = createStackNavigator({ Add: Add , SCORE2T4:SCORE2T4 });
                                         {  label: 'ฝันดีนะ Mindbot', end: true },
                                       ],
                                     },
+
                                     {
                                       id: 'HowToSleep1',
                                       message: 'บางทีการคุยกับฉันบนหน้าจออาจจะทำให้คุณหลับยากยิ่งขึ้น ฉันจึงอยากให้คุณหลีกเลี่ยงกิจกรรมอื่นๆ บนหน้าจอของคุณบ้างนะ 😟' ,
@@ -983,19 +1061,10 @@ const AppStack = createStackNavigator({ Add: Add , SCORE2T4:SCORE2T4 });
               ]}
             />
 
+
     );
   }
 }
-
-const AppStack = createStackNavigator({Bot : App ,  Add: Add , SCORE2T4:SCORE2T4 });
-
-export default createAppContainer(createSwitchNavigator(
-    {
-        App: AppStack,
-    },
-));
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -1005,6 +1074,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
+
+
+
+
 
 //
 //

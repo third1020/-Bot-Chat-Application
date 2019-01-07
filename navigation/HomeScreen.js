@@ -11,10 +11,13 @@ import {
     createSwitchNavigator,
     createStackNavigator,
     createAppContainer,
+    createBottomTabNavigator,
 } from 'react-navigation';
+
 
 import Add from './Add';
 import App from './App';
+
 import SCORE2T4 from '../screens/SCORE2T4';
 import SCORE5T8 from '../screens/SCORE5T8';
 import SCORE9T16 from '../screens/SCORE9T16';
@@ -28,37 +31,13 @@ import { Button,Header,Icon,PricingCard,SocialIcon } from 'react-native-elements
 
 
 class HomeScreen extends React.Component {
-    static navigationOptions = ({ navigation }) => {
-    return {
-      title: navigation.getParam('HomeScreen', 'Welcome to my App'),
-    //   headerStyle: {
-    //   backgroundColor: '#f4511e',
-    // },
-    // headerTintColor: '#fff',
-    // headerTitleStyle: {
-    //   fontWeight: 'bold',
-    // },
-    header: (
-
-      <Header
-    statusBarProps={{ barStyle: 'light-content' }}
-    leftComponent={{ icon: 'menu', color: '#fff', onPress: () => console.log("test") }}
-    centerComponent={{ text: 'Mindbot', style: { color: '#fff' } }}
-    outerContainerStyles={{ backgroundColor: '#3D6CCC' }}
-    innerContainerStyles={{ justifyContent: 'space-around' }}
-  />
-    ),
-    // headerLeft: (
-    //   <Button
-    //     onPress={() => alert('This is a button!')}
-    //     title="Info"
-    //     color="#fff"
-    //   />
-    // ),
-    };
+  static navigationOptions = {
+      title: 'HomeScreen',
   };
 
-
+  App = () => {
+      this.props.navigation.navigate('App');
+  };
 
     _AddData = () => {
         this.props.navigation.navigate('Add');
@@ -91,21 +70,8 @@ class HomeScreen extends React.Component {
         return (
 
             <View>
-            <PricingCard
-                    color='#4f9deb'
-                    title='Free'
-                    price='$0'
-                    info={['1 User', 'Basic Support', 'All Core Features']}
-                    button={{ title: 'GET STARTED', icon: 'flight-takeoff' }}
-             />
-            <Button  large
-                     icon={{name: 'envira', type: 'font-awesome'}}
-                     title='Chat with Bot'
-                     onPress={this._showMoreApp}
-            />
 
-
-
+                <Button title="First page " onPress={this.App} />
                 <Button title="Form Add data :)" onPress={this._AddData} />
                 <Button title="_2T4 :)" onPress={this._2T4} />
                 <Button title="_5T8 :)" onPress={this._5T8} />
@@ -115,21 +81,7 @@ class HomeScreen extends React.Component {
                 <Button title="Check_me :)" onPress={this.Check_me} />
                 <Button title="Let_talk :)" onPress={this.Let_talk} />
                 <Button title="Need_help :)" onPress={this.Need_help} />
-                <Icon
-                     raised
-                     name='heartbeat'
-                     type='font-awesome'
-                     color='#f50'
-                     onPress={() => console.log('hello')} />
 
-
-
-                 <Icon
-                    reverse
-                    name='ios-american-football'
-                    type='ionicon'
-                    color='#517fa4'
-                  />
 
 
             </View>
@@ -137,16 +89,17 @@ class HomeScreen extends React.Component {
     }
 }
 
-const AppStack = createStackNavigator({  Home: HomeScreen ,
-                                          Add: Add ,
-                                          Bot: App ,
+const AppStack = createStackNavigator({   HomeScreen : HomeScreen,
+                                          Add: Add,
+                                          App: App,
+
                                           SCORE2T4: SCORE2T4 ,
                                           SCORE5T8: SCORE5T8,
                                           SCORE9T16: SCORE9T16,
                                           SCORE17P: SCORE17P ,
                                           Check_me: Check_me,
                                           Let_talk: Let_talk,
-                                          Need_help: Need_help
+                                          Need_help: Need_help,
                                         });
 
 
@@ -155,3 +108,65 @@ export default createAppContainer(createSwitchNavigator(
         App: AppStack,
     },
 ));
+
+// const HomeIconWithBadge = props => {
+//   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
+//   return <IconWithBadge {...props} badgeCount={3} />;
+// };
+//
+// const getTabBarIcon = (navigation, focused, tintColor) => {
+//   const { routeName } = navigation.state;
+//   let IconComponent = Ionicons;
+//   let iconName;
+//   if (routeName === 'Home') {
+//     iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+//     // We want to add badges to home tab icon
+//     IconComponent = HomeIconWithBadge;
+//   } else if (routeName === 'SCORE2T4') {
+//     iconName = `ios-options${focused ? '' : '-outline'}`;
+//   } else if (routeName === 'SCORE5T8') {
+//     iconName = `ios-options${focused ? '' : '-outline'}`;
+//   } else if (routeName === 'SCORE9T16') {
+//     iconName = `ios-options${focused ? '' : '-outline'}`;
+//   } else if (routeName === 'SCORE17P') {
+//     iconName = `ios-options${focused ? '' : '-outline'}`;
+//   } else if (routeName === 'Check_me') {
+//     iconName = `ios-options${focused ? '' : '-outline'}`;
+//   } else if (routeName === 'Let_talk') {
+//     iconName = `ios-options${focused ? '' : '-outline'}`;
+//   } else if (routeName === 'Need_help') {
+//     iconName = `ios-options${focused ? '' : '-outline'}`;
+//   } else if (routeName === 'App') {
+//     iconName = `ios-options${focused ? '' : '-outline'}`;
+//   }
+//
+//   // You can return any component that you like here!
+//   return <IconComponent name={iconName} size={25} color={tintColor} />;
+// };
+//
+// export default createAppContainer(
+//   createBottomTabNavigator(
+//     {
+//       Home: { screen: HomeScreen },
+//       SCORE2T4: { screen: SCORE2T4 },
+//       SCORE5T8: { screen: SCORE5T8 },
+//       SCORE9T16: { screen: SCORE9T16 },
+//       SCORE17P: { screen: SCORE17P },
+//       Check_me: { screen: Check_me },
+//       Let_talk: { screen: Let_talk },
+//       Need_help: { screen: Need_help },
+//       App: { screen: App },
+//
+//     },
+//     {
+//       defaultNavigationOptions: ({ navigation }) => ({
+//         tabBarIcon: ({ focused, tintColor }) =>
+//           getTabBarIcon(navigation, focused, tintColor),
+//       }),
+//       tabBarOptions: {
+//         activeTintColor: 'tomato',
+//         inactiveTintColor: 'gray',
+//       },
+//     }
+//   )
+// );
