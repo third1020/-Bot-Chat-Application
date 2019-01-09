@@ -25,16 +25,6 @@ class ShowResult extends React.Component {
     static navigationOptions = {
         title: 'ShowResult',
     };
-    playSound = async () => {
-        try {
-          await this.audioPlayer.unloadAsync()
-          await this.audioPlayer.loadAsync(require("../assets/sounds/mp3_theme_song.mp3"));
-          await this.audioPlayer.playAsync();
-        } catch (err) {
-          console.warn("Couldn't Play audio", err)
-        }
-    }
-
 
 
 
@@ -42,7 +32,7 @@ class ShowResult extends React.Component {
     super(props);
 
 
-        this.audioPlayer = new Expo.Audio.Sound();
+
 
 
     this.state = {
@@ -151,6 +141,7 @@ class App extends React.Component {
       title: 'Mindbot',
   };
 
+
   SelfHarm_Normal = () => {
       this.props.navigation.navigate('SelfHarm_Normal');
   };
@@ -164,8 +155,20 @@ class App extends React.Component {
       this.props.navigation.navigate('HomeScreen');
   };
 
+  playSound = async () => {
+      try {
+        await this.audioPlayer.unloadAsync()
+        await this.audioPlayer.loadAsync(require("../assets/sounds/guile_theme.mp3"));
+        await this.audioPlayer.playAsync();
+      } catch (err) {
+        console.warn("Couldn't Play audio", err)
+      }
+  }
+
   constructor(props) {
   super(props);
+
+    this.audioPlayer = new Expo.Audio.Sound();
 
   this.state = {
     askName: '',
