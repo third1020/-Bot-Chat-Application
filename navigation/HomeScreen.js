@@ -18,10 +18,10 @@ import {
 import Add from './Add';
 import App from './App';
 
-import SCORE2T4 from '../screens/SCORE2T4';
-import SCORE5T8 from '../screens/SCORE5T8';
-import SCORE9T16 from '../screens/SCORE9T16';
-import SCORE17P from '../screens/SCORE17P';
+import SelfHarm_Danger from '../screens/SelfHarm_Danger';
+import SelfHarm_NoNeed from '../screens/SelfHarm_NoNeed';
+import SelfHarm_Normal from '../screens/SelfHarm_Normal';
+
 
 import Check_me from '../screens/Check_me';
 import Let_talk from '../screens/Let_talk';
@@ -43,18 +43,16 @@ class HomeScreen extends React.Component {
         this.props.navigation.navigate('Add');
     };
 
-    _2T4 = () => {
-        this.props.navigation.navigate('SCORE2T4');
+    SelfHarm_Danger = () => {
+        this.props.navigation.navigate('SelfHarm_Danger');
     };
-    _5T8 = () => {
-        this.props.navigation.navigate('SCORE5T8');
+    SelfHarm_NoNeed = () => {
+        this.props.navigation.navigate('SelfHarm_NoNeed');
     };
-    _9T16 = () => {
-        this.props.navigation.navigate('SCORE9T16');
+    SelfHarm_Normal = () => {
+        this.props.navigation.navigate('SelfHarm_Normal');
     };
-    _17P = () => {
-        this.props.navigation.navigate('SCORE17P');
-    };
+
     Check_me = () => {
         this.props.navigation.navigate('Check_me');
     };
@@ -73,9 +71,9 @@ class HomeScreen extends React.Component {
 
                 <Button title="First page " onPress={this.App} />
                 <Button title="Form Add data :)" onPress={this._AddData} />
-                <Button title="_2T4 :)" onPress={this._2T4} />
-                <Button title="_5T8 :)" onPress={this._5T8} />
-                <Button title="_9T16 :)" onPress={this._9T16} />
+                <Button title="ช่วยเหลือเร่งด่วน" onPress={this.SelfHarm_Danger} />
+                <Button title="ช่วยเหลือ" onPress={this.SelfHarm_Normal} />
+                <Button title="ไม่ต้องการความช่วยเหลือ" onPress={this.SelfHarm_NoNeed} />
                 <Button title="_17P :)" onPress={this._17P} />
 
                 <Button title="Check_me :)" onPress={this.Check_me} />
@@ -93,10 +91,10 @@ const AppStack = createStackNavigator({   HomeScreen : HomeScreen,
                                           Add: Add,
                                           App: App,
 
-                                          SCORE2T4: SCORE2T4 ,
-                                          SCORE5T8: SCORE5T8,
-                                          SCORE9T16: SCORE9T16,
-                                          SCORE17P: SCORE17P ,
+                                          SelfHarm_Danger: SelfHarm_Danger ,
+                                          SelfHarm_NoNeed: SelfHarm_NoNeed,
+                                          SelfHarm_Normal: SelfHarm_Normal,
+
                                           Check_me: Check_me,
                                           Let_talk: Let_talk,
                                           Need_help: Need_help,

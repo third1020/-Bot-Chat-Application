@@ -13,10 +13,11 @@ import React, {Component} from 'react';
 // import App from './navigation/App';
 import HomeScreen from './navigation/HomeScreen';
 // import Add from './navigation/Add';
-// import SCORE2T4 from './screens/SCORE2T4';
-// import SCORE5T8 from './screens/SCORE5T8';
-// import SCORE9T16 from './screens/SCORE9T16';
-// import SCORE17P from './screens/SCORE17P';
+// import PlaySound from './AbilityBot/PlaySound';
+
+// import SelfHarm_Danger from './screens/SelfHarm_Danger';
+// import SelfHarm_NoNeed from './screens/SelfHarm_NoNeed';
+// import SelfHarm_Normal from './screens/SelfHarm_Normal';
 // import Check_me from './screens/Check_me';
 // import Let_talk from './screens/Let_talk';
 // import Need_help from './screens/Need_help';
@@ -24,13 +25,13 @@ import HomeScreen from './navigation/HomeScreen';
 export default class App extends Component {
   render() {
     return (
-      // <SCORE2T4 />
-      // <SCORE5T8 />
-      // <SCORE9T16 />
-      // <SCORE17P />
-      // <App />
-      // <Add />
+      // <SelfHarm_Danger />
+      // <SelfHarm_NoNeed />
+      // <SelfHarm_Normal />
+
       <HomeScreen />
+      // <Add />
+      // <PlaySound />
       // <Check_me/>
     );
   }

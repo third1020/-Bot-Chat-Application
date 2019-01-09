@@ -2,13 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, View ,ActivityIndicator, AsyncStorage,Alert} from 'react-native';
 import ChatBot from 'react-native-chatbot';
 import HomeScreen from './HomeScreen';
-import SCORE2T4 from '../screens/SCORE2T4';
-import SCORE5T8 from '../screens/SCORE5T8';
-import Check_me from '../screens/Check_me';
+import SelfHarm_Normal from '../screens/SelfHarm_Normal';
+import SelfHarm_NoNeed from '../screens/SelfHarm_NoNeed';
+import SelfHarm_Danger from '../screens/SelfHarm_Danger';
+import Checkword from '../AbilityBot/Checkword';
+import CheckwordMood from '../AbilityBot/CheckwordMood';
+import CheckFeel from '../AbilityBot/CheckFeel';
+import CheckSick from '../AbilityBot/CheckSick';
+import PlaySound from '../AbilityBot/PlaySound';
 import { Button } from 'react-native-elements';
-
-
-
 
 
 import {
@@ -23,12 +25,29 @@ class ShowResult extends React.Component {
     static navigationOptions = {
         title: 'ShowResult',
     };
+    playSound = async () => {
+        try {
+          await this.audioPlayer.unloadAsync()
+          await this.audioPlayer.loadAsync(require("../assets/sounds/mp3_theme_song.mp3"));
+          await this.audioPlayer.playAsync();
+        } catch (err) {
+          console.warn("Couldn't Play audio", err)
+        }
+    }
+
+
+
 
     constructor(props) {
     super(props);
 
+
+        this.audioPlayer = new Expo.Audio.Sound();
+
+
     this.state = {
       askName: '',
+
       selfHarmQuestionChoice: '',
       selfHarmQuestionChoice2: '',
       selfHarmQuestionChoice3: '',
@@ -59,21 +78,18 @@ class ShowResult extends React.Component {
 
 
                       score = selfHarmQuestionChoice.value+selfHarmQuestionChoice2.value+selfHarmQuestionChoice3.value
-                              +selfHarmQuestionChoice4.value+selfHarmQuestionChoice5.value
+                              +selfHarmQuestionChoice4.value+selfHarmQuestionChoice5.value+selfHarmQuestionChoice3_1.value
                               +selfHarmQuestionChoice6.value+selfHarmQuestionChoice7.value+selfHarmQuestionChoice8.value;
 
 
-                     if (selfHarmQuestionChoice3_1.value == 8){
-                      score+=8;
-                    }
-                    if (selfHarmQuestionChoice3_1.value == 0){
-                     score+=0;
-                   }
 
                     if (score == 0) {word = " จากการประเมินเบื้องต้นเราพบว่าคุณไม่มีความเสี่ยงในการทำร้ายตนเองและการฆ่าตัวตาย"
 
                                      // ,help="ขอบคุณนะ Mindbot",
-                                     // nohelp="แล้วเจอกันอีกนะ Mindbot"
+                                     // nohelp="แล้วเจอกันอีกนะ Mindbot",
+                                     // patch="{() => this.props.navigation.navigate('SCORE5T8')}"
+
+
                                    } //score =0
                     else if (score > 0 && score < 2 ) {word =" จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับปานกลาง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย"
                                                        // ,help="ขอบคุณนะ Mindbot",
@@ -101,24 +117,22 @@ class ShowResult extends React.Component {
                                                      }//score > 16
                     else { word= "Error" }
 
-
-
-
-
   }
 
   render() {
     const { askName,selfHarmQuestionChoice,selfHarmQuestionChoice2,
-            selfHarmQuestionChoice3,
+            selfHarmQuestionChoice3,selfHarmQuestionChoice3_1,
             selfHarmQuestionChoice4,selfHarmQuestionChoice5,selfHarmQuestionChoice6,
             selfHarmQuestionChoice7,selfHarmQuestionChoice8} = this.state;
+
+
     return (
 
-            <Text onPress={this._5T8}> คะแนนที่คุณได้คือ {score}{word}</Text>
-
+            <Text> คะแนนที่คุณได้คือ {score}{word}</Text>
     );
   }
 }
+
 
 ShowResult.propTypes = {
   steps: PropTypes.object,
@@ -129,37 +143,54 @@ ShowResult.defaultProps = {
 };
 
 
+
+
 class App extends React.Component {
 
   static navigationOptions = {
       title: 'Mindbot',
   };
 
-  _5T8 = () => {
-      this.props.navigation.navigate('SCORE5T8');
+  SelfHarm_Normal = () => {
+      this.props.navigation.navigate('SelfHarm_Normal');
   };
-  Check_me = () => {
-      this.props.navigation.navigate('Check_me');
+  SelfHarm_NoNeed = () => {
+      this.props.navigation.navigate('SelfHarm_NoNeed');
+  };
+  SelfHarm_Danger = () => {
+      this.props.navigation.navigate('SelfHarm_Danger');
+  };
+  HomeScreen = () => {
+      this.props.navigation.navigate('HomeScreen');
   };
 
-  // score = values[2]+values[3]+values[4]+values[5]+values[6]+values[7]+values[8]+values[9]+values[10];
+  constructor(props) {
+  super(props);
 
-   //เนื่องจากตอนเก็บคะแนนใส่ values เป็นเลข0 ไม่ได้จึงเปลี่ยน เป็นเลข1 แทน แล้วมี8ตำถามคะแนนจึงลบ 8
-  // if (score == 9) {
-  //
-  //   `คะแนน ที่คุณได้: ${score-9}  จากการประเมินเบื้องต้นเราพบว่าคุณไม่มีความเสี่ยงในการทำร้ายตนเองและการฆ่าตัวตาย`);
-  // } //score =0
-  // else if (score >= 9 && score <= 10 ) { alert(`คะแนน ที่คุณได้: ${score-9}  จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับปานกลาง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย`); }//score =1-2
-  // else if (score >= 11 && score <= 12 ) {alert(`คะแนน ที่คุณได้: ${score-9} จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับสูง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย`); }//score =3-4
-  // else if (score > 12 && score < 16) {alert(`คะแนน ที่คุณได้: ${score-9} จากการประเมินเบื้องต้นเราพบว่าึถณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย`); }//score =5-9
-  // else if (score > 17 && score < 25) {alert(`คะแนน ที่คุณได้: ${score-9}จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และความเสี่ยงในการฆ่าตัวตายในระดับปานกลาง`); }//score =10-16
-  // else if (score > 24) { alert(`คะแนน ที่คุณได้: ${score-9}จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และมีความเสี่ยงในการฆ่าตัวตายในระดับสูง`); }//score > 16
-  // else { const AppStack = createStackNavigator({SCORE2T4: SCORE2T4 }); }
+  this.state = {
+    askName: '',
+    userAnswer: '',
+
+  };
+
+}
+
+
 
   render() {
+    const { goBack } = this.props.navigation;
+
+
+
     return (
+
        <ChatBot
               steps={[
+                {
+                  id: 'firststep',
+                  component: (<Button title="playSound" onPress={this.playSound} />),
+                  trigger: '1',
+                },
                 {
                   id: '1',
                   message: 'สวัสดีจ้า ฉันชื่อว่า Mindbot , แล้วคุณล่ะชื่ออะไร?',
@@ -167,6 +198,7 @@ class App extends React.Component {
                 },
                 {
                 id: 'askName',
+
                   user: true,
                   trigger: 'userName',
                 },
@@ -185,7 +217,7 @@ class App extends React.Component {
                   {
                     id: 'introduceChoice',
                     options: [
-                      {  label: 'ภารกิจที่ว่านั้นคืออะไรเหรอ?', trigger: '2' },
+                      {  value: 'ภารกิจที่ว่านั้นคืออะไรเหรอ',label: 'ภารกิจที่ว่านั้นคืออะไรเหรอ?', trigger: '2' },
 
                     ]
                   },
@@ -217,7 +249,7 @@ class App extends React.Component {
                 {
                   id: 'understand',
                   options: [
-                    {  label: 'รับทราบ', trigger: 'start' },
+                    {  value: 'รับทราบ',label: 'รับทราบ', trigger: 'start' },
                   ],
                 },
                 {
@@ -228,7 +260,7 @@ class App extends React.Component {
                 {
                   id: 'heart',
                   options: [
-                    {  label: '❤️', trigger: 'doing' },
+                    {  value: '❤️',label: '❤️', trigger: 'doing' },
                   ],
                 },
                 {
@@ -244,8 +276,10 @@ class App extends React.Component {
                 },
                 {
                   id: 'SOS',
-                  message:'คุณต้องการความช่วยเหลือมั้ย?',
-                  trigger: 'selfHarmChoice',
+                  component: (<Checkword/>),
+                  asMessage: true,
+                  trigger:'selfHarmChoice',
+
                 },
                 {
                   id: 'mood',
@@ -255,11 +289,11 @@ class App extends React.Component {
                 {
                   id: 'moodChoice',
                   options: [
-                    { label: 'ดีมาก', trigger: 'veryGood' },
-                    { label: 'ดี', trigger: 'Good' },
-                    { label: 'เฉยๆ', trigger: 'notBothered' },
-                    { label: 'ไม่ค่อยดี', trigger: 'quiteBad' },
-                    { label: 'แย่มาก', trigger: 'bad' },
+                    {value:'ดีมาก', label: 'ดีมาก', trigger: 'veryGood' },
+                    {value:'ดี', label: 'ดี', trigger: 'Good' },
+                    {value:'เฉยๆ', label: 'เฉยๆ', trigger: 'notBothered' },
+                    {value:'ไม่ค่อยดี', label: 'ไม่ค่อยดี', trigger: 'quiteBad' },
+                    {value:'แย่มาก', label: 'แย่มาก', trigger: 'bad' },
                   ],
                 },
                 {
@@ -292,17 +326,30 @@ class App extends React.Component {
                   user: true,
                   trigger: 'selfHarm',
                 },
+
                 {
                   id: 'selfHarm',
-                  message: 'ฉันตรวจสอบคำที่คุณต้องการความช่วยเหลือ หรือจะเป็นอันตรายต่อคุณ คุณต้องการเข้ารับการประเมินเบื้องต้นหรือไม่ ใช้เวลาแค่ 2 นาที และจะเป็นประโยชน์ต่อตัวคุณมากๆเลยนะ 🙂',
-                  trigger: 'selfHarmChoice',
+                  component: (<CheckwordMood/>),
+                  asMessage: true,
+                  trigger:'selfHarmChoiceMood',
+
                 },
                 {
                 id: 'selfHarmChoice',
                   options: [
-                    { label: 'ต้องการ', trigger: 'selfHarmStart' },
-                    { label: 'ไม่ต้องการ', trigger: 'startCBT' },
-                    { label: 'ช่วยฉันด้วย', trigger: 'selfHarmStart' },
+                    {  value:'ช่วยฉันด้วย',label: 'ช่วยฉันด้วย', trigger: 'selfHarmStart' },
+                    {  value:'ต้องการ',label: 'ต้องการ', trigger: 'selfHarmStart' },
+                    {  value:'ไม่ต้องการ',label: 'ไม่ต้องการ', trigger: 'mood' },
+
+                  ],
+                },
+                {
+                id: 'selfHarmChoiceMood',
+                  options: [
+                    {  value:'ช่วยฉันด้วย',label: 'ช่วยฉันด้วย', trigger: 'selfHarmStart' },
+                    {  value:'ต้องการ',label: 'ต้องการ', trigger: 'selfHarmStart' },
+                    {  value:'ไม่ต้องการ',label: 'ไม่ต้องการ', trigger: 'HowYouFeel' },
+
                   ],
                 },
                 {
@@ -322,7 +369,7 @@ class App extends React.Component {
                 },
                 {
                   id: 'selfHarmQuestion3_1',
-                  message: 'แล้วคุณสามารถควมคุมความอยากฆ่าตัวตายที่คุณคิดอยู่ในขณะนั้นได้หรือไม่?',
+                  message: 'คุณสามารถควมคุมความอยากฆ่าตัวตายที่คุณคิดอยู่ได้หรือไม่?',
                   trigger: 'selfHarmQuestionChoice3_1',
                 },
 
@@ -369,7 +416,7 @@ class App extends React.Component {
                     id: 'selfHarmQuestionChoice3',
                       options: [
                         { value:6, label: 'ใช่', trigger: 'selfHarmQuestion3_1' },
-                        { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion4' },
+                        { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3_1' },
                       ],
                     },
 
@@ -440,10 +487,10 @@ class App extends React.Component {
                 {
                   id: 'questionCBTchoice',
                     options: [
-                      { label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'WrongAnswer' },
-                      { label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'WrongAnswer' },
-                      { label: 'ฉันทำได้ในบางครั้ง', trigger: 'RightAnswer' },
-                      { label: 'All-or-Nothing คืออะไร?', trigger: 'WhatisAllorNothing' },
+                      {value:'ฉันจะพยายามทำให้ดีที่สุด', label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'WrongAnswer' },
+                      {value:'ฉันทำไม่ได้แน่ๆ', label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'WrongAnswer' },
+                      {value:'ฉันทำได้ในบางครั้ง', label: 'ฉันทำได้ในบางครั้ง', trigger: 'RightAnswer' },
+                      {value:'All-or-Nothing คืออะไร?', label: 'All-or-Nothing คืออะไร?', trigger: 'WhatisAllorNothing' },
 
                     ],
                   },
@@ -465,10 +512,10 @@ class App extends React.Component {
                   {
                   id: 'questionCBTchoice',
                     options: [
-                      {  label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'selfHarmStart' },
-                      {  label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'Good' },
-                      {  label: 'ฉันทำได้ในบางครั้ง', trigger: 'Good' },
-                      {  label: 'ฉันทำได้ในบางครั้ง', trigger: 'Good' },
+                      {value:'ฉันจะพยายามทำให้ดีที่สุด',  label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'selfHarmStart' },
+                      {value:'ฉันทำไม่ได้แน่ๆ',  label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'Good' },
+                      {value:'ฉันทำได้ในบางครั้ง',  label: 'ฉันทำได้ในบางครั้ง', trigger: 'Good' },
+                      {value:'ฉันทำได้ในบางครั้ง',  label: 'ฉันทำได้ในบางครั้ง', trigger: 'Good' },
                     ],
                   },
                   {
@@ -479,10 +526,10 @@ class App extends React.Component {
                   {
                     id: 'questionCBTchoice2',
                       options: [
-                        {  label: 'ไม่มีใครชอบฉันอีกต่อไป', trigger: 'WrongAnswer' },
-                        {  label: 'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', trigger: 'WrongAnswer' },
-                        {  label: 'ฉันคิดว่าแม่ฉันน่าจะงานยุ่งอยู่ เลยอาจจะมาสาย', trigger: 'RightAnswer2' },
-                        {  label: 'Labeling คืออะไร', trigger: 'WhatisLabeling' },
+                        {value:'ไม่มีใครชอบฉันอีกต่อไป',  label: 'ไม่มีใครชอบฉันอีกต่อไป', trigger: 'WrongAnswer' },
+                        {value:'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก',  label: 'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', trigger: 'WrongAnswer' },
+                        {value:'ฉันคิดว่าแม่ฉันน่าจะงานยุ่งอยู่ เลยอาจจะมาสาย',  label: 'ฉันคิดว่าแม่ฉันน่าจะงานยุ่งอยู่ เลยอาจจะมาสาย', trigger: 'RightAnswer2' },
+                        {value:'Labeling คืออะไร',  label: 'Labeling คืออะไร', trigger: 'WhatisLabeling' },
                       ],
                     },
                     {
@@ -493,10 +540,10 @@ class App extends React.Component {
                     {
                       id: 'questionCBTchoice3',
                         options: [
-                          {  label: 'ฉันต้องสอบคิดหมอให้ได้', trigger: 'WrongAnswer' },
-                          {  label: 'ฉันยอมรับในการตัดสินใจของเพื่อน', trigger: 'WrongAnswer' },
-                          {  label: 'ชีวิตของฉันมีค่า', trigger: 'RightAnswer2' },
-                          {  label: '"Should" and "Must" statement คืออะไร?', trigger: 'WhatisShouldMust' },
+                          {value:'ฉันต้องสอบคิดหมอให้ได้',   label: 'ฉันต้องสอบคิดหมอให้ได้', trigger: 'WrongAnswer' },
+                          {value:'ฉันยอมรับในการตัดสินใจของเพื่อน',   label: 'ฉันยอมรับในการตัดสินใจของเพื่อน', trigger: 'WrongAnswer' },
+                          {value:'ชีวิตของฉันมีค่า',   label: 'ชีวิตของฉันมีค่า', trigger: 'RightAnswer2' },
+                          {value:'"Should" and "Must" statement คืออะไร?',   label: '"Should" and "Must" statement คืออะไร?', trigger: 'WhatisShouldMust' },
                         ],
                       },
                     {
@@ -549,8 +596,8 @@ class App extends React.Component {
                     {
                       id: 'cbt5',
                         options: [
-                          {  label: 'ทั้งหมด', trigger: 'cbt7' },
-                          {  label: 'ความผิด', trigger: 'cbt6' },
+                          {value:'ทั้งหมด',  label: 'ทั้งหมด', trigger: 'cbt7' },
+                          {value:'ความผิด',  label: 'ความผิด', trigger: 'cbt6' },
                         ],
                       },
                       {
@@ -566,15 +613,15 @@ class App extends React.Component {
                       {
                         id: 'cbt8',
                           options: [
-                            {  label: 'ใช่', trigger: 'cbt7' },
-                            {  label: 'ความคิดที่แต่งเติม?', trigger: 'cbt6' },
+                            {value:'ใช่',  label: 'ใช่', trigger: 'cbt7' },
+                            {value:'ความคิดที่แต่งเติม',  label: 'ความคิดที่แต่งเติม?', trigger: 'cbt6' },
                           ],
                         },
                         {
                           id: 'cbt8',
                             options: [
-                              {  label: '😊', trigger: 'cbt9' },
-                              {  label: '😢', trigger: 'cbt9' },
+                              {value:'😊',  label: '😊', trigger: 'cbt9' },
+                              {value:'😢',  label: '😢', trigger: 'cbt9' },
                             ],
                           },
                           {
@@ -590,8 +637,8 @@ class App extends React.Component {
                           {
                             id: 'cbtlast',
                               options: [
-                                {  label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasIt' },
-                                {  label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasIt' },
+                                {value:'ขอบคุณนะ Mindbot',  label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasIt' },
+                                {value:'ฉันจะพยายาม Mindbot',  label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasIt' },
                               ],
                             },
                           {
@@ -602,8 +649,8 @@ class App extends React.Component {
                           {
                             id: 'HowWasItChoice',
                               options: [
-                                {  label: '👍', trigger: 'feedbackreply' },
-                                {  label: '👎', trigger: 'feedbackreply' },
+                                {value:'👍',  label: '👍', trigger: 'feedbackreply' },
+                                {value:'👎',  label: '👎', trigger: 'feedbackreply' },
                               ],
                             },
                             {
@@ -614,7 +661,7 @@ class App extends React.Component {
                             {
                               id: 'feedbackemoji',
                                 options: [
-                                  {  label: '❤️', trigger: 'seeu' },
+                                  {value:'❤️',  label: '❤️', trigger: 'seeu' },
                                 ],
                               },
                                 {
@@ -625,54 +672,68 @@ class App extends React.Component {
                                 {
                                   id: 'intheend',
                                 component: (<ShowResult />),
-
-                                asMessage: true,
-                                trigger: 'help',
-
-                                },
-                                {
-                                id: 'help',
-                                component: (
-                                <Button title="ฉันต้องกำรควำมช่วยเหลือ" onPress={this._5T8}/>
-                                 ),
-                                trigger: 'nohelp',
-                                },
-                                {
-                                id: 'nohelp',
-                                component: (
-                                <Button title="ฉันไม่ต้องกำรควำมช่วยเหลือ" onPress={this.Check_me}/>
-                                 ),
                                 trigger: 'seeuChoice',
+
+
                                 },
 
                                 {
                                   id: 'seeuChoice',
                                     options: [
-                                      {  label: 'แล้วพบกัน Mindbot', end: true },
-                                      {  label: 'Bye Mindbot', end: true },
+                                      {value:'ฉันต้องการความช่วยเหลืออย่างเร่งด่วน',  label: 'ฉันต้องการความช่วยเหลืออย่างเร่งด่วน', trigger: 'Danger' },
+                                      {value:'ฉันต้องการความช่วยเหลือ' , label: 'ฉันต้องการความช่วยเหลือ',trigger: 'Normal' },
+                                      {value:'ฉันไม่ต้องการความช่วยเหลือ'  ,label: 'ฉันไม่ต้องการความช่วยเหลือ',trigger: 'NoNeed'}
                                     ],
+                                  },
+
+                                  {
+                                    id: 'Danger',
+
+                                    component: (<View>
+                                      <Button title="กดปุ่มนีเพื่อรับความช่วยเหลือแบบเร่งด่วน" onPress={this.SelfHarm_Danger} />
+
+                                    </View>) ,
+
+                                    end: true,
+                                  },
+
+                                  {
+                                    id: 'Normal',
+                                    component: (<View>
+                                      <Button title="กดปุ่มนีเพื่อรับความช่วยเหลือ" onPress={this.SelfHarm_Normal} />
+
+                                    </View>) ,
+
+                                    end: true,
+                                  },
+
+                                  {
+                                    id: 'NoNeed',
+                                    component: (<Button title="กดปุ่มนี้เพื่อกลับสู่หน้าหลัก" onPress={this.HomeScreen} />) ,
+
+                                    end: true,
                                   },
 
                                   // Deep-Mind analytic
                                   {
                                     id: 'HowYouFeel',
                                     message: 'ตอนนี้คุณรู้สึกอย่างไร' ,
-                                    trigger: 'seeuChoice',
+                                    trigger: 'HowYouFeelChoice',
                                   },
                                   {
                                     id: 'HowYouFeelChoice',
                                     options: [
-                                      {  label: 'ดี', trigger: 'FeelGood' },
-                                      {  label: 'มีความสุข', trigger: 'FeelGood' },
-                                      {  label: 'โล่งอก', trigger: 'FeelGood' },
-                                      {  label: 'เหนื่อย', trigger: 'feedbackreply' },
-                                      {  label: 'นอนไม่หลับ', trigger: 'feedbackreply' },
-                                      {  label: 'ป่วย', trigger: 'feedbackreply' },
-                                      {  label: 'เครียด', trigger: 'feedbackreply' },
-                                      {  label: 'ซึมเศร้า', trigger: 'feedbackreply' },
-                                      {  label: 'วิตกกังวล', trigger: 'feedbackreply' },
-                                      {  label: 'โกรธ', trigger: 'feedbackreply' },
-                                      {  label: '👎', trigger: 'feedbackreply' },
+                                      {value:'ดี'  ,label: 'ดี', trigger: 'FeelGood' },
+                                      {value:'มีความสุข' , label: 'มีความสุข', trigger: 'FeelGood' },
+                                      {value:'โล่งอก'  ,label: 'โล่งอก', trigger: 'FeelGood' },
+                                      {value:'เหนื่อย' , label: 'เหนื่อย', trigger: 'FeelTired' },
+                                      {value:'นอนไม่หลับ'  ,label: 'นอนไม่หลับ', trigger: 'HowToSleep' },
+                                      {value:'ป่วย'  ,label: 'ป่วย', trigger: 'FeelSick' },
+                                      {value:'เครียด'  ,label: 'เครียด', trigger: 'FeelTired' },
+                                      {value:'ซึมเศร้า'  ,label: 'ซึมเศร้า', trigger: 'FeelTired' },
+                                      {value:'วิตกกังวล' , label: 'วิตกกังวล', trigger: 'FeelTired' },
+                                      {value:'โกรธ'  ,label: 'โกรธ', trigger: 'FeelAngry' },
+                                      {value:'เหงา'  ,label: 'เหงา', trigger: 'FeelLonely' },
                                     ],
                                   },
                                   {
@@ -683,13 +744,26 @@ class App extends React.Component {
                                   {
                                     id: 'WhyYouFeel',
                                     message: 'บอกให้ฉันรู้ได้ไหมว่ามีอะไรเกิดขึ้น แล้วทำให้คุณรู้สึก{previousValue}' ,
-                                    trigger: 'WhyYouFeelType',
+                                    trigger: 'whyYouFeelType',
                                   },
                                   {
-                                    id: 'WhyYouFeelType',
+                                    id: 'whyYouFeelType',
                                     user: true,
-                                    trigger: 'WhyYouFeelTypeAnswer',
+                                    trigger: 'CheckFeel',
                                   },
+                                  {
+                                    id: 'CheckFeel',
+                                    component: (<CheckFeel/>),
+                                    trigger: 'HowYouFeelChoice1',
+                                  },
+                                  {
+                                    id: 'HowYouFeelChoice1',
+                                    options: [
+                                      {value:'ต้องการ'  ,label: 'ต้องการ', trigger: 'selfHarmStart' },
+                                      {value:'ไม่ต้องการ' , label: 'ไม่ต้องการ', trigger: 'WhyYouFeelTypeAnswer' },
+                                    ],
+                                  },
+
                                   {
                                     id: 'WhyYouFeelTypeAnswer',
                                     message: 'ฉันดีใจที่คุณรู้สึกดีนะ และหวังว่าคุณจะแชร์ความรู้สึกดีๆให้ Mindbot รับรู้อีกนะ 😊' ,
@@ -698,8 +772,8 @@ class App extends React.Component {
                                   {
                                     id: 'ThankMindbot',
                                     options: [
-                                      {  label: 'ขอบคุณนะ Mindbot!', trigger: 'HowWasIt' },
-                                      {  label: 'Thank you Mindbot!', trigger: 'HowWasIt' },
+                                      {value:'ขอบคุณนะ Mindbot!'  ,label: 'ขอบคุณนะ Mindbot!', trigger: 'HowWasIt' },
+                                      {value:'Thank you Mindbot!'  ,label: 'Thank you Mindbot!', trigger: 'HowWasIt' },
                                     ],
                                   },
                                   {
@@ -710,8 +784,8 @@ class App extends React.Component {
                                   {
                                     id: 'ThankMindbot1',
                                     options: [
-                                      {  label: 'ขอบคุณนะ Mindbot!', trigger: 'Tired' },
-                                      {  label: 'Thank you Mindbot!', trigger: 'Tired' },
+                                      {value:'ขอบคุณนะ Mindbot!' , label: 'ขอบคุณนะ Mindbot!', trigger: 'Tired' },
+                                      {value:'Thank you Mindbot!' , label: 'Thank you Mindbot!', trigger: 'Tired' },
                                     ],
                                   },
                                   {
@@ -722,8 +796,8 @@ class App extends React.Component {
                                   {
                                     id: 'TiredChoice',
                                     options: [
-                                      {  label: 'ผ่อนคลายกล้ามเนื้อ', trigger: 'RelaxMuscle' },
-                                      {  label: 'ดนตรีบำบัด', trigger: 'TherapyMusic' },
+                                      {value:'ผ่อนคลายกล้ามเนื้อ'  ,label: 'ผ่อนคลายกล้ามเนื้อ', trigger: 'RelaxMuscle' },
+                                      {value:'ดนตรีบำบัด'  ,label: 'ดนตรีบำบัด', trigger: 'TherapyMusic' },
                                     ],
                                   },
                                     {
@@ -734,18 +808,18 @@ class App extends React.Component {
                                     {
                                       id: 'RelaxMuscleChoice',
                                       options: [
-                                        {  label: 'เข้าใจแล้ว Mindbot', trigger: 'HowWasIt' },
+                                        {value:'เข้าใจแล้ว Mindbot'  ,label: 'เข้าใจแล้ว Mindbot', trigger: 'HowWasIt' },
                                       ],
                                     },
                                     {
                                       id: 'TherapyMusic',
-                                      message: 'เล่นเพลงเพื่อผ่อนคลาย' ,
+                                      component: (<PlaySound/>),
                                       trigger: 'TherapyMusicChoice',
                                     },
                                     {
                                       id: 'TherapyMusicChoice',
                                       options: [
-                                        {  label: 'เรียบร้อยแล้ว Mindbot', trigger: 'HowWasIt' },
+                                        {value:'เรียบร้อยแล้ว Mindbot' , label: 'เรียบร้อยแล้ว Mindbot', trigger: 'HowWasIt' },
                                       ],
                                     },
                                     {
@@ -775,8 +849,8 @@ class App extends React.Component {
                                     {
                                       id: 'HowToSleepChoice',
                                       options: [
-                                        {  label: 'ฉันง่วงนอนแล้วล่ะ 😴', trigger: 'GoodNight' },
-                                        {  label: 'ฉันจะพยายามทำตามคำแนะนะ 👌', trigger: 'HowToSleep1' },
+                                        {value:'ฉันง่วงนอนแล้วล่ะ',  label: 'ฉันง่วงนอนแล้วล่ะ 😴', trigger: 'GoodNight' },
+                                        {value:'ฉันจะพยายามทำตามคำแนะนะ',  label: 'ฉันจะพยายามทำตามคำแนะนะ 👌', trigger: 'HowToSleep1' },
                                       ],
                                     },
                                     {
@@ -788,8 +862,8 @@ class App extends React.Component {
                                     {
                                       id: 'GoodNightChoice',
                                       options: [
-                                        {  label: 'Good Night Mindbot !', end: true },
-                                        {  label: 'ฝันดีนะ Mindbot', end: true },
+                                        {value:'Good Night Mindbot !',  label: 'Good Night Mindbot !', end: true },
+                                        {value:'ฝันดีนะ Mindbot',  label: 'ฝันดีนะ Mindbot', end: true },
                                       ],
                                     },
 
@@ -806,8 +880,8 @@ class App extends React.Component {
                                     {
                                       id: 'FeelSickChoice',
                                       options: [
-                                        {  label: 'ขอบคุณนะ Mindbot', trigger:'NeedHelp1'},
-                                        {  label: 'ขอบคุณค่ะ', trigger:'NeedHelp1'},
+                                        {value:'ขอบคุณนะ Mindbot' , label: 'ขอบคุณนะ Mindbot', trigger:'NeedHelp1'},
+                                        {value:'ขอบคุณค่ะ' , label: 'ขอบคุณค่ะ', trigger:'NeedHelp1'},
                                       ],
                                     },
                                     {
@@ -818,8 +892,8 @@ class App extends React.Component {
                                     {
                                       id: 'NeedHelpChoice',
                                       options: [
-                                        {  label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'NeedHelp'},
-                                        {  label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'WantToFeelGood'},
+                                        {value:'ฉันแค่อยากเล่าให้ฟังเฉยๆ' , label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'NeedHelp'},
+                                        {value:'ฉันอยากรู้สึกดีขึ้น',  label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'WantToFeelGood'},
                                       ],
                                     },
                                     {
@@ -830,7 +904,7 @@ class App extends React.Component {
                                     {
                                       id: 'WantToFeelGoodChoice',
                                       options: [
-                                        {  label: 'เข้าใจแล้ว Mindbot', trigger:'WantToFeelGoodSum'},
+                                        {value:'เข้าใจแล้ว Mindbot'  ,label: 'เข้าใจแล้ว Mindbot', trigger:'WantToFeelGoodSum'},
                                       ],
                                     },
                                     {
@@ -841,13 +915,27 @@ class App extends React.Component {
                                     {
                                       id: 'NeedHelp',
                                       message: 'คุณสามารถเล่าให้ฉันฟังได้เลยนะ ฉันพร้อมรับฟังคุณทุกเมื่อ' ,
-                                      trigger: 'NeedHelpChoice',
+                                      trigger: 'tellStory1',
                                     },
                                     {
-                                      id: 'TellStory1',
+                                      id: 'tellStory1',
                                         user: true,
-                                        trigger: 'userName',//trigger: 'userName',
+                                        trigger: 'caretellStory',//trigger: 'userName',
                                       },
+
+                                      {
+                                        id: 'tellStory2',
+                                          component:(<CheckSick/>),
+                                          trigger: 'caretellStory',//trigger: 'userName',
+                                        },
+                                      {
+                                        id: 'caretellStory',
+                                        options: [
+                                          {value:'ต้องการ' , label: 'ต้องการ', trigger:'startCBT'},
+                                          {value:'ไม่ต้องการ' , label: 'ไม่ต้องการ', trigger:'FeelSick2'},
+                                        ],
+                                      },
+
                                       {
                                         id: 'FeelSick2',
                                         message: 'ฉันขอให้คุณหายป่วย กลับมาแข็งแรงในเร็ววันนะ 💪' ,
@@ -866,8 +954,8 @@ class App extends React.Component {
                                       {
                                         id: 'FeelAngryChoice',
                                         options: [
-                                          {  label: 'ฝึกการหายใจ', trigger:'BreathPrac'},
-                                          {  label: 'นั่งสมาธิ', trigger:'Meditation'},
+                                          {value:'ฝึกการหายใจ' , label: 'ฝึกการหายใจ', trigger:'BreathPrac'},
+                                          {value:'นั่งสมาธิ' , label: 'นั่งสมาธิ', trigger:'Meditation'},
                                         ],
                                       },
                                       {
@@ -903,26 +991,26 @@ class App extends React.Component {
                                       {
                                         id: 'Meditation5Choice',
                                         options: [
-                                          {  label: 'ขอบคุณครับ Mindbot', trigger:'HowWasIt'},
-                                          {  label: 'ขอบคุณค่ะ Mindbot', trigger:'HowWasIt'},
+                                          {value:'ขอบคุณครับ Mindbot',  label: 'ขอบคุณครับ Mindbot', trigger:'HowWasIt'},
+                                          {value:'ขอบคุณค่ะ Mindbot' , label: 'ขอบคุณค่ะ Mindbot', trigger:'HowWasIt'},
                                         ],
                                       },
                                       {
                                         id: 'MeditationChoice',
                                         options: [
-                                          {  label: 'ขั้นตอนต่อไป', trigger:'MeditationChoice1'},
+                                          {value:'ขั้นตอนต่อไป',  label: 'ขั้นตอนต่อไป', trigger:'MeditationChoice1'},
                                         ],
                                       },
                                       {
                                         id: 'MeditationChoice1',
                                         options: [
-                                          {  label: 'ขั้นตอนต่อไป', trigger:'MeditationChoice2'},
+                                          {value:'ขั้นตอนต่อไป' , label: 'ขั้นตอนต่อไป', trigger:'MeditationChoice2'},
                                         ],
                                       },
                                       {
                                         id: 'MeditationChoice2',
                                         options: [
-                                          {  label: 'เริ่มเลย Mindbot', trigger:'Meditation3'},
+                                          {value:'เริ่มเลย Mindbot' , label: 'เริ่มเลย Mindbot', trigger:'Meditation3'},
                                         ],
                                       },
 
@@ -935,7 +1023,7 @@ class App extends React.Component {
                                       {
                                         id: 'BreathPracChoice',
                                         options: [
-                                          {  label: 'เรียบร้อยแล้ว Mindbot', trigger:'cbt2'},
+                                          {value:'เรียบร้อยแล้ว Mindbot' , label: 'เรียบร้อยแล้ว Mindbot', trigger:'cbt2'},
                                         ],
                                       },
                                       {
@@ -946,8 +1034,8 @@ class App extends React.Component {
                                       {
                                         id: 'FeelLonelyChoice',
                                         options: [
-                                          {  label: 'ขอบคุณครับ Mindbot', trigger:'FeelLonely2'},
-                                          {  label: 'ขอบคุณค่ะ Mindbot', trigger:'FeelLonely2'},
+                                          {value:'ขอบคุณครับ Mindbot'  ,label: 'ขอบคุณครับ Mindbot', trigger:'FeelLonely2'},
+                                          {value:'ขอบคุณค่ะ Mindbot'  ,label: 'ขอบคุณค่ะ Mindbot', trigger:'FeelLonely2'},
                                         ],
                                       },
                                       {
@@ -958,7 +1046,7 @@ class App extends React.Component {
                                       {
                                         id: 'FeelLonelyChoice2',
                                         options: [
-                                          {  label: 'คืออะไรเหรอ?', trigger:'FeelLonely3'},
+                                          {value:'คืออะไรเหรอ?' , label: 'คืออะไรเหรอ?', trigger:'FeelLonely3'},
                                         ],
                                       },
                                       {
@@ -969,8 +1057,8 @@ class App extends React.Component {
                                       {
                                         id: 'FeelLonelyChoice3',
                                         options: [
-                                          {  label: '😳', trigger:'FeelLonely4'},
-                                          {  label: '😢', trigger:'FeelLonely4'},
+                                          {value:'😳' , label: '😳', trigger:'FeelLonely4'},
+                                          {value:'😢' , label: '😢', trigger:'FeelLonely4'},
                                         ],
                                       },
                                       {
@@ -981,8 +1069,8 @@ class App extends React.Component {
                                       {
                                         id: 'FeelLonelyChoice4',
                                         options: [
-                                          {  label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'Behavior'},
-                                          {  label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'FeelLonely5'},
+                                          {value:'ฉันอยากรู้สึกดีขึ้น' , label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'Behavior'},
+                                          {value:'ฉันแค่อยากเล่าให้ฟังเฉยๆ'  ,label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'FeelLonely5'},
                                         ],
                                       },
                                       {
@@ -1009,8 +1097,8 @@ class App extends React.Component {
                                         {
                                           id: 'BehaviorChoice',
                                           options: [
-                                            {  label: 'ใช่ฉันเลย Mindbot', trigger:'Behavior1'},
-                                            {  label: 'ฉันคิดว่านั่นไม่ใช่ฉันแล้วล่ะ Mindbot', trigger:'FeelLonely5'},
+                                            {value:'ใช่ฉันเลย Mindbot'  ,label: 'ใช่ฉันเลย Mindbot', trigger:'Behavior1'},
+                                            {value:'ฉันคิดว่านั่นไม่ใช่ฉันแล้วล่ะ Mindbot'  ,label: 'ฉันคิดว่านั่นไม่ใช่ฉันแล้วล่ะ Mindbot', trigger:'FeelLonely5'},
                                           ],
                                         },
                                         {
@@ -1026,8 +1114,8 @@ class App extends React.Component {
                                         {
                                           id: 'BehaviorChoice2',
                                           options: [
-                                            {  label: 'คืออะไรเหรอ?', trigger:'Behavior3'},
-                                            {  label: 'เซอไพรส์ฉันสิ', trigger:'Behavior3'},
+                                            {value:'คืออะไรเหรอ?'  ,label: 'คืออะไรเหรอ?', trigger:'Behavior3'},
+                                            {value:'เซอไพรส์ฉันสิ'  ,label: 'เซอไพรส์ฉันสิ', trigger:'Behavior3'},
                                           ],
                                         },
                                         {
@@ -1043,8 +1131,8 @@ class App extends React.Component {
                                         {
                                           id: 'BehaviorChoice4',
                                           options: [
-                                            {  label: '😳', trigger:'Behavior5'},
-                                            {  label: '😂', trigger:'Behavior5'},
+                                            {value:'😳'  ,label: '😳', trigger:'Behavior5'},
+                                            {value:'😂'  ,label: '😂', trigger:'Behavior5'},
                                           ],
                                         },
                                         {
