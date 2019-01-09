@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View ,ActivityIndicator, AsyncStorage,Alert} from 'react-native';
+import { StyleSheet, Text, View ,ActivityIndicator, AsyncStorage,Alert,Image} from 'react-native';
 import ChatBot from 'react-native-chatbot';
 import HomeScreen from './HomeScreen';
 import SelfHarm_Normal from '../screens/SelfHarm_Normal';
@@ -191,7 +191,7 @@ class App extends React.Component {
               steps={[
                 {
                   id: 'firststep',
-                  component: (<Button title="playSound" onPress={this.playSound} />),
+                  component: (<Image source={require('../assets/image/1.jpg')} style={{ width: 350,height: 300,  alignSelf: 'auto',}} />),
                   trigger: '1',
                 },
                 {
