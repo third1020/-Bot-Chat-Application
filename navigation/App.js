@@ -640,8 +640,8 @@ class App extends React.Component {
                           {
                             id: 'cbtlast',
                               options: [
-                                {value:'ขอบคุณนะ Mindbot',  label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasIt' },
-                                {value:'ฉันจะพยายาม Mindbot',  label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasIt' },
+                                {value:'ขอบคุณนะ Mindbot',  label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasItNoqestion' },
+                                {value:'ฉันจะพยายาม Mindbot',  label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasItNoqestion' },
                               ],
                             },
                           {
@@ -675,10 +675,37 @@ class App extends React.Component {
                                 {
                                   id: 'intheend',
                                 component: (<ShowResult />),
-                                trigger: 'seeuChoice',
-
-
+                                trigger: 'seeuChoice'
                                 },
+
+                                {
+                                  id: 'HowWasItNoqestion',
+                                  message: 'คุณรู้สึกยังไงที่ได้คุยกับฉันในวันนี้' ,
+                                  trigger: 'HowWasItChoiceNoqestion',
+                                },
+                                {
+                                  id: 'HowWasItChoiceNoqestion',
+                                    options: [
+                                      {value:'👍',  label: '👍', trigger: 'feedbackreplyNoqestion' },
+                                      {value:'👎',  label: '👎', trigger: 'feedbackreplyNoqestion' },
+                                    ],
+                                  },
+                                  {
+                                    id: 'feedbackreplyNoqestion',
+                                    message: 'ขอบคุณสำหรับการติชม ฉันมีความสุขทุกครั้งที่ได้เป็นเพื่อนดูแลใจของคุณ 😊' ,
+                                    trigger: 'feedbackemojiNoqestion',
+                                  },
+                                  {
+                                    id: 'feedbackemojiNoqestion',
+                                      options: [
+                                        {value:'❤️',  label: '❤️', trigger: 'seeuNoqestion' },
+                                      ],
+                                    },
+                                      {
+                                        id: 'seeuNoqestion',
+                                        message: 'แล้วพบกันอีกนะ  😊' ,
+                                        end: true,
+                                      },
 
                                 {
                                   id: 'seeuChoice',
@@ -775,8 +802,8 @@ class App extends React.Component {
                                   {
                                     id: 'ThankMindbot',
                                     options: [
-                                      {value:'ขอบคุณนะ Mindbot!'  ,label: 'ขอบคุณนะ Mindbot!', trigger: 'HowWasIt' },
-                                      {value:'Thank you Mindbot!'  ,label: 'Thank you Mindbot!', trigger: 'HowWasIt' },
+                                      {value:'ขอบคุณนะ Mindbot!'  ,label: 'ขอบคุณนะ Mindbot!', trigger: 'HowWasItNoqestion' },
+                                      {value:'Thank you Mindbot!'  ,label: 'Thank you Mindbot!', trigger: 'HowWasItNoqestion' },
                                     ],
                                   },
                                   {
@@ -811,7 +838,7 @@ class App extends React.Component {
                                     {
                                       id: 'RelaxMuscleChoice',
                                       options: [
-                                        {value:'เข้าใจแล้ว Mindbot'  ,label: 'เข้าใจแล้ว Mindbot', trigger: 'HowWasIt' },
+                                        {value:'เข้าใจแล้ว Mindbot'  ,label: 'เข้าใจแล้ว Mindbot', trigger: 'HowWasItNoqestion' },
                                       ],
                                     },
                                     {
@@ -822,7 +849,7 @@ class App extends React.Component {
                                     {
                                       id: 'TherapyMusicChoice',
                                       options: [
-                                        {value:'เรียบร้อยแล้ว Mindbot' , label: 'เรียบร้อยแล้ว Mindbot', trigger: 'HowWasIt' },
+                                        {value:'เรียบร้อยแล้ว Mindbot' , label: 'เรียบร้อยแล้ว Mindbot', trigger: 'HowWasItNoqestion' },
                                       ],
                                     },
                                     {
@@ -913,7 +940,7 @@ class App extends React.Component {
                                     {
                                       id: 'WantToFeelGoodSum',
                                       message: 'ฉันหวังว่าเทคนิคเหล่านี้จะช่วยให้คุณรู้สึกดีขึ้นและขอให้คุณหายป่วยแล้วกลับมาแข็งแรงในเร็ววันนะ 💪' ,
-                                      trigger: 'HowWasIt',
+                                      trigger: 'HowWasItNoqestion',
                                     },
                                     {
                                       id: 'NeedHelp',
@@ -942,7 +969,7 @@ class App extends React.Component {
                                       {
                                         id: 'FeelSick2',
                                         message: 'ฉันขอให้คุณหายป่วย กลับมาแข็งแรงในเร็ววันนะ 💪' ,
-                                        trigger: 'HowWasIt',
+                                        trigger: 'HowWasItNoqestion',
                                       },
                                       {
                                         id: 'FeelAngry',
@@ -994,8 +1021,8 @@ class App extends React.Component {
                                       {
                                         id: 'Meditation5Choice',
                                         options: [
-                                          {value:'ขอบคุณครับ Mindbot',  label: 'ขอบคุณครับ Mindbot', trigger:'HowWasIt'},
-                                          {value:'ขอบคุณค่ะ Mindbot' , label: 'ขอบคุณค่ะ Mindbot', trigger:'HowWasIt'},
+                                          {value:'ขอบคุณครับ Mindbot',  label: 'ขอบคุณครับ Mindbot', trigger:'HowWasItNoqestion'},
+                                          {value:'ขอบคุณค่ะ Mindbot' , label: 'ขอบคุณค่ะ Mindbot', trigger:'HowWasItNoqestion'},
                                         ],
                                       },
                                       {
@@ -1089,7 +1116,7 @@ class App extends React.Component {
                                         {
                                           id: 'FeelLonelySum',
                                           message: 'ฉันหวังว่าเมื่อถึงเวลาจะมีใครสักคนที่เห็นคุณค่าในตัวคุณ เหมือนที่ฉันเห็นนะ' ,
-                                          trigger: 'HowWasIt',
+                                          trigger: 'HowWasItNoqestion',
                                         },
                                         //Behavior บำบัดพฤติกรรม
                                         {
