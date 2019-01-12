@@ -26,6 +26,7 @@ import SelfHarm_Normal from '../screens/SelfHarm_Normal';
 import Check_me from '../screens/Check_me';
 import Let_talk from '../screens/Let_talk';
 import Need_help from '../screens/Need_help';
+import SelectImage from '../AbilityBot/SelectImage';
 import { Button,Header,Icon,PricingCard,SocialIcon } from 'react-native-elements'
 
 
@@ -62,34 +63,92 @@ class HomeScreen extends React.Component {
     Need_help = () => {
         this.props.navigation.navigate('Need_help');
     };
+    SelectImage = () => {
+        this.props.navigation.navigate('SelectImage');
+    };
 
-
-    render() {
-        return (
-
-            <View>
-
-                <Button title="First page " onPress={this.App} />
-                <Button title="Form Add data :)" onPress={this._AddData} />
-                <Button title="ช่วยเหลือเร่งด่วน" onPress={this.SelfHarm_Danger} />
-                <Button title="ช่วยเหลือ" onPress={this.SelfHarm_Normal} />
-                <Button title="ไม่ต้องการความช่วยเหลือ" onPress={this.SelfHarm_NoNeed} />
-                <Button title="_17P :)" onPress={this._17P} />
-
-                <Button title="Check_me :)" onPress={this.Check_me} />
-                <Button title="Let_talk :)" onPress={this.Let_talk} />
-                <Button title="Need_help :)" onPress={this.Need_help} />
-
-
-
-            </View>
-        );
+    constructor(props) {
+    super(props);
+    this.state={
+      loadingPage: 'OnBoarding'
     }
-}
+
+  }
+
+
+  componentWillMount() {
+    this.retrieveData();
+  }
+  retrieveData = async () => {
+    try {
+      var value = await AsyncStorage.getItem('@onBoardingPageLoad:key');
+      if (value == "login") {
+        this.setState({
+          loadingPage: 'Login'
+        });
+      }
+      else {
+        this.setState({
+          loadingPage: 'OnBoarding'
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  login = async () => {
+    try {
+      await AsyncStorage.setItem("@onBoardingPageLoad:key", "login");
+      this.props.navigation.navigate("App");
+
+    } catch (error) {
+      // Error saving data
+    }
+  };
+
+  GoApp = async () => {
+    try {
+      await AsyncStorage.setItem("@onBoardingPageLoad:key", "Another");
+
+
+    } catch (error) {
+      // Error saving data
+    }
+  };
+
+
+    render(){
+
+      if (this.state.loadingPage == "Login") {
+        return(
+          <View>
+                    <Button title="Check_me" onPress={this.Check_me}/>
+                    <Button title="Let_talk" onPress={this.Let_talk}/>
+                    <Button title="Need_help" onPress={this.Need_help}/>
+                    <Button title="First App Page" onPress={this.GoApp}/>
+                  </View>
+
+              );
+
+
+      }
+      else {
+        return (
+          <Button title="App" onPress={this.login}/>
+                );
+      }
+
+
+
+       }
+    }
+
 
 const AppStack = createStackNavigator({   HomeScreen : HomeScreen,
                                           Add: Add,
                                           App: App,
+                                          SelectImage: SelectImage,
 
                                           SelfHarm_Danger: SelfHarm_Danger ,
                                           SelfHarm_NoNeed: SelfHarm_NoNeed,

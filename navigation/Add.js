@@ -41,7 +41,7 @@ class Add extends React.Component {
        		const {userPassword} = this.state;
 
 
-       		fetch('http://192.168.4.97/mindmood/user_registration.php', {
+       		fetch('http://192.168.157.193/mindmood/user_registration.php', {
        			method: 'post',
        			header:{
        				'Accept': 'application/json',

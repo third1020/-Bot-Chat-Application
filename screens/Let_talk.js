@@ -34,7 +34,7 @@ export default class Let_talk extends React.Component {
               {
                 id: 'heart',
                 options: [
-                  {  label: '❤️', trigger: 'HowYouFeel' },
+                  { value:0, label: '❤️', trigger: 'HowYouFeel' },
                 ],
               },
               // Deep-Mind analytic
@@ -46,17 +46,17 @@ export default class Let_talk extends React.Component {
               {
                 id: 'HowYouFeelChoice',
                 options: [
-                  {  label: 'ดี', trigger: 'FeelGood' },
-                  {  label: 'มีความสุข', trigger: 'FeelGood' },
-                  {  label: 'โล่งอก', trigger: 'FeelGood' },
-                  {  label: 'เหนื่อย', trigger: 'feedbackreply' },
-                  {  label: 'นอนไม่หลับ', trigger: 'feedbackreply' },
-                  {  label: 'ป่วย', trigger: 'feedbackreply' },
-                  {  label: 'เครียด', trigger: 'feedbackreply' },
-                  {  label: 'ซึมเศร้า', trigger: 'feedbackreply' },
-                  {  label: 'วิตกกังวล', trigger: 'feedbackreply' },
-                  {  label: 'โกรธ', trigger: 'feedbackreply' },
-                  {  label: '👎', trigger: 'feedbackreply' },
+                  { value:'ดี', label: 'ดี', trigger: 'FeelGood' },
+                  { value:'มีความสุข', label: 'มีความสุข', trigger: 'FeelGood' },
+                  { value:'โล่งอก', label: 'โล่งอก', trigger: 'FeelGood' },
+                  { value:'เหนื่อย', label: 'เหนื่อย', trigger: 'FeelTired' },
+                  { value:'นอนไม่หลับ', label: 'นอนไม่หลับ', trigger: 'HowToSleep' },
+                  { value:'ป่วย', label: 'ป่วย', trigger: 'FeelSick' },
+                  { value:'เครียด', label: 'เครียด', trigger: 'feedbackreply' }, // need DASS from main app
+                  { value:'ซึมเศร้า', label: 'ซึมเศร้า', trigger: 'feedbackreply' }, // need DASS from main app
+                  { value:'วิตกกังวล', label: 'วิตกกังวล', trigger: 'feedbackreply' }, // need DASS from main app
+                  { value:'โกรธ', label: 'โกรธ', trigger: 'FeelAngry' },
+                  { value:'เหงา', label: 'เหงา', trigger: 'FeelLonely' },
                 ],
               },
               {
@@ -82,8 +82,8 @@ export default class Let_talk extends React.Component {
               {
                 id: 'ThankMindbot',
                 options: [
-                  {  label: 'ขอบคุณนะ Mindbot!', trigger: 'HowWasIt' },
-                  {  label: 'Thank you Mindbot!', trigger: 'HowWasIt' },
+                  { value:'ขอบคุณนะ Mindbot!', label: 'ขอบคุณนะ Mindbot!', trigger: 'HowWasIt' },
+                  { value:'Thank you Mindbot!', label: 'Thank you Mindbot!', trigger: 'HowWasIt' },
                 ],
               },
               {
@@ -94,8 +94,8 @@ export default class Let_talk extends React.Component {
               {
                 id: 'ThankMindbot1',
                 options: [
-                  {  label: 'ขอบคุณนะ Mindbot!', trigger: 'Tired' },
-                  {  label: 'Thank you Mindbot!', trigger: 'Tired' },
+                  { value:'ขอบคุณนะ Mindbot!', label: 'ขอบคุณนะ Mindbot!', trigger: 'Tired' },
+                  { value:'Thank you Mindbot!', label: 'Thank you Mindbot!', trigger: 'Tired' },
                 ],
               },
               {
@@ -106,8 +106,8 @@ export default class Let_talk extends React.Component {
               {
                 id: 'TiredChoice',
                 options: [
-                  {  label: 'ผ่อนคลายกล้ามเนื้อ', trigger: 'RelaxMuscle' },
-                  {  label: 'ดนตรีบำบัด', trigger: 'TherapyMusic' },
+                  { value:'ผ่อนคลายกล้ามเนื้อ', label: 'ผ่อนคลายกล้ามเนื้อ', trigger: 'RelaxMuscle' },
+                  { value:'ดนตรีบำบัด', label: 'ดนตรีบำบัด', trigger: 'TherapyMusic' },
                 ],
               },
                 {
@@ -118,7 +118,7 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'RelaxMuscleChoice',
                   options: [
-                    {  label: 'เข้าใจแล้ว Mindbot', trigger: 'HowWasIt' },
+                    { value:'เข้าใจแล้ว Mindbot', label: 'เข้าใจแล้ว Mindbot', trigger: 'HowWasIt' },
                   ],
                 },
                 {
@@ -136,7 +136,7 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'TherapyMusicChoice',
                   options: [
-                    {  label: 'เรียบร้อยแล้ว Mindbot', trigger: 'HowWasIt' },
+                    { value:'เรียบร้อยแล้ว Mindbot', label: 'เรียบร้อยแล้ว Mindbot', trigger: 'HowWasIt' },
                   ],
                 },
                 {
@@ -166,8 +166,8 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'HowToSleepChoice',
                   options: [
-                    {  label: 'ฉันง่วงนอนแล้วล่ะ 😴', trigger: 'GoodNight' },
-                    {  label: 'ฉันจะพยายามทำตามคำแนะนะ 👌', trigger: 'HowToSleep1' },
+                    { value:'ฉันง่วงนอนแล้วล่ะ', label: 'ฉันง่วงนอนแล้วล่ะ 😴', trigger: 'GoodNight' },
+                    { value:'ฉันจะพยายามทำตามคำแนะนำนะ', label: 'ฉันจะพยายามทำตามคำแนะนำนะ 👌', trigger: 'HowToSleep1' },
                   ],
                 },
                 {
@@ -179,8 +179,8 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'GoodNightChoice',
                   options: [
-                    {  label: 'Good Night Mindbot !', end: true },
-                    {  label: 'ฝันดีนะ Mindbot', end: true },
+                    { value:'Good Night Mindbot !', label: 'Good Night Mindbot !', end: true },
+                    { value:'ฝันดีนะ Mindbot', label: 'ฝันดีนะ Mindbot', end: true },
                   ],
                 },
                 {
@@ -196,8 +196,8 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'FeelSickChoice',
                   options: [
-                    {  label: 'ขอบคุณนะ Mindbot', trigger:'NeedHelp1'},
-                    {  label: 'ขอบคุณค่ะ', trigger:'NeedHelp1'},
+                    { value:'ขอบคุณนะ Mindbot', label: 'ขอบคุณนะ Mindbot', trigger:'NeedHelp1'},
+                    { value:'ขอบคุณค่ะ', label: 'ขอบคุณค่ะ', trigger:'NeedHelp1'},
                   ],
                 },
                 {
@@ -208,8 +208,8 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'NeedHelpChoice',
                   options: [
-                    {  label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'NeedHelp'},
-                    {  label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'WantToFeelGood'},
+                    { value:'ฉันแค่อยากเล่าให้ฟังเฉยๆ', label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'NeedHelp'},
+                    { value:'ฉันอยากรู้สึกดีขึ้น', label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'WantToFeelGood'},
                   ],
                 },
                 {
@@ -220,7 +220,7 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'WantToFeelGoodChoice',
                   options: [
-                    {  label: 'เข้าใจแล้ว Mindbot', trigger:'WantToFeelGoodSum'},
+                    { value:'เข้าใจแล้ว Mindbot', label: 'เข้าใจแล้ว Mindbot', trigger:'WantToFeelGoodSum'},
                   ],
                 },
                 {
@@ -256,8 +256,8 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'FeelAngryChoice',
                     options: [
-                      {  label: 'ฝึกการหายใจ', trigger:'BreathPrac'},
-                      {  label: 'นั่งสมาธิ', trigger:'Meditation'},
+                      { value:'ฝึกการหายใจ', label: 'ฝึกการหายใจ', trigger:'BreathPrac'},
+                      { value:'นั่งสมาธิ', label: 'นั่งสมาธิ', trigger:'Meditation'},
                     ],
                   },
                   {
@@ -293,26 +293,26 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'Meditation5Choice',
                     options: [
-                      {  label: 'ขอบคุณครับ Mindbot', trigger:'HowWasIt'},
-                      {  label: 'ขอบคุณค่ะ Mindbot', trigger:'HowWasIt'},
+                      { value:'ขอบคุณครับ Mindbot', label: 'ขอบคุณครับ Mindbot', trigger:'HowWasIt'},
+                      { value:'ขอบคุณค่ะ Mindbot', label: 'ขอบคุณค่ะ Mindbot', trigger:'HowWasIt'},
                     ],
                   },
                   {
                     id: 'MeditationChoice',
                     options: [
-                      {  label: 'ขั้นตอนต่อไป', trigger:'MeditationChoice1'},
+                      { value:'ขั้นตอนต่อไป', label: 'ขั้นตอนต่อไป', trigger:'MeditationChoice1'},
                     ],
                   },
                   {
                     id: 'MeditationChoice1',
                     options: [
-                      {  label: 'ขั้นตอนต่อไป', trigger:'MeditationChoice2'},
+                      { value:'ขั้นตอนต่อไป', label: 'ขั้นตอนต่อไป', trigger:'MeditationChoice2'},
                     ],
                   },
                   {
                     id: 'MeditationChoice2',
                     options: [
-                      {  label: 'เริ่มเลย Mindbot', trigger:'Meditation3'},
+                      { value:'เริ่มเลย Mindbot', label: 'เริ่มเลย Mindbot', trigger:'Meditation3'},
                     ],
                   },
 
@@ -325,7 +325,7 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'BreathPracChoice',
                     options: [
-                      {  label: 'เรียบร้อยแล้ว Mindbot', trigger:'cbt2'},
+                      { value:'เรียบร้อยแล้ว Mindbot', label: 'เรียบร้อยแล้ว Mindbot', trigger:'cbt2'},
                     ],
                   },
                   {
@@ -336,8 +336,8 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'FeelLonelyChoice',
                     options: [
-                      {  label: 'ขอบคุณครับ Mindbot', trigger:'FeelLonely2'},
-                      {  label: 'ขอบคุณค่ะ Mindbot', trigger:'FeelLonely2'},
+                      { value:'ขอบคุณครับ Mindbot', label: 'ขอบคุณครับ Mindbot', trigger:'FeelLonely2'},
+                      { value:'ขอบคุณค่ะ Mindbot', label: 'ขอบคุณค่ะ Mindbot', trigger:'FeelLonely2'},
                     ],
                   },
                   {
@@ -348,7 +348,7 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'FeelLonelyChoice2',
                     options: [
-                      {  label: 'คืออะไรเหรอ?', trigger:'FeelLonely3'},
+                      { value:'คืออะไรเหรอ?', label: 'คืออะไรเหรอ?', trigger:'FeelLonely3'},
                     ],
                   },
                   {
@@ -359,8 +359,8 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'FeelLonelyChoice3',
                     options: [
-                      {  label: '😳', trigger:'FeelLonely4'},
-                      {  label: '😢', trigger:'FeelLonely4'},
+                      { value:'emoji_55', label: '😳', trigger:'FeelLonely4'},
+                      { value:'enoji_56', label: '😢', trigger:'FeelLonely4'},
                     ],
                   },
                   {
@@ -371,8 +371,8 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'FeelLonelyChoice4',
                     options: [
-                      {  label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'FeelLonely5'},//trigger:'begavior'
-                      {  label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'FeelLonely5'},
+                      { value:'ฉันอยากรู้สึกดีขึ้น', label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'FeelLonely5'},//trigger:'begavior'
+                      { value:'ฉันแค่อยากเล่าให้ฟังเฉยๆ', label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'FeelLonely5'},
                     ],
                   },
                   {
@@ -405,9 +405,9 @@ export default class Let_talk extends React.Component {
               {
                 id: 'SOSorDoingChoice',
                 options: [
-                  {  label: 'ฉันต้องการความช่วยเหลือ', trigger: 'selfHarm' },
-                  {  label: 'ช่วยฉันด้วย 🆘', trigger: 'cbt1' },
-                  {  label: 'ฉันไม่ต้องการความเหลือ', trigger: 'IfHaveProblem' },
+                  { value:'ฉันต้องการความช่วยเหลือ', label: 'ฉันต้องการความช่วยเหลือ', trigger: 'selfHarm' },
+                  { value:'ช่วยฉันด้วย', label: 'ช่วยฉันด้วย 🆘', trigger: 'cbt1' },
+                  { value:'ฉันไม่ต้องการความเหลือ', label: 'ฉันไม่ต้องการความเหลือ', trigger: 'IfHaveProblem' },
                 ],
               },
               {
@@ -418,8 +418,8 @@ export default class Let_talk extends React.Component {
               {
                 id: 'IfHaveProblemChoice',
                 options: [
-                  {  label: 'ขอบคุณครับ Mindbot', trigger: 'HowWasIt' },
-                  {  label: 'ขอบคุณค่ะ Mindbot', trigger: 'HowWasIt' },
+                  { value:'ขอบคุณครับ Mindbot', label: 'ขอบคุณครับ Mindbot', trigger: 'HowWasIt' },
+                  { value:'ขอบคุณค่ะ Mindbot', label: 'ขอบคุณค่ะ Mindbot', trigger: 'HowWasIt' },
                 ],
               },
               {
@@ -430,11 +430,11 @@ export default class Let_talk extends React.Component {
               {
                 id: 'moodChoice',
                 options: [
-                  { label: 'ดีมาก', trigger: 'veryGood' },
-                  { label: 'ดี', trigger: 'Good' },
-                  { label: 'เฉยๆ', trigger: 'notBothered' },
-                  { label: 'ไม่ค่อยดี', trigger: 'quiteBad' },
-                  { label: 'แย่มาก', trigger: 'bad' },
+                  { value:'ดีมาก', label: 'ดีมาก', trigger: 'veryGood' },
+                  { value:'ดี', label: 'ดี', trigger: 'Good' },
+                  { value:'เฉยๆ', label: 'เฉยๆ', trigger: 'notBothered' },
+                  { value:'ไม่ค่อยดี', label: 'ไม่ค่อยดี', trigger: 'quiteBad' },
+                  { value:'แย่มาก', label: 'แย่มาก', trigger: 'bad' },
                 ],
               },
               {
@@ -475,9 +475,9 @@ export default class Let_talk extends React.Component {
               {
               id: 'selfHarmChoice',
                 options: [
-                  { label: 'ต้องการ', trigger: 'selfHarmStart' },
-                  { label: 'ไม่ต้องการ', trigger: 'selfHarmStart' },//trigger:startCBT
-                  { label: 'ช่วยฉันด้วย', trigger: 'selfHarmStart' },
+                  { value:'ต้องการ', label: 'ต้องการ', trigger: 'selfHarmStart' },
+                  { value:'ไม่ต้องการ', label: 'ไม่ต้องการ', trigger: 'selfHarmStart' },//trigger:startCBT
+                  { value:'ช่วยฉันด้วย', label: 'ช่วยฉันด้วย', trigger: 'selfHarmStart' },
                 ],
               },
               {
@@ -626,10 +626,10 @@ export default class Let_talk extends React.Component {
               {
                 id: 'questionCBTchoice',
                   options: [
-                    { label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'WrongAnswer' },
-                    { label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'WrongAnswer' },
-                    { label: 'ฉันทำได้ในบางครั้ง', trigger: 'RightAnswer' },
-                    { label: 'All-or-Nothing คืออะไร?', trigger: 'WhatisAllorNothing' },
+                    { value:'ฉันจะพยายามทำให้ดีที่สุด', label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'WrongAnswer' },
+                    { value:'ฉันทำไม่ได้แน่ๆ', label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'WrongAnswer' },
+                    { value:'ฉันทำได้ในบางครั้ง', label: 'ฉันทำได้ในบางครั้ง', trigger: 'RightAnswer' },
+                    { value:'All-or-Nothing คืออะไร?', label: 'All-or-Nothing คืออะไร?', trigger: 'WhatisAllorNothing' },
 
                   ],
                 },
@@ -651,10 +651,10 @@ export default class Let_talk extends React.Component {
                 {
                 id: 'questionCBTchoice',
                   options: [
-                    {  label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'selfHarmStart' },
-                    {  label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'Good' },
-                    {  label: 'ฉันทำได้ในบางครั้ง', trigger: 'Good' },
-                    {  label: 'ฉันทำได้ในบางครั้ง', trigger: 'Good' },
+                    {  value:'ฉันจะพยายามทำให้ดีที่สุด', label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'selfHarmStart' },
+                    {  value:'ฉันทำไม่ได้แน่ๆ', label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'Good' },
+                    {  value:'ฉันทำได้ในบางครั้ง', label: 'ฉันทำได้ในบางครั้ง', trigger: 'Good' },
+                    {  value:'ฉันทำได้ในบางครั้ง', label: 'ฉันทำได้ในบางครั้ง', trigger: 'Good' },
                   ],
                 },
                 {
@@ -665,10 +665,10 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'questionCBTchoice2',
                     options: [
-                      {  label: 'ไม่มีใครชอบฉันอีกต่อไป', trigger: 'WrongAnswer' },
-                      {  label: 'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', trigger: 'WrongAnswer' },
-                      {  label: 'ฉันคิดว่าแม่ฉันน่าจะงานยุ่งอยู่ เลยอาจจะมาสาย', trigger: 'RightAnswer2' },
-                      {  label: 'Labeling คืออะไร', trigger: 'WhatisLabeling' },
+                      {  value:'ไม่มีใครชอบฉันอีกต่อไป', label: 'ไม่มีใครชอบฉันอีกต่อไป', trigger: 'WrongAnswer' },
+                      {  value:'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', label: 'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', trigger: 'WrongAnswer' },
+                      {  value:'ฉันคิดว่าแม่ฉันน่าจะงานยุ่งอยู่ เลยอาจจะมาสาย', label: 'ฉันคิดว่าแม่ฉันน่าจะงานยุ่งอยู่ เลยอาจจะมาสาย', trigger: 'RightAnswer2' },
+                      {  value:'Labeling คืออะไร', label: 'Labeling คืออะไร', trigger: 'WhatisLabeling' },
                     ],
                   },
                   {
@@ -679,10 +679,10 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'questionCBTchoice3',
                       options: [
-                        {  label: 'ฉันต้องสอบคิดหมอให้ได้', trigger: 'WrongAnswer' },
-                        {  label: 'ฉันยอมรับในการตัดสินใจของเพื่อน', trigger: 'WrongAnswer' },
-                        {  label: 'ชีวิตของฉันมีค่า', trigger: 'RightAnswer2' },
-                        {  label: '"Should" and "Must" statement คืออะไร?', trigger: 'WhatisShouldMust' },
+                        { value:'ฉันต้องสอบติดหมอให้ได้', label: 'ฉันต้องสอบติดหมอให้ได้', trigger: 'WrongAnswer' },
+                        { value:'ฉันยอมรับในการตัดสินใจของเพื่อน', label: 'ฉันยอมรับในการตัดสินใจของเพื่อน', trigger: 'WrongAnswer' },
+                        { value:'ชีวิตของฉันมีค่า', label: 'ชีวิตของฉันมีค่า', trigger: 'RightAnswer2' },
+                        { value:'"Should" and "Must" statement คืออะไร?', label: '"Should" and "Must" statement คืออะไร?', trigger: 'WhatisShouldMust' },
                       ],
                     },
                   {
@@ -733,8 +733,8 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'cbt5',
                       options: [
-                        {  label: 'ทั้งหมด', trigger: 'cbt7' },
-                        {  label: 'ความผิด', trigger: 'cbt6' },
+                        { value:'ทั้งหมด', label: 'ทั้งหมด', trigger: 'cbt7' },
+                        { value:'ความผิด', label: 'ความผิด', trigger: 'cbt6' },
                       ],
                     },
                     {
@@ -750,15 +750,15 @@ export default class Let_talk extends React.Component {
                     {
                       id: 'cbt8',
                         options: [
-                          {  label: 'ใช่', trigger: 'cbt7' },
-                          {  label: 'ความคิดที่แต่งเติม?', trigger: 'cbt6' },
+                          { value:'ใช่', label: 'ใช่', trigger: 'cbt7' },
+                          { value:'ความคิดที่แต่งเติม?', label: 'ความคิดที่แต่งเติม?', trigger: 'cbt6' },
                         ],
                       },
                       {
                         id: 'cbt8',
                           options: [
-                            {  label: '😊', trigger: 'cbt9' },
-                            {  label: '😢', trigger: 'cbt9' },
+                            { value:'emoji_44', label: '😊', trigger: 'cbt9' },
+                            { value:'emoji_45', label: '😢', trigger: 'cbt9' },
                           ],
                         },
                         {
@@ -774,8 +774,8 @@ export default class Let_talk extends React.Component {
                         {
                           id: 'cbtlast',
                             options: [
-                              {  label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasIt' },
-                              {  label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasIt' },
+                              { value:'ขอบคุณนะ Mindbot', label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasIt' },
+                              { value:'ฉันจะพยายาม Mindbot', label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasIt' },
                             ],
                           },
                         {
@@ -786,8 +786,8 @@ export default class Let_talk extends React.Component {
                         {
                           id: 'HowWasItChoice',
                             options: [
-                              {  label: '👍', trigger: 'feedbackreply' },
-                              {  label: '👎', trigger: 'feedbackreply' },
+                              { value:'emoji_35', label: '👍', trigger: 'feedbackreply' },
+                              { value:'emoji_34', label: '👎', trigger: 'feedbackreply' },
                             ],
                           },
                           {
@@ -798,7 +798,7 @@ export default class Let_talk extends React.Component {
                           {
                             id: 'feedbackemoji',
                               options: [
-                                {  label: '❤️', trigger: 'seeu' },
+                                { value:'emoji_23', label: '❤️', trigger: 'seeu' },
                               ],
                             },
                               {
@@ -810,8 +810,8 @@ export default class Let_talk extends React.Component {
                               {
                                 id: 'seeuChoice',
                                   options: [
-                                    {  label: 'แล้วพบกัน Mindbot', end: true },
-                                    {  label: 'Bye Mindbot', end: true },
+                                    { value:'แล้วพบกัน Mindbot', label: 'แล้วพบกัน Mindbot', end: true },
+                                    { value:'Bye Mindbot', label: 'Bye Mindbot', end: true },
                                   ],
                                 },
           ]}

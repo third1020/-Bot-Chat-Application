@@ -1,5 +1,8 @@
 {
   "expo": {
+    "android": {
+      "package": "com.thummasat.Mindbot"
+    },
     "name": "bot-chat",
     "slug": "bot-chat",
     "privacy": "public",

@@ -6,7 +6,8 @@ import {
     StyleSheet,
     View,
     Text,
-    Button,
+    Dimensions,
+    Image,
 } from 'react-native';
 import {
     createSwitchNavigator,
@@ -14,12 +15,33 @@ import {
     createAppContainer,
 } from 'react-navigation';
 import Add from '../navigation/Add';
+
+import SelectImage from '../AbilityBot/SelectImage';
+
+
 import ChatBot from 'react-native-chatbot';
+import { Button } from 'react-native-elements';
+import HomeScreen from '../navigation/HomeScreen';
+
+
+
+
 
 export default class SelfHarm_Normal extends React.Component {
     static navigationOptions = {
         title: 'SelfHarm_Normal',
     };
+
+    SelectImage = () => {
+        this.props.navigation.navigate('SelectImage');
+    };
+
+    HomeScreen = () => {
+          this.props.navigation.navigate('HomeScreen');
+      };
+
+
+
 
     render() {
         return (
@@ -28,7 +50,7 @@ export default class SelfHarm_Normal extends React.Component {
             {
                 id: '1',
                 message: 'ฉันตรวจพบว่าคุณต้องการความช่วยเหลือ',
-                trigger: '3',
+                trigger: 'Behavior8_2',
               },
               {
                 id: '3',
@@ -38,8 +60,8 @@ export default class SelfHarm_Normal extends React.Component {
               {
                 id: '4',
                 options: [
-                  {  label: 'บุคคลทั่วไป', trigger:'5'},
-                  {  label: 'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์', trigger:'6'},
+                  {value:'บุคคลทั่วไป',  label: 'บุคคลทั่วไป', trigger:'5'},
+                  {value:'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์',  label: 'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์', trigger:'6'},
                 ],
               },
               {
@@ -55,8 +77,8 @@ export default class SelfHarm_Normal extends React.Component {
               {
                 id: '7',
                 options: [
-                  {  label: 'โทรแล้วครับ', trigger:'5'},
-                  {  label: 'โทรแล้วค่ะ', trigger:'6'},
+                  { value:'โทรแล้วครับ', label: 'โทรแล้วครับ', trigger:'cbt1'},
+                  { value:'โทรแล้วค่ะ', label: 'โทรแล้วค่ะ', trigger:'cbt1'},
                 ],
               },
               {
@@ -81,14 +103,14 @@ export default class SelfHarm_Normal extends React.Component {
               },
               {
                 id: 'cbt4_1',
-                message: 'จากประโบคข้างบน คุณคิดว่าคำไหนที่เราสามารถเปลี่ยนแปลงได้' ,
+                message: 'จากประโยคข้างบน คุณคิดว่าคำไหนที่เราสามารถเปลี่ยนแปลงได้' ,
                 trigger: 'cbt5',
               },
               {
                 id: 'cbt5',
                   options: [
-                    {  label: 'ทั้งหมด', trigger: 'cbt7' },
-                    {  label: 'ความผิด', trigger: 'cbt6' },
+                    { value:'ทั้งหมด', label: 'ทั้งหมด', trigger: 'cbt7' },
+                    { value:'ความผิด', label: 'ความผิด', trigger: 'cbt6' },
                   ],
                 },
                 {
@@ -104,15 +126,15 @@ export default class SelfHarm_Normal extends React.Component {
                 {
                   id: 'cbt8',
                     options: [
-                      {  label: 'ใช่', trigger: 'cbt7' },
-                      {  label: 'ความคิดที่แต่งเติม?', trigger: 'cbt6' },
+                      { value:'ใช่', label: 'ใช่', trigger: 'cbt7' },
+                      { value:'ความคิดที่แต่งเติม?', label: 'ความคิดที่แต่งเติม?', trigger: 'cbt6' },
                     ],
                   },
                   {
                     id: 'cbt8',
                       options: [
-                        {  label: '😊', trigger: 'cbt9' },
-                        {  label: '😢', trigger: 'cbt9' },
+                        { value:'emoji_1', label: '😊', trigger: 'cbt9' },
+                        { value:'emoji_2', label: '😢', trigger: 'cbt9' },
                       ],
                     },
                     {
@@ -128,8 +150,8 @@ export default class SelfHarm_Normal extends React.Component {
                     {
                       id: 'cbtlast',
                         options: [
-                          {  label: 'ขอบคุณนะ Mindbot', trigger: 'cbt11' },
-                          {  label: 'ฉันจะพยายาม Mindbot', trigger: 'cbt11' },
+                          { value:'ขอบคุณนะ Mindbot', label: 'ขอบคุณนะ Mindbot', trigger: 'cbt11' },
+                          { value:'ฉันจะพยายาม Mindbot', label: 'ฉันจะพยายาม Mindbot', trigger: 'cbt11' },
                         ],
                       },
                       {
@@ -140,8 +162,8 @@ export default class SelfHarm_Normal extends React.Component {
                       {
                         id: 'cbt12',
                           options: [
-                            {  label: 'ใช่ฉันเลย Mindbot', trigger: 'cbt13' },
-                            {  label: 'ฉันคิดว่านั่นไม่ใช่ฉันแล้วล่ะ Mindbot', trigger: 'HowWasIt' },
+                            { value:'ใช่ฉันเลย Mindbot', label: 'ใช่ฉันเลย Mindbot', trigger: 'cbt13' },
+                            { value:'ฉันคิดว่านั่นไม่ใช่ฉันแล้วล่ะ Mindbot', label: 'ฉันคิดว่านั่นไม่ใช่ฉันแล้วล่ะ Mindbot', trigger: 'HowWasIt' },
                           ],
                         },
                       {
@@ -157,8 +179,8 @@ export default class SelfHarm_Normal extends React.Component {
                       {
                         id: 'cbt15',
                           options: [
-                            {  label: 'คืออะไรเหรอ?', trigger: 'cbt16' },
-                            {  label: 'เซอไพรส์ฉันสิ', trigger: 'cbt16' },
+                            { value:'คืออะไรเหรอ?', label: 'คืออะไรเหรอ?', trigger: 'cbt16' },
+                            { value:'เซอไพรส์ฉันสิ', label: 'เซอไพรส์ฉันสิ', trigger: 'cbt16' },
                           ],
                         },
                         {
@@ -174,8 +196,8 @@ export default class SelfHarm_Normal extends React.Component {
                           {
                             id: 'cbt18',
                               options: [
-                                {  label: '🤗', trigger: 'cbt19' },
-                                {  label: '😳', trigger: 'cbt19' },
+                                { value:'emoji_3', label: '🤗', trigger: 'cbt19' },
+                                { value:'emoji_4', label: '😳', trigger: 'cbt19' },
                               ],
                             },
                             {
@@ -186,8 +208,8 @@ export default class SelfHarm_Normal extends React.Component {
                               {
                                 id: 'cbt20',
                                   options: [
-                                    {  label: '😳', trigger: 'Behavior8' },
-                                    {  label: '😲', trigger: 'Behavior8' },
+                                    { value:'emoji_5', label: '😳', trigger: 'Behavior8' },
+                                    { value:'emoji_6', label: '😲', trigger: 'Behavior8' },
                                   ],
                                 },
                                 {
@@ -197,39 +219,42 @@ export default class SelfHarm_Normal extends React.Component {
                                   },
                                   {
                                     id: 'Behavior8_2',
-                                    message: 'โชว์รูปภาพกิจกรรม' ,
+                                    component: (<View>
+                                      <Button title="กดปุ่มนีเพื่อเลือกกิจกรรม" onPress={this.SelectImage} />
+
+                                    </View>) ,
                                     trigger: 'Behavior9',
                                   },
                                   {
                                     id: 'Behavior9',
-                                    message: 'คุณอยากทำอะไรเป็นอย่างแรก' ,
+                                    message: 'กดปุ่มข้างบนแล้วหรือยั้ง !' ,
                                     trigger: 'Behavior10',
-                                  },
-                                  {
-                                    id: 'Behavior10',
-                                    message: 'แล้วอย่างต่อมาล่ะ' ,
-                                    trigger: 'Behavior11',
-                                  },
-                                  {
-                                    id: 'Behavior11',
-                                    message: 'แล้วอย่างสุดท้ายคืออะไรจ๊ะ?' ,
-                                    trigger: 'Behavior12',
-                                  },
-                                  {
-                                    id: 'Behavior12',
-                                    message: 'สรุปคือจะทำตามนี้นะ' ,
-                                    trigger: 'Behavior13',
-                                  },
+
+                                 },
+                                 {
+                                   id:'Behavior10',
+                                   options: [
+                                     { value:'กดแล้ว', label: 'กดแล้ว', trigger:'Behavior13'},
+                                     { value:'ยังไม่กด', label: 'ยังไม่กด', trigger:'Behavior11'},
+                                   ],
+                                 },
+
+                                 {
+                                   id: 'Behavior11',
+                                   message: 'แหน่ะ คุณต้องเลือกกิจกรรมก่อนนะ อย่าดื้อสิ' ,
+                                   trigger: 'Behavior8_2',
+                                 },
+
                                   {
                                     id: 'Behavior13',
-                                    message: 'สัญญานะ !' ,
+                                    message: 'สัญญานะว่าต้องทำตามกิจกรรมที่เลือกไป !' ,
                                     trigger: 'Behavior14',
                                   },
                                   {
                                     id: 'Behavior14',
                                     options: [
-                                      {  label: '👌', trigger:'Behavior15'},
-                                      {  label: '🤞', trigger:'Behavior8'},
+                                      { value:'emoji_7', label: '👌', trigger:'Behavior15'},
+                                      { value:'emoji_8', label: '🤞', trigger:'Behavior8'},
                                     ],
                                   },
                                   {
@@ -245,9 +270,9 @@ export default class SelfHarm_Normal extends React.Component {
                                   {
                                     id: 'Welcome', // START MENU
                                     options: [
-                                      {  label: 'พูดคุยกับฉัน - Lets talk!', trigger:''},
-                                      {  label: 'ประเมินฉัน - Checkin me!', trigger:''},
-                                      {  label: 'ต้องการความช่วยเหลือ - Need help!', trigger:''},
+                                      { value:'พูดคุยกับฉัน - Lets talk!', label: 'พูดคุยกับฉัน - Lets talk!', trigger:''},
+                                      { value:'ประเมินฉัน - Checkin me!', label: 'ประเมินฉัน - Checkin me!', trigger:''},
+                                      { value:'ต้องการความช่วยเหลือ - Need help!', label: 'ต้องการความช่วยเหลือ - Need help!', trigger:''},
                                     ],
                                   },
                     {
@@ -258,8 +283,8 @@ export default class SelfHarm_Normal extends React.Component {
                     {
                       id: 'HowWasItChoice',
                         options: [
-                          {  label: '👍', trigger: 'feedbackreply' },
-                          {  label: '👎', trigger: 'feedbackreply' },
+                          { value:'emoji_9', label: '👍', trigger: 'feedbackreply' },
+                          { value:'emoji_10', label: '👎', trigger: 'feedbackreply' },
                         ],
                       },
                       {
@@ -270,20 +295,20 @@ export default class SelfHarm_Normal extends React.Component {
                       {
                         id: 'feedbackemoji',
                           options: [
-                            {  label: '❤️', trigger: 'seeu' },
+                            { value:'emoji_11', label: '❤️', trigger: 'seeu' },
                           ],
                         },
                           {
                             id: 'seeu',
-                            message: 'แล้วพบกันอีกนะ  😊' ,
+                            message: 'แล้วพบกันอีกนะ 😊' ,
                             trigger: 'seeuChoice',
                           },
 
                           {
                             id: 'seeuChoice',
                               options: [
-                                {  label: 'แล้วพบกัน Mindbot', end: true },
-                                {  label: 'Bye Mindbot', end: true },
+                                { value:'แล้วพบกัน Mindbot', label: 'แล้วพบกัน Mindbot', end: true },
+                                { value:'Bye Mindbot', label: 'Bye Mindbot', end: true },
                               ],
                             },
 
@@ -292,11 +317,3 @@ export default class SelfHarm_Normal extends React.Component {
         );
     }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

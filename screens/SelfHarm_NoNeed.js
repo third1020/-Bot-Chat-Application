@@ -59,8 +59,8 @@ export default class SelfHarm_NoNeed extends React.Component {
                   {
                     id: 'cbt5',
                       options: [
-                        {  label: 'ทั้งหมด', trigger: 'cbt7' },
-                        {  label: 'ความผิด', trigger: 'cbt6' },
+                        { value:'ทั้งหมด', label: 'ทั้งหมด', trigger: 'cbt7' },
+                        { value:'ความผิด', label: 'ความผิด', trigger: 'cbt6' },
                       ],
                     },
                     {
@@ -76,15 +76,15 @@ export default class SelfHarm_NoNeed extends React.Component {
                     {
                       id: 'cbt8',
                         options: [
-                          {  label: 'ใช่', trigger: 'cbt7' },
-                          {  label: 'ความคิดที่แต่งเติม?', trigger: 'cbt6' },
+                          { value:'ใช่', label: 'ใช่', trigger: 'cbt7' },
+                          { value:'ความคิดที่แต่งเติม?', label: 'ความคิดที่แต่งเติม?', trigger: 'cbt6' },
                         ],
                       },
                       {
                         id: 'cbt8',
                           options: [
-                            {  label: '😊', trigger: 'cbt9' },
-                            {  label: '😢', trigger: 'cbt9' },
+                            { value:'emoji_1', label: '😊', trigger: 'cbt9' },
+                            { value:'emoji_2', label: '😢', trigger: 'cbt9' },
                           ],
                         },
                         {
@@ -100,8 +100,8 @@ export default class SelfHarm_NoNeed extends React.Component {
                         {
                           id: 'cbtlast',
                             options: [
-                              {  label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasIt' },
-                              {  label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasIt' },
+                              { value:'ขอบคุณนะ Mindbot', label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasIt' },
+                              { value:'ฉันจะพยายาม Mindbot', label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasIt' },
                             ],
                           },
                         {
@@ -112,8 +112,8 @@ export default class SelfHarm_NoNeed extends React.Component {
                         {
                           id: 'HowWasItChoice',
                             options: [
-                              {  label: '👍', trigger: 'feedbackreply' },
-                              {  label: '👎', trigger: 'feedbackreply' },
+                              { value:'emoji_3', label: '👍', trigger: 'feedbackreply' },
+                              { value:'emoji_4', label: '👎', trigger: 'feedbackreply' },
                             ],
                           },
                           {
@@ -124,7 +124,7 @@ export default class SelfHarm_NoNeed extends React.Component {
                           {
                             id: 'feedbackemoji',
                               options: [
-                                {  label: '❤️', trigger: 'seeu' },
+                                { value:'emoji_5', label: '❤️', trigger: 'seeu' },
                               ],
                             },
                               {
@@ -136,8 +136,8 @@ export default class SelfHarm_NoNeed extends React.Component {
                               {
                                 id: 'seeuChoice',
                                   options: [
-                                    {  label: 'แล้วพบกัน Mindbot', end: true },
-                                    {  label: 'Bye Mindbot', end: true },
+                                    { value:'แล้วพบกัน Mindbot', label: 'แล้วพบกัน Mindbot', end: true },
+                                    { value:'Bye Mindbot', label: 'Bye Mindbot', end: true },
                                   ],
                                 },
 
