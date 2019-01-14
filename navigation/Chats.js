@@ -12,7 +12,6 @@ import {
     Image,
     Dimensions,
     Button,
-    Linking
 } from 'react-native';
 import {
     createSwitchNavigator,
@@ -27,7 +26,6 @@ import { Colors, Fonts } from '../constants';
 
 import Add from './Add';
 import App from './App';
-import Chats from './Chats';
 
 import SelfHarm_Danger from '../screens/SelfHarm_Danger';
 import SelfHarm_NoNeed from '../screens/SelfHarm_NoNeed';
@@ -39,6 +37,7 @@ import Let_talk from '../screens/Let_talk';
 import Need_help from '../screens/Need_help';
 import SelectImage from '../AbilityBot/SelectImage';
 import { Header } from 'react-native-elements'
+import PropTypes from 'prop-types';
 
 
 const chartIcon = require('../assets/images/pages/chart.png');
@@ -53,32 +52,16 @@ const { height,width } = Dimensions.get('window')
 
 
 
-class HomeScreen extends React.Component {
+export default class Chats extends React.Component {
   static navigationOptions = {
-      title: 'HomeScreen',
+      title: 'Chats',
 
   };
 
-   Chats = () => {
-    this.props.navigation.navigate('Chats');
-   };
-    App = () => {
+  App = () => {
       this.props.navigation.navigate('App');
-    };
+  };
 
-    _AddData = () => {
-        this.props.navigation.navigate('Add');
-    };
-
-    SelfHarm_Danger = () => {
-        this.props.navigation.navigate('SelfHarm_Danger');
-    };
-    SelfHarm_NoNeed = () => {
-        this.props.navigation.navigate('SelfHarm_NoNeed');
-    };
-    SelfHarm_Normal = () => {
-        this.props.navigation.navigate('SelfHarm_Normal');
-    };
 
     Check_me = () => {
         this.props.navigation.navigate('Check_me');
@@ -92,49 +75,6 @@ class HomeScreen extends React.Component {
     SelectImage = () => {
         this.props.navigation.navigate('SelectImage');
     };
-
-    Website = ()=>{ Linking.openURL('http://www.hospital.tu.ac.th/');
-    };
-
-    constructor(props) {
-    super(props);
-    this.state={
-      loadingPage: 'OnBoarding'
-    }
-
-  }
-
-
-  componentWillMount() {
-    this.retrieveData();
-  }
-  retrieveData = async () => {
-    try {
-      var value = await AsyncStorage.getItem('@onBoardingPageLoad:key');
-      if (value == "login") {
-        this.setState({
-          loadingPage: 'Login'
-        });
-      }
-      else {
-        this.setState({
-          loadingPage: 'OnBoarding'
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  login = async () => {
-    try {
-      await AsyncStorage.setItem("@onBoardingPageLoad:key", "login");
-
-
-    } catch (error) {
-      // Error saving data
-    }
-  };
 
   GoApp = async () => {
     try {
@@ -150,55 +90,28 @@ class HomeScreen extends React.Component {
 
     render(){
 
-      if (this.state.loadingPage == "Login") {
-        return(
-
-          <View>
-
-          <TouchableHighlight onPress={this.GoApp}>
-          <Image style={styles.stretch}
-          source={require('../assets/garoo/6.png')}/>
-        </TouchableHighlight>
-
-        <View style={styles.row}>
-        <TouchableOpacity onPress={this.GoApp} style={styles.item}>
-          <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
-          <Text style={styles.itemText}>สวัสดีฉันชื่อ Garoo เป็นBotChat ประจำอยู่โรงบาลแห่งนี{"\n"}
-                          นายมีปัญหาอะไรสามารถกดปุ่มเพื่อคุยกับฉันได้นะ ฉันยินดีให้คำปรึกษา</Text>
-
-        </TouchableOpacity>
-
-          </View>
-
-        </View>
-
-              );
-
-
-      }
-      else {
         return (
           <View style={styles.container}>
           <Image style={styles.stretch1}
           source={require('../assets/garoo/4.png')}/>
       <View style={styles.row}>
 
-        <TouchableOpacity onPress={this.Website} style={styles.item}>
-          <Image resizeMode="contain" source={profileIcon} style={styles.itemImage} />
-          <Text style={styles.itemText}>Profile</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.row}>
-        <TouchableOpacity onPress={this.Chats} style={styles.item}>
+        <TouchableOpacity onPress={this.Let_talk} style={styles.item}>
           <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
-          <Text style={styles.itemText}>Chats</Text>
+          <Text style={styles.itemText}>พูดคุยกับฉัน</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.login} style={styles.item}>
-          <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
-          <Text style={styles.itemText}>Calendar</Text>
+        <TouchableOpacity onPress={this.Check_me} style={styles.item}>
+          <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
+          <Text style={styles.itemText}>ประเมินฉัน</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={this.Need_help} style={styles.item}>
+          <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
+          <Text style={styles.itemText}>ต้องให้ช่วยเหลือ</Text>
+        </TouchableOpacity>
+        </View>
 
-      </View>
+
+
     </View>
           // <View>
           //           <Button title="Check_me" onPress={this.Check_me}/>
@@ -207,35 +120,13 @@ class HomeScreen extends React.Component {
           //           <Button title="First App Page" onPress={this.login}/>
           //         </View>
                 );
-      }
+
 
 
 
        }
     }
 
-
-const AppStack = createStackNavigator({   HomeScreen : HomeScreen,
-                                          Add: Add,
-                                          App: App,
-                                          SelectImage: SelectImage,
-                                          Chats:Chats,
-
-                                          SelfHarm_Danger: SelfHarm_Danger ,
-                                          SelfHarm_NoNeed: SelfHarm_NoNeed,
-                                          SelfHarm_Normal: SelfHarm_Normal,
-
-                                          Check_me: Check_me,
-                                          Let_talk: Let_talk,
-                                          Need_help: Need_help,
-                                        });
-
-
-export default createAppContainer(createSwitchNavigator(
-    {
-        App: AppStack,
-    },
-));
 
 const styles = StyleSheet.create({
   stretch: {
@@ -282,6 +173,15 @@ const styles = StyleSheet.create({
     height: 35,
   },
 });
+
+Chats.propTypes = {
+  steps: PropTypes.object,
+};
+
+Chats.defaultProps = {
+  steps: undefined,
+};
+
 
 // const HomeIconWithBadge = props => {
 //   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
