@@ -38,6 +38,7 @@ import Check_me from '../screens/Check_me';
 import Let_talk from '../screens/Let_talk';
 import Need_help from '../screens/Need_help';
 import SelectImage from '../AbilityBot/SelectImage';
+import ShowActivity from '../AbilityBot/ShowActivity';
 import { Header } from 'react-native-elements'
 
 
@@ -57,6 +58,9 @@ class HomeScreen extends React.Component {
   static navigationOptions = {
       title: 'HomeScreen',
 
+  };
+  ShowActivity  = () => {
+   this.props.navigation.navigate('ShowActivity');
   };
 
    Chats = () => {
@@ -193,7 +197,11 @@ class HomeScreen extends React.Component {
           <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>Chats</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.login} style={styles.item}>
+        <TouchableOpacity onPress={this.SelectImage} style={styles.item}>
+          <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
+          <Text style={styles.itemText}>Calendar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.ShowActivity} style={styles.item}>
           <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>Calendar</Text>
         </TouchableOpacity>
@@ -220,6 +228,7 @@ const AppStack = createStackNavigator({   HomeScreen : HomeScreen,
                                           App: App,
                                           SelectImage: SelectImage,
                                           Chats:Chats,
+                                          ShowActivity:ShowActivity,
 
                                           SelfHarm_Danger: SelfHarm_Danger ,
                                           SelfHarm_NoNeed: SelfHarm_NoNeed,
