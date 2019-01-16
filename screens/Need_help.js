@@ -7,6 +7,7 @@ import {
     View,
     Text,
     Button,
+    Image
 } from 'react-native';
 import {
     createSwitchNavigator,
@@ -16,6 +17,8 @@ import {
 import Add from '../navigation/Add';
 import ChatBot from 'react-native-chatbot';
 import PropTypes from 'prop-types';
+import Emoji from 'react-native-emoji';
+import styled from 'styled-components/native';
 
 class Need_help extends React.Component {
     static navigationOptions = {
@@ -67,7 +70,14 @@ class SimpleForm extends React.Component {
         steps={[
           {
             id: '1',
-            message: 'What is your name?',
+            component: (<Emoji name="coffee" style={{fontSize: 50}} />),
+            asMessage: true,
+            trigger: '55',
+          },
+          {
+            id: '55',
+            component: (<Image style={{width: 90 , height:100}} source={require("../assets/garoo/1.png")}/>),
+            asMessage: true,
             trigger: 'name',
           },
           {
