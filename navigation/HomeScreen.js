@@ -27,6 +27,7 @@ import { Colors, Fonts } from '../constants';
 
 import Add from './Add';
 import App from './App';
+import Q9 from './Q9';
 import Chats from './Chats';
 
 import SelfHarm_Danger from '../screens/SelfHarm_Danger';
@@ -68,6 +69,9 @@ class HomeScreen extends React.Component {
    };
     App = () => {
       this.props.navigation.navigate('App');
+    };
+    Q9 = () => {
+      this.props.navigation.navigate('Q9');
     };
 
     _AddData = () => {
@@ -197,10 +201,7 @@ class HomeScreen extends React.Component {
           <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>Chats</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.SelectImage} style={styles.item}>
-          <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
-          <Text style={styles.itemText}>Calendar</Text>
-        </TouchableOpacity>
+
         <TouchableOpacity onPress={this.ShowActivity} style={styles.item}>
           <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>Calendar</Text>
@@ -229,6 +230,7 @@ const AppStack = createStackNavigator({   HomeScreen : HomeScreen,
                                           SelectImage: SelectImage,
                                           Chats:Chats,
                                           ShowActivity:ShowActivity,
+                                          Q9:Q9,
 
                                           SelfHarm_Danger: SelfHarm_Danger ,
                                           SelfHarm_NoNeed: SelfHarm_NoNeed,

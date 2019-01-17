@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View ,ActivityIndicator, AsyncStorage,Alert,Image} from 'react-native';
 import ChatBot from 'react-native-chatbot';
 import HomeScreen from './HomeScreen';
+import Q9 from './Q9';
 import SelfHarm_Normal from '../screens/SelfHarm_Normal';
 import SelfHarm_NoNeed from '../screens/SelfHarm_NoNeed';
 import SelfHarm_Danger from '../screens/SelfHarm_Danger';
@@ -154,6 +155,9 @@ class App extends React.Component {
   HomeScreen = () => {
       this.props.navigation.navigate('HomeScreen');
   };
+  Q9 = () => {
+      this.props.navigation.navigate('Q9');
+  };
 
 
 
@@ -167,8 +171,6 @@ class App extends React.Component {
   };
 
 }
-
-
 
   render() {
 
@@ -704,9 +706,7 @@ class App extends React.Component {
 
                                     component: (<View>
                                       <Button title="กดปุ่มนีเพื่อรับความช่วยเหลือแบบเร่งด่วน" onPress={this.SelfHarm_Danger} />
-
                                     </View>) ,
-
                                     end: true,
                                   },
 
@@ -791,20 +791,22 @@ class App extends React.Component {
                                   },
                                   {
                                     id: 'FeelTired',
-                                    message: 'ฉันหวังว่าคุณจะได้พักผ่อนบ้างนะ' ,
+                                    message: 'คุณต้องการเข้ำรับกำรประเมินเบื้องต้นก่อนหรือไม' ,
                                     trigger: 'ThankMindbot1',
                                   },
                                   {
                                     id: 'ThankMindbot1',
                                     options: [
-                                      {value:'ขอบคุณนะ Mindbot!', label: 'ขอบคุณนะ Mindbot!', trigger: 'Tired' },
-                                      {value:'Thank you Mindbot!', label: 'Thank you Mindbot!', trigger: 'Tired' },
+                                      {value:'ต้องการ', label: 'ต้องการ', trigger: 'Q9' },
+                                      {value:'ไม่ต้องการ', label: 'ไม่ต้องการ', trigger: 'startCBT' },
                                     ],
                                   },
                                   {
-                                    id: 'Tired',
-                                    message: 'ฉันมีของวิเศษซึ่งจะช่วยผ่อนคลายความเหนื่อยล้าให้คุณได้' ,
-                                    trigger: 'TiredChoice',
+                                    id: 'Q9',
+                                    component: (<View>
+                                      <Button title="กดปุ่มนี้เพื่อเข้าทำแบบสอบถาม" onPress={this.Q9} />
+                                    </View>) ,
+                                    end: true,
                                   },
                                   {
                                     id: 'TiredChoice',
@@ -871,6 +873,7 @@ class App extends React.Component {
                                       message: 'ฉันขอให้คุณหายจากอาการป่วยในเร็ววันนะ' ,
                                       trigger: 'FeelSickChoice',
                                     },
+
                                     {
                                       id: 'FeelSickChoice',
                                       options: [
