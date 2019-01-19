@@ -181,7 +181,7 @@ class HomeScreen extends React.Component {
           <Text style={styles.itemText}>Chats</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this.GoApp} style={styles.item}>
+        <TouchableOpacity onPress={this.ShowActivity} style={styles.item}>
           <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>Calendar</Text>
         </TouchableOpacity>
