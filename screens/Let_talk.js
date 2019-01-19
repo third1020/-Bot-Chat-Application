@@ -16,6 +16,8 @@ import {
 import Add from '../navigation/Add';
 import ChatBot from 'react-native-chatbot';
 
+
+
 export default class Let_talk extends React.Component {
     static navigationOptions = {
         title: 'Let_talk',
@@ -24,12 +26,15 @@ export default class Let_talk extends React.Component {
     render() {
         return (
           <ChatBot
+          
+
           handleEnd={this.handleEnd}
           steps={[
             {
                 id: 'start',
-                message: 'โอเคจ้า งั้นเรามาเริ่มเปิดใจคุยกันเลยดีกว่า',
+                message: 'What is you name',
                 trigger: 'heart',
+
               },
               {
                 id: 'heart',
@@ -42,6 +47,7 @@ export default class Let_talk extends React.Component {
                 id: 'HowYouFeel',
                 message: 'ตอนนี้คุณรู้สึกอย่างไร' ,
                 trigger: 'HowYouFeelChoice',
+
               },
               {
                 id: 'HowYouFeelChoice',

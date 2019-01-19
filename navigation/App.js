@@ -177,6 +177,7 @@ class App extends React.Component {
     return (
 
        <ChatBot
+              handleEnd{this.HomeScreen}
               steps={[
 
                 {
@@ -695,20 +696,12 @@ class App extends React.Component {
                                 {
                                   id: 'seeuChoice',
                                     options: [
-                                      {value:'ฉันต้องการความช่วยเหลืออย่างเร่งด่วน', label: 'ฉันต้องการความช่วยเหลืออย่างเร่งด่วน', trigger: 'Danger' },
+
                                       {value:'ฉันต้องการความช่วยเหลือ', label: 'ฉันต้องการความช่วยเหลือ',trigger: 'Normal' },
                                       {value:'ฉันไม่ต้องการความช่วยเหลือ', label: 'ฉันไม่ต้องการความช่วยเหลือ',trigger: 'NoNeed'}
                                     ],
                                   },
 
-                                  {
-                                    id: 'Danger',
-
-                                    component: (<View>
-                                      <Button title="กดปุ่มนีเพื่อรับความช่วยเหลือแบบเร่งด่วน" onPress={this.SelfHarm_Danger} />
-                                    </View>) ,
-                                    end: true,
-                                  },
 
                                   {
                                     id: 'Normal',
@@ -722,8 +715,6 @@ class App extends React.Component {
 
                                   {
                                     id: 'NoNeed',
-                                    component: (<Button title="กดปุ่มนี้เพื่อกลับสู่หน้าหลัก" onPress={this.HomeScreen} />) ,
-
                                     end: true,
                                   },
 

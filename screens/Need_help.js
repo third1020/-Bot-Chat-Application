@@ -7,7 +7,8 @@ import {
     View,
     Text,
     Button,
-    Image
+    Image,
+    TextInput
 } from 'react-native';
 import {
     createSwitchNavigator,
@@ -16,6 +17,7 @@ import {
 } from 'react-navigation';
 import ChatBot from 'react-native-chatbot';
 import HomeScreen from '../navigation/HomeScreen';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default class Need_help extends React.Component {
     static navigationOptions = {
@@ -28,34 +30,15 @@ export default class Need_help extends React.Component {
 
   render(){
     return(
-      <ChatBot
-      handleEnd={this.HomeScreen}
-      steps={[
-        {
-          id: '1',
-          message: 'อาการชนิดไหนที่คุณต้องการเข้ารับการประเมินเบื้องต้น',
-          trigger: 'HowToSleep',
-        },
-        {
-          id: 'HowToSleep',
-          message:"hello",
-          trigger: 'HowToSleep3',
+      <KeyboardAwareScrollView>
+    <View>
+    <TextInput
+        style={{height: 40,align: 'justify', borderColor: 'gray', borderWidth: 1,}}
+        onChangeText={(text) => this.setState({text})}
 
-        },
-        {
-          id: 'HowToSleep3',
-          options: [
-            { value:'โทรแล้วครับ', label: 'โทรแล้วครับ', trigger:'HowToSleep'},
-            { value:'โทรแล้วค่ะ', label: 'โทรแล้วค่ะ', trigger:'ggwp'},
-          ],
-        },
-        {
-          id: 'ggwp',
-          message:"end",
-          end: true,
-        },
-      ]}
-    />
+      />
+    </View>
+  </KeyboardAwareScrollView>
 
 
     );

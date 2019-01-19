@@ -158,34 +158,8 @@ class HomeScreen extends React.Component {
 
     render(){
 
-      if (this.state.loadingPage == "Login") {
+      if (this.state.loadingPage == "login") {
         return(
-
-          <View>
-
-          <TouchableHighlight onPress={this.GoApp}>
-          <Image style={styles.stretch}
-          source={require('../assets/garoo/6.png')}/>
-        </TouchableHighlight>
-
-        <View style={styles.row}>
-        <TouchableOpacity onPress={this.GoApp} style={styles.item}>
-          <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
-          <Text style={styles.itemText}>สวัสดีฉันชื่อ Garoo เป็นBotChat ประจำอยู่โรงบาลแห่งนี{"\n"}
-                          นายมีปัญหาอะไรสามารถกดปุ่มเพื่อคุยกับฉันได้นะ ฉันยินดีให้คำปรึกษา</Text>
-
-        </TouchableOpacity>
-
-          </View>
-
-        </View>
-
-              );
-
-
-      }
-      else {
-        return (
           <View style={styles.container}>
           <Image style={styles.stretch1}
           source={require('../assets/garoo/4.png')}/>
@@ -202,13 +176,39 @@ class HomeScreen extends React.Component {
           <Text style={styles.itemText}>Chats</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this.ShowActivity} style={styles.item}>
+        <TouchableOpacity onPress={this._AddData} style={styles.item}>
           <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>Calendar</Text>
         </TouchableOpacity>
 
       </View>
     </View>
+
+
+              );
+
+
+      }
+      else {
+        return (
+          <View>
+
+          <TouchableHighlight onPress={this.login}>
+          <Image style={styles.stretch}
+          source={require('../assets/garoo/6.png')}/>
+        </TouchableHighlight>
+
+        <View style={styles.row}>
+        <TouchableOpacity onPress={this.GoApp} style={styles.item}>
+          <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
+          <Text style={styles.itemText}>สวัสดีฉันชื่อ Garoo เป็นBotChat ประจำอยู่โรงบาลแห่งนี{"\n"}
+                          นายมีปัญหาอะไรสามารถกดปุ่มเพื่อคุยกับฉันได้นะ ฉันยินดีให้คำปรึกษา</Text>
+
+        </TouchableOpacity>
+
+          </View>
+
+        </View>
           // <View>
           //           <Button title="Check_me" onPress={this.Check_me}/>
           //           <Button title="Let_talk" onPress={this.Let_talk}/>

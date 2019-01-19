@@ -15,6 +15,7 @@ import {
 } from 'react-navigation';
 
 import ChatBot from 'react-native-chatbot';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default class Check_me extends React.Component {
     static navigationOptions = {
@@ -23,12 +24,19 @@ export default class Check_me extends React.Component {
 
     render() {
         return (
+
           <ChatBot
           handleEnd={this.handleEnd}
           steps={[
             {
               id: '1',
               message: 'อาการชนิดไหนที่คุณต้องการเข้ารับการประเมินเบื้องต้น',
+              trigger: 'third',
+            },
+            {
+            id: 'third',
+
+              user: true,
               trigger: '2',
             },
             {
@@ -724,6 +732,7 @@ export default class Check_me extends React.Component {
 
           ]}
         />
+      
 
         );
     }
