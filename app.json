@@ -3,8 +3,8 @@
     "android": {
       "package": "com.thummasat.Mindbot"
     },
-    "name": "bot-chat",
-    "slug": "bot-chat",
+    "name": "Garoo-chat",
+    "slug": "Garoo-chat",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
@@ -13,9 +13,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/01.jpg",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/background.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -26,7 +26,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "bundleIdentifier": "com.thummasat.Garoo-chat"
+    },
   }
 }

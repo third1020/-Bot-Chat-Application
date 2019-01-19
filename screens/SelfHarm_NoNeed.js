@@ -21,9 +21,14 @@ export default class SelfHarm_NoNeed extends React.Component {
         title: 'SelfHarm_NoNeed',
     };
 
+    FirstOpApp = () => {
+      this.props.navigation.navigate('FirstOpApp');
+  };
+
     render() {
         return (
           <ChatBot
+          handleEnd={this.FirstOpApp}
                 steps={[
                 {
                     id: '1',
@@ -100,8 +105,8 @@ export default class SelfHarm_NoNeed extends React.Component {
                         {
                           id: 'cbtlast',
                             options: [
-                              { value:'ขอบคุณนะ Mindbot', label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasIt' },
-                              { value:'ฉันจะพยายาม Mindbot', label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasIt' },
+                              { value:'ขอบคุณนะ น้องการุ', label: 'ขอบคุณนะ น้องการุ', trigger: 'HowWasIt' },
+                              { value:'ฉันจะพยายาม น้องการุ', label: 'ฉันจะพยายาม น้องการุ', trigger: 'HowWasIt' },
                             ],
                           },
                         {
@@ -136,8 +141,8 @@ export default class SelfHarm_NoNeed extends React.Component {
                               {
                                 id: 'seeuChoice',
                                   options: [
-                                    { value:'แล้วพบกัน Mindbot', label: 'แล้วพบกัน Mindbot', end: true },
-                                    { value:'Bye Mindbot', label: 'Bye Mindbot', end: true },
+                                    { value:'แล้วพบกัน น้องการุ', label: 'แล้วพบกัน น้องการุ', end: true },
+                                    { value:'Bye น้องการุ', label: 'Bye น้องการุ', end: true },
                                   ],
                                 },
 

@@ -29,6 +29,7 @@ import Add from './Add';
 import App from './App';
 import Q9 from './Q9';
 import Chats from './Chats';
+import FirstOpApp from './FirstOpApp';
 
 import SelfHarm_Danger from '../screens/SelfHarm_Danger';
 import SelfHarm_NoNeed from '../screens/SelfHarm_NoNeed';
@@ -100,6 +101,9 @@ class HomeScreen extends React.Component {
     SelectImage = () => {
         this.props.navigation.navigate('SelectImage');
     };
+    FirstOpApp = () => {
+        this.props.navigation.navigate('FirstOpApp');
+    };
 
     Website = ()=>{ Linking.openURL('http://www.hospital.tu.ac.th/');
     };
@@ -137,6 +141,7 @@ class HomeScreen extends React.Component {
   login = async () => {
     try {
       await AsyncStorage.setItem("@onBoardingPageLoad:key", "login");
+      this.props.navigation.navigate("App");
 
 
     } catch (error) {
@@ -147,7 +152,7 @@ class HomeScreen extends React.Component {
   GoApp = async () => {
     try {
       await AsyncStorage.setItem("@onBoardingPageLoad:key", "Another");
-      this.props.navigation.navigate("App");
+
 
 
     } catch (error) {
@@ -158,7 +163,7 @@ class HomeScreen extends React.Component {
 
     render(){
 
-      if (this.state.loadingPage == "login") {
+      if (this.state.loadingPage == "Login") {
         return(
           <View style={styles.container}>
           <Image style={styles.stretch1}
@@ -176,14 +181,13 @@ class HomeScreen extends React.Component {
           <Text style={styles.itemText}>Chats</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this._AddData} style={styles.item}>
+        <TouchableOpacity onPress={this.GoApp} style={styles.item}>
           <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>Calendar</Text>
         </TouchableOpacity>
 
       </View>
     </View>
-
 
               );
 
@@ -199,16 +203,16 @@ class HomeScreen extends React.Component {
         </TouchableHighlight>
 
         <View style={styles.row}>
-        <TouchableOpacity onPress={this.GoApp} style={styles.item}>
+        <TouchableOpacity onPress={this.login} style={styles.item}>
           <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
-          <Text style={styles.itemText}>สวัสดีฉันชื่อ Garoo เป็นBotChat ประจำอยู่โรงบาลแห่งนี{"\n"}
-                          นายมีปัญหาอะไรสามารถกดปุ่มเพื่อคุยกับฉันได้นะ ฉันยินดีให้คำปรึกษา</Text>
+          <Text style={styles.itemText}>เริ่มคุยกับฉัน  คลิ๊กเลย!!{"\n"}</Text>
 
         </TouchableOpacity>
 
           </View>
 
         </View>
+
           // <View>
           //           <Button title="Check_me" onPress={this.Check_me}/>
           //           <Button title="Let_talk" onPress={this.Let_talk}/>
@@ -231,6 +235,7 @@ const AppStack = createStackNavigator({   HomeScreen : HomeScreen,
                                           Chats:Chats,
                                           ShowActivity:ShowActivity,
                                           Q9:Q9,
+                                          FirstOpApp:FirstOpApp,
 
                                           SelfHarm_Danger: SelfHarm_Danger ,
                                           SelfHarm_NoNeed: SelfHarm_NoNeed,

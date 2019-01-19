@@ -55,9 +55,9 @@ const { height,width } = Dimensions.get('window')
 
 
 
-export default class HomeScreen extends React.Component {
+export default class FirstOpApp extends React.Component {
   static navigationOptions = {
-      title: 'HomeScreen',
+      title: 'FirstOpApp',
 
   };
   ShowActivity  = () => {
@@ -78,15 +78,7 @@ export default class HomeScreen extends React.Component {
         this.props.navigation.navigate('Add');
     };
 
-    SelfHarm_Danger = () => {
-        this.props.navigation.navigate('SelfHarm_Danger');
-    };
-    SelfHarm_NoNeed = () => {
-        this.props.navigation.navigate('SelfHarm_NoNeed');
-    };
-    SelfHarm_Normal = () => {
-        this.props.navigation.navigate('SelfHarm_Normal');
-    };
+
 
     Check_me = () => {
         this.props.navigation.navigate('Check_me');
@@ -113,52 +105,10 @@ export default class HomeScreen extends React.Component {
   }
 
 
-  componentWillMount() {
-    this.retrieveData();
-  }
-  retrieveData = async () => {
-    try {
-      var value = await AsyncStorage.getItem('@onBoardingPageLoad:key');
-      if (value == "login") {
-        this.setState({
-          loadingPage: 'Login'
-        });
-      }
-      else {
-        this.setState({
-          loadingPage: 'OnBoarding'
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  login = async () => {
-    try {
-      await AsyncStorage.setItem("@onBoardingPageLoad:key", "login");
-
-
-    } catch (error) {
-      // Error saving data
-    }
-  };
-
-  GoApp = async () => {
-    try {
-      await AsyncStorage.setItem("@onBoardingPageLoad:key", "Another");
-      this.props.navigation.navigate("App");
-
-
-    } catch (error) {
-      // Error saving data
-    }
-  };
-
 
     render(){
 
-      if (this.state.loadingPage == "login") {
+
         return(
           <View style={styles.container}>
           <Image style={styles.stretch1}
@@ -176,14 +126,13 @@ export default class HomeScreen extends React.Component {
           <Text style={styles.itemText}>Chats</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this._AddData} style={styles.item}>
+        <TouchableOpacity onPress={this.ShowActivity} style={styles.item}>
           <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>Calendar</Text>
         </TouchableOpacity>
 
       </View>
     </View>
-
 
               );
        }

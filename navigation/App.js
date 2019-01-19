@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View ,ActivityIndicator, AsyncStorage,Alert,Image} from 'react-native';
 import ChatBot from 'react-native-chatbot';
 import HomeScreen from './HomeScreen';
+import FirstOpApp from './FirstOpApp';
 import Q9 from './Q9';
 import SelfHarm_Normal from '../screens/SelfHarm_Normal';
 import SelfHarm_NoNeed from '../screens/SelfHarm_NoNeed';
@@ -158,6 +159,9 @@ class App extends React.Component {
   Q9 = () => {
       this.props.navigation.navigate('Q9');
   };
+  FirstOpApp = () => {
+      this.props.navigation.navigate('FirstOpApp');
+  };
 
 
 
@@ -177,7 +181,8 @@ class App extends React.Component {
     return (
 
        <ChatBot
-              handleEnd{this.HomeScreen}
+
+              handleEnd={this.FirstOpApp}
               steps={[
 
                 {
@@ -326,7 +331,7 @@ class App extends React.Component {
                 {
                 id: 'selfHarmChoice',
                   options: [
-                    { value:'ช่วยฉันด้วย', label: 'ช่วยฉันด้วย', trigger: 'selfHarmStart' },
+
                     { value:'ต้องการ', label: 'ต้องการ', trigger: 'selfHarmStart' },
                     { value:'ไม่ต้องการ', label: 'ไม่ต้องการ', trigger: 'mood' },
 
@@ -335,7 +340,7 @@ class App extends React.Component {
                 {
                 id: 'selfHarmChoiceMood',
                   options: [
-                    {  value:'ช่วยฉันด้วย', label: 'ช่วยฉันด้วย', trigger: 'selfHarmStart' },
+
                     {  value:'ต้องการ', label: 'ต้องการ', trigger: 'selfHarmStart' },
                     {  value:'ไม่ต้องการ', label: 'ไม่ต้องการ', trigger: 'HowYouFeel' },
 
@@ -696,12 +701,20 @@ class App extends React.Component {
                                 {
                                   id: 'seeuChoice',
                                     options: [
-
+                                      {value:'ฉันต้องการความช่วยเหลืออย่างเร่งด่วน', label: 'ฉันต้องการความช่วยเหลืออย่างเร่งด่วน', trigger: 'Danger' },
                                       {value:'ฉันต้องการความช่วยเหลือ', label: 'ฉันต้องการความช่วยเหลือ',trigger: 'Normal' },
                                       {value:'ฉันไม่ต้องการความช่วยเหลือ', label: 'ฉันไม่ต้องการความช่วยเหลือ',trigger: 'NoNeed'}
                                     ],
                                   },
 
+                                  {
+                                    id: 'Danger',
+
+                                    component: (<View>
+                                      <Button title="กดปุ่มนีเพื่อรับความช่วยเหลือแบบเร่งด่วน" onPress={this.SelfHarm_Danger} />
+                                    </View>) ,
+                                    end: true,
+                                  },
 
                                   {
                                     id: 'Normal',
@@ -715,6 +728,8 @@ class App extends React.Component {
 
                                   {
                                     id: 'NoNeed',
+                                    component: (<Button title="กดปุ่มนี้เพื่อกลับสู่หน้าหลัก" onPress={this.FirstOpApp} />) ,
+
                                     end: true,
                                   },
 
@@ -730,7 +745,7 @@ class App extends React.Component {
                                       {value:'ดี', label: 'ดี', trigger: 'FeelGood' },
                                       {value:'มีความสุข', label: 'มีความสุข', trigger: 'FeelGood' },
                                       {value:'โล่งอก', label: 'โล่งอก', trigger: 'FeelGood' },
-                                      {value:'เหนื่อย', label: 'เหนื่อย', trigger: 'FeelTired' },
+                                      {value:'เหนื่อย', label: 'เหนื่อย', trigger: 'Feelsad' },
                                       {value:'นอนไม่หลับ', label: 'นอนไม่หลับ', trigger: 'HowToSleep' },
                                       {value:'ป่วย', label: 'ป่วย', trigger: 'FeelSick' },
                                       {value:'เครียด', label: 'เครียด', trigger: 'FeelTired' },
@@ -798,6 +813,23 @@ class App extends React.Component {
                                       <Button title="กดปุ่มนี้เพื่อเข้าทำแบบสอบถาม" onPress={this.Q9} />
                                     </View>) ,
                                     end: true,
+                                  },
+                                  {
+                                    id: 'Feelsad',
+                                    message: 'ฉันหวังว่าคุณจะมีเวลาได้พักผ่อนบ้างนะ' ,
+                                    trigger: 'relex',
+                                  },
+                                  {
+                                    id: 'relex',
+                                    options: [
+                                      {value:'ขอบใจคร๊าบ Mindbot ', label: 'ขอบใจคร๊าบ Mindbot ', trigger: 'giftbox' },
+
+                                    ],
+                                  },
+                                  {
+                                    id: 'giftbox',
+                                    message: 'ฉันมีของวิฉันมีของวิเศษซึ่งจะช่วยผ่อนคลายความเหนื่อยล้าให้คุณได้' ,
+                                    trigger: 'TiredChoice',
                                   },
                                   {
                                     id: 'TiredChoice',

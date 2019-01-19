@@ -21,9 +21,14 @@ export default class SelfHarm_Danger extends React.Component {
         title: 'SelfHarm_Danger',
     };
 
+    FirstOpApp = () => {
+      this.props.navigation.navigate('FirstOpApp');
+  };
+
     render() {
         return (
           <ChatBot
+          handleEnd={this.FirstOpApp}
             steps={[
             {
                 id: '1',
@@ -38,9 +43,16 @@ export default class SelfHarm_Danger extends React.Component {
               {
                 id: '4',
                 options: [
-                  { value:'บุคคลทั่วไป',  label: 'บุคคลทั่วไป', trigger:'5'},
-                  { value:'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์',  label: 'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์', trigger:'6'},
+                  { value:'บุคคลทั่วไป',  label: 'บุคคลทั่วไป', trigger:'5_photo'},
+                  { value:'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์',  label: 'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์', trigger:'6_photo'},
                 ],
+              },
+              {
+                id: '5_photo',
+                component: (
+                  <Image style={{ width: 340,height: 300,}} source={require('../assets/02.jpg')}/>
+                ),
+                trigger: '5',
               },
               {
                 id: '5',
@@ -48,8 +60,23 @@ export default class SelfHarm_Danger extends React.Component {
                 trigger: '7',
               },
               {
+                id: '6_photo',
+                component: (
+                  <Image style={{ width: 340,height: 300,}} source={require('../assets/01.jpg')}/>
+                ),
+                trigger: '6',
+              },
+              {
                 id: '6',
-                message: 'สามารถโทรปรึกษากับพี่ๆผู้เชี่ยวชาญได้เลย ที่ 02-564-4440 ต่อ 1282, 6604 ศูนย์สุขภาวะทางจิต มหาวิทยาลัยธรรมศาสตร์ หรือ 1323 สายด่วนกรมสุขภาพจิต ฟรี! ได้ตลอด 24 ชม.',
+                component: (
+                  <Text>สำหรับนักศึกษามหาวิทยาลัยธรรมศาสตร์ สามารถติดต่อขอรับบริการได้ที่
+                  ศูนย์บริการนักศึกษา ชั้นที่ 1{'\n'}
+                  ณ ศูนย์การเรียนรู้เฉลิมพระเกียรติกรมหลวงนราธิวาสราชนครินทร์{'\n'}
+                  มหาวิทยาลัยธรรมศาสตร์ ศูนย์รังสิต วันจันทร์ - วันศุกร์ เวลา 08.30 - 16.30 น.{'\n'}
+                  ยกเว้นวันหยุดราชการ สามารถนัดหมายได้ที่ 02-564-4440 ต่อ 1282 , 6604{'\n'}
+                  บริการ Hotline เวลา 22.00 - 04.00 น. เปิดให้บริการทุกวัน{'\n'}
+                  เบอร์โทร 098-848-8421 , 094-330-2234</Text>
+                ),
                 trigger: '7',
               },
               {
@@ -128,8 +155,8 @@ export default class SelfHarm_Danger extends React.Component {
                     {
                       id: 'cbtlast',
                         options: [
-                          { value:'ขอบคุณนะ Mindbot', label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasIt' },
-                          { value:'ฉันจะพยายาม Mindbot', label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasIt' },
+                          { value:'ขอบคุณนะ น้องการุ', label: 'ขอบคุณนะ น้องการุ', trigger: 'HowWasIt' },
+                          { value:'ฉันจะพยายาม น้องการุ', label: 'ฉันจะพยายาม น้องการุ', trigger: 'HowWasIt' },
                         ],
                       },
                     {
@@ -164,8 +191,8 @@ export default class SelfHarm_Danger extends React.Component {
                           {
                             id: 'seeuChoice',
                               options: [
-                                { value:'แล้วพบกัน Mindbot', label: 'แล้วพบกัน Mindbot', end: true },
-                                { value:'Bye Mindbot', label: 'Bye Mindbot', end: true },
+                                { value:'แล้วพบกัน น้องการุ', label: 'แล้วพบกัน น้องการุ', end: true },
+                                { value:'Bye Garoo', label: 'Bye Garoo', end: true },
                               ],
                             },
 
