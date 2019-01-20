@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Random from 'random-id';
-import { Dimensions, TextInput, ScrollView, Platform } from 'react-native';
+import { Dimensions, TextInput, ScrollView, Platform,AppRegistry } from 'react-native';
 import { CustomStep, OptionsStep, TextStep } from './steps/steps';
 import schema from './schemas/schema';
 import ChatBotContainer from './ChatBotContainer';
@@ -10,6 +10,7 @@ import InputView from './InputView';
 import Footer from './Footer';
 import Button from './Button';
 import ButtonText from './ButtonText';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 const { height, width } = Dimensions.get('window');
 
@@ -529,6 +530,7 @@ class ChatBot extends Component {
               invalid={inputInvalid}
               editable={editable}
             />
+
             <Button
               className="rsc-button"
               style={submitButtonStyle}
@@ -547,10 +549,12 @@ class ChatBot extends Component {
             </Button>
           </Footer>
         </InputView>
+        <KeyboardSpacer/>
       </ChatBotContainer>
     );
   }
 }
+AppRegistry.registerComponent('ChatBot', () => ChatBot);
 
 ChatBot.propTypes = {
   avatarStyle: PropTypes.object,
