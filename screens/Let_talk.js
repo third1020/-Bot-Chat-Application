@@ -18,10 +18,21 @@ import Add from '../navigation/Add';
 import ChatBot from 'react-native-chatbot';
 import styled from 'styled-components/native';
 import PlaySound from '../AbilityBot/PlaySound';
+import { Button } from 'react-native-elements';
+import Checkword from '../AbilityBot/Checkword';
+import CheckwordMood from '../AbilityBot/CheckwordMood';
+import CheckFeel from '../AbilityBot/CheckFeel';
+import CheckSick from '../AbilityBot/CheckSick';
+import HomeScreen from './HomeScreen';
+import FirstOpApp from './FirstOpApp';
+import Q9 from './Q9';
+import SelfHarm_Normal from '../screens/SelfHarm_Normal';
+import SelfHarm_NoNeed from '../screens/SelfHarm_NoNeed';
+import SelfHarm_Danger from '../screens/SelfHarm_Danger';
 
 export default class Let_talk extends React.Component {
     static navigationOptions = {
-        title: 'Let_talk',
+        title: 'Let talk',
     };
 
     HomeScreen = () => {
@@ -42,17 +53,10 @@ export default class Let_talk extends React.Component {
 
               trigger: 'start_sticker',
             },
-
             {
               id: 'start_sticker',
               component: (
-                <Text>
                 <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                 {'\n'}
-                 {'\n'}
-                 {'\n'}
-                </Text>
-
               ),
               asMessage:true,
               trigger: 'heart',
@@ -78,12 +82,19 @@ export default class Let_talk extends React.Component {
                   { value:'เหนื่อย', label: 'เหนื่อย', trigger: 'FeelTired' },
                   { value:'นอนไม่หลับ', label: 'นอนไม่หลับ', trigger: 'HowToSleep_Sticker' },
                   { value:'ป่วย', label: 'ป่วย', trigger: 'FeelSick' },
-                  { value:'เครียด', label: 'เครียด', trigger: 'feedbackreply' }, // need DASS from main app
-                  { value:'ซึมเศร้า', label: 'ซึมเศร้า', trigger: 'feedbackreply' }, // need DASS from main app
-                  { value:'วิตกกังวล', label: 'วิตกกังวล', trigger: 'feedbackreply' }, // need DASS from main app
+                  { value:'เครียด', label: 'เครียด', trigger: 'Q9' }, // need DASS from main app
+                  { value:'ซึมเศร้า', label: 'ซึมเศร้า', trigger: 'Q9' }, // need DASS from main app
+                  { value:'วิตกกังวล', label: 'วิตกกังวล', trigger: 'Q9' }, // need DASS from main app
                   { value:'โกรธ', label: 'โกรธ', trigger: 'FeelAngry' },
                   { value:'เหงา', label: 'เหงา', trigger: 'FeelLonely' },
                 ],
+              },
+              {
+                id: 'DASS',
+                component: (
+                  <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
+                ),
+                trigger: 'WhyYouFeel',
               },
               {
                 id: 'FeelGood',
@@ -93,12 +104,7 @@ export default class Let_talk extends React.Component {
               {
                 id: 'FeelGood_2',
                 component: (
-                  <Text>
                   <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                   {'\n'}
-                   {'\n'}
-                   {'\n'}
-                  </Text>
                 ),
                 asMessage:true,
                 trigger: 'WhyYouFeel',
@@ -152,9 +158,9 @@ export default class Let_talk extends React.Component {
               {
                 id: 'RelaxMuscle',
                 component: (
-                  <View><Image
-                    source={require('../assets/image/relaxmuscle.jpg')}
-                  /></View>
+                  <Image
+                  style={{ width: 340,height: 300,}} source={require('../assets/image/relaxmuscle.jpg')}
+                  />
                 ),
                 trigger: 'RelaxMuscleChoice',
               },
@@ -166,9 +172,7 @@ export default class Let_talk extends React.Component {
                 },
                 {
                   id: 'TherapyMusic',
-                  component: (
-                  <PlaySound/>
-                  ),
+                  component: (<PlaySound/>),
                   trigger: 'TherapyMusicChoice',
                 },
                 {
@@ -180,13 +184,7 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'HowToSleep_Sticker',
                   component: (
-                    <Text>
                     <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
-                     {'\n'}
-                     {'\n'}
-                     {'\n'}
-                    </Text>
-
                   ),
                   asMessage:true,
                   trigger: 'HowToSleep',
@@ -212,13 +210,7 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'GoodNight_2',
                   component: (
-                    <Text>
                     <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/6.png')}/>
-                     {'\n'}
-                     {'\n'}
-                     {'\n'}
-                    </Text>
-
                   ),
                   asMessage:true,
                   trigger: 'GoodNightChoice',
@@ -256,32 +248,27 @@ export default class Let_talk extends React.Component {
                   id: 'NeedHelpChoice',
                   options: [
                     { value:'ฉันแค่อยากเล่าให้ฟังเฉยๆ', label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'NeedHelp'},
-                    { value:'ฉันอยากรู้สึกดีขึ้น', label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'WantToFeelGood'},
+                    { value:'ฉันอยากรู้สึกดีขึ้น', label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'WantToFeelGood_Sticker'},
                   ],
                 },
                 {
                   id: 'WantToFeelGood_Sticker',
                   component: (
-                    <Text>
                     <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
-                     {'\n'}
-                     {'\n'}
-                     {'\n'}
-                    </Text>
-
                   ),
                   asMessage:true,
-                  trigger: 'FeelSick',
+                  trigger: 'WantToFeelGood',
                 },
                 {
                   id: 'WantToFeelGood',
                   component: (
                     <Text>
                     เทคนิคช่วยให้หายป่วย Inspired by Garoo{'\n'}
-                    -ทานของอุ่นๆ{'\n'}
-                    -นอนพัก{'\n'}
-                    -รับประทานอาหารที่มีประโยชน์{'\n'}
-                    -เคลื่อนไหวร่างกาย
+                    {'\n'}
+                    • ทานของอุ่นๆ{'\n'}
+                    • นอนพัก{'\n'}
+                    • รับประทานอาหารที่มีประโยชน์{'\n'}
+                    • เคลื่อนไหวร่างกาย
                     </Text>
                   ),
                   trigger: 'WantToFeelGoodChoice',
@@ -325,13 +312,7 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'FeelAngry1_Sticker',
                     component: (
-                      <Text>
                       <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
                     ),
                     asMessage:true,
                     trigger: 'FeelAngryChoice',
@@ -375,13 +356,7 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'Meditation3_5',
                     component: (
-                      <Text>
                       <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
                     ),
                     asMessage:true,
                     trigger: 'Meditation4',
@@ -465,13 +440,7 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'FeelLonely3_5',
                     component: (
-                      <Text>
                       <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
                     ),
                     asMessage:true,
                     trigger: 'FeelLonelyChoice3',
@@ -503,13 +472,7 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'FeelLonely_Sticker',
                     component: (
-                      <Text>
                       <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
                     ),
                     asMessage:true,
                     trigger: 'FeelLonelyType',
@@ -523,6 +486,13 @@ export default class Let_talk extends React.Component {
                       id: 'FeelLonelySum',
                       message: 'ฉันหวังว่าเมื่อถึงเวลาจะมีใครสักคนที่เห็นคุณค่าในตัวคุณ เหมือนที่ฉันเห็นนะ' ,
                       trigger: 'HowWasIt',
+                    },
+                    {
+                      id: 'Q9',
+                      component: (<View>
+                        <Button title="กดปุ่มนี้เพื่อเข้าทำแบบสอบถาม" onPress={this.Q9} />
+                      </View>) ,
+                      end: true,
                     },
 
               {
@@ -667,30 +637,30 @@ export default class Let_talk extends React.Component {
               {
               id: 'selfHarmQuestionChoice',
                 options: [
-                  { value:2, label: 'ใช่', trigger: 'selfHarmQuestion2' },
-                  { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion2' },
+                  { value:0, label: 'ใช่', trigger: 'selfHarmQuestion2' },
+                  { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion2' },
                 ],
               },
               {
                 id: 'selfHarmQuestionChoice2',
                   options: [
-                    { value:3, label: 'ใช่', trigger: 'selfHarmQuestion3' },
-                    { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3' },
+                    { value:1, label: 'ใช่', trigger: 'selfHarmQuestion3' },
+                    { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3' },
                   ],
                 },
                 {
                   id: 'selfHarmQuestionChoice3',
                     options: [
-                      { value:7, label: 'ใช่', trigger: 'selfHarmQuestion3_1' },
-                      { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3_2' },
+                      { value:5, label: 'ใช่', trigger: 'selfHarmQuestion3_1' },
+                      { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3_2' },
                     ],
                   },
 
                   {
                     id: 'selfHarmQuestionChoice3_1',
                       options: [
-                        { value:1, label: 'ควบคุมได้', trigger: 'selfHarmQuestion4' },
-                        { value:9, label: 'ควบคุมไม่ได้', trigger: 'selfHarmQuestion4' },
+                        { value:0, label: 'ควบคุมได้', trigger: 'selfHarmQuestion4' },
+                        { value:7, label: 'ควบคุมไม่ได้', trigger: 'selfHarmQuestion4' },
                       ],
                     },
                     {
@@ -744,13 +714,7 @@ export default class Let_talk extends React.Component {
                             {
                               id: 'selfHarmStart_2',
                               component: (
-                                <Text>
                                 <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/1.png')}/>
-                                 {'\n'}
-                                 {'\n'}
-                                 {'\n'}
-                                </Text>
-
                               ),
                               asMessage:true,
                               trigger: 'selfHarmQuestion1',
@@ -763,13 +727,7 @@ export default class Let_talk extends React.Component {
               {
                 id: 'startCBT',
                 component: (
-                  <Text>
                   <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/6.png')}/>
-                   {'\n'}
-                   {'\n'}
-                   {'\n'}
-                  </Text>
-
                 ),
                 asMessage:true,
                 trigger: 'letstartPostCBT',
@@ -807,13 +765,7 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'RightAnswer_sticker',
                   component: (
-                    <Text>
                     <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                     {'\n'}
-                     {'\n'}
-                     {'\n'}
-                    </Text>
-
                   ),
                   asMessage:true,
                   trigger: 'questionCBT2',
@@ -888,13 +840,7 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'RightAnswerFinal_sticker',
                     component: (
-                      <Text>
                       <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
                     ),
                     asMessage:true,
                     trigger: 'ThankGaroo',
@@ -914,13 +860,7 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'RightAnswer2_sticker',
                     component: (
-                      <Text>
                       <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
                     ),
                     asMessage:true,
                     trigger: 'questionCBT3',
@@ -943,13 +883,7 @@ export default class Let_talk extends React.Component {
                   {
                     id: 'cbt2_Sticker',
                     component: (
-                      <Text>
                       <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
                     ),
                     asMessage:true,
                     trigger: 'cbt3',
@@ -1008,13 +942,7 @@ export default class Let_talk extends React.Component {
                         {
                           id: 'cbt10_5',
                           component: (
-                            <Text>
                             <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
-                             {'\n'}
-                             {'\n'}
-                             {'\n'}
-                            </Text>
-
                           ),
                           asMessage:true,
                           trigger: 'cbtlast',
