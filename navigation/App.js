@@ -395,21 +395,21 @@ class App extends React.Component {
                 {
                 id: 'selfHarmQuestionChoice',
                   options: [
-                    { value:1, label: 'ใช่', trigger: 'selfHarmQuestion2' },
+                    { value:0, label: 'ใช่', trigger: 'selfHarmQuestion2' },
                     { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion2' },
                   ],
                 },
                 {
                   id: 'selfHarmQuestionChoice2',
                     options: [
-                      { value:2, label: 'ใช่', trigger: 'selfHarmQuestion3' },
+                      { value:1, label: 'ใช่', trigger: 'selfHarmQuestion3' },
                       { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3' },
                     ],
                   },
                   {
                     id: 'selfHarmQuestionChoice3',
                       options: [
-                        { value:6, label: 'ใช่', trigger: 'selfHarmQuestion3_1' },
+                        { value:5, label: 'ใช่', trigger: 'selfHarmQuestion3_1' },
                         { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3_1' },
                       ],
                     },
@@ -418,14 +418,14 @@ class App extends React.Component {
                       id: 'selfHarmQuestionChoice3_1',
                         options: [
                           { value:0, label: 'ควบคุมได้', trigger: 'selfHarmQuestion4' },
-                          { value:8, label: 'ควบคุมไม่ได้', trigger: 'selfHarmQuestion4' },
+                          { value:7, label: 'ควบคุมไม่ได้', trigger: 'selfHarmQuestion4' },
                         ],
                       },
 
                     {
                       id: 'selfHarmQuestionChoice4',
                         options: [
-                          { value:8, label: 'มี', trigger: 'selfHarmQuestion5' },
+                          { value:7, label: 'มี', trigger: 'selfHarmQuestion5' },
                           { value:0, label: 'ไม่มี', trigger: 'selfHarmQuestion5' },
                         ],
                       },
@@ -433,34 +433,42 @@ class App extends React.Component {
                       {
                         id: 'selfHarmQuestionChoice5',
                           options: [
-                            { value:9, label: 'ใช่', trigger: 'selfHarmQuestion6' },
+                            { value:8, label: 'ใช่', trigger: 'selfHarmQuestion6' },
                             { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion6' },
                           ],
                         },
                         {
                           id: 'selfHarmQuestionChoice6',
                             options: [
-                              { value:4, label: 'ใช่', trigger: 'selfHarmQuestion7' },
+                              { value:3, label: 'ใช่', trigger: 'selfHarmQuestion7' },
                               { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion7' },
                             ],
                           },
                           {
                             id: 'selfHarmQuestionChoice7',
                               options: [
-                                { value:10, label: 'ใช่', trigger: 'selfHarmQuestion8' },
+                                { value:9, label: 'ใช่', trigger: 'selfHarmQuestion8' },
                                 { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion8' },
                               ],
                             },
                             {
                               id: 'selfHarmQuestionChoice8',
                                 options: [
-                                  { value:4, label: 'ใช่', trigger: 'HowWasIt' },
+                                  { value:3, label: 'ใช่', trigger: 'HowWasIt' },
                                   { value:0, label: 'ไม่ใช่', trigger: 'HowWasIt' },
                                 ],
                               },
                 {
                   id: 'selfHarmStart',
                   message: 'โอเคจ้า งั้นเรามาเริ่มกันเลย ✌️',
+                  trigger: 'selfHarmStart_2',
+                },
+                {
+                  id: 'selfHarmStart_2',
+                  component: (
+                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/1.png')}/>
+                  ),
+                  asMessage:true,
                   trigger: 'selfHarmQuestion1',
                 },
                 {
@@ -496,6 +504,14 @@ class App extends React.Component {
                   {
                     id: 'RightAnswer',
                     message: 'เย้ๆ เยี่ยมไปเลยจ้า คราวนี้ลองข้อต่อไปนะ 🙂',
+                    trigger: 'RightAnswer_sticker',
+                  },
+                  {
+                    id: 'RightAnswer_sticker',
+                    component: (
+                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
+                    ),
+                    asMessage:true,
                     trigger: 'questionCBT2',
                   },
                   {
@@ -560,15 +576,19 @@ class App extends React.Component {
                       message: '"Should and "Must" statement คือการคิดความหวังให้ตนเองหรือคนอื่นเป็นอย่างนั้นอย่างนี้ตามที่ตนคาดหวัง หรือตามความต้องการของตน',
                       trigger: 'questionCBT',
                     },
-                    {
-                      id: 'RightAnswer',
-                      message: 'เย้ๆ เยี่ยมไปเลยจ้า คราวนี้ลองข้อต่อไปนะ 🙂',
-                      trigger: 'questionCBT2',
-                    },
+                  
                     {
                       id: 'RightAnswer2',
                       message: 'ว้าว! ยอดไปเลย ต่อไปข้อสุดท้ายนะ 🙂',
-                      trigger: 'questionCBT2',
+                      trigger: 'RightAnswer2_sticker',
+                    },
+                    {
+                      id: 'RightAnswer2_sticker',
+                      component: (
+                        <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
+                      ),
+                      asMessage:true,
+                      trigger: 'questionCBT3',
                     },
                     {
                       id: 'RightAnswerFinal',
@@ -590,7 +610,7 @@ class App extends React.Component {
                         { value:'ขอบคุณค่ะ น้องการุ', label: 'ขอบคุณค่ะ น้องการุ', trigger:'HowWasIt'},
                       ],
                     },
-
+                  
 
                     // Cognitive Behavior Therapy (CBT)
                     {
@@ -601,6 +621,14 @@ class App extends React.Component {
                     {
                       id: 'cbt2',
                       message: 'ฉันอาจจะใช้ของวิเศษชิ้นนี้ช่วยคุณได้ 🤔' ,
+                      trigger: 'cbt2_Sticker',
+                    },
+                    {
+                      id: 'cbt2_Sticker',
+                      component: (
+                        <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                      ),
+                      asMessage:true,
                       trigger: 'cbt3',
                     },
                     {
@@ -652,6 +680,14 @@ class App extends React.Component {
                           {
                             id: 'cbt10',
                             message: 'นี่คือสิ่งที่ทุกคนสามารถขัดเกลาและฝึกฝนตนเองได้แล้วฉันจะคอยอยู่เคียงข้างและช่วยเหลือคุณทุกเมื่อเลยนะ ❤️' ,
+                            trigger: 'cbt10_5',
+                          },
+                          {
+                            id: 'cbt10_5',
+                            component: (
+                              <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
+                            ),
+                            asMessage:true,
                             trigger: 'cbtlast',
                           },
                           {
@@ -721,7 +757,7 @@ class App extends React.Component {
                                       {
                                         id: 'seeuNoqestion',
                                         message: 'แล้วพบกันอีกนะ  😊' ,
-                                        end: true,
+                                        
                                       },
 
                                 {
@@ -771,8 +807,8 @@ class App extends React.Component {
                                       {value:'ดี', label: 'ดี', trigger: 'FeelGood' },
                                       {value:'มีความสุข', label: 'มีความสุข', trigger: 'FeelGood' },
                                       {value:'โล่งอก', label: 'โล่งอก', trigger: 'FeelGood' },
-                                      {value:'เหนื่อย', label: 'เหนื่อย', trigger: 'Feelsad' },
-                                      {value:'นอนไม่หลับ', label: 'นอนไม่หลับ', trigger: 'HowToSleep' },
+                                      {value:'เหนื่อย', label: 'เหนื่อย', trigger: 'FeelTired' },
+                                      {value:'นอนไม่หลับ', label: 'นอนไม่หลับ', trigger: 'HowToSleep_Sticker' },
                                       {value:'ป่วย', label: 'ป่วย', trigger: 'FeelSick' },
                                       {value:'เครียด', label: 'เครียด', trigger: 'FeelTired' },
                                       {value:'ซึมเศร้า', label: 'ซึมเศร้า', trigger: 'FeelTired' },
@@ -822,8 +858,8 @@ class App extends React.Component {
                                     ],
                                   },
                                   {
-                                    id: 'FeelTired',
-                                    message: 'คุณต้องการเข้ำรับกำรประเมินเบื้องต้นก่อนหรือไม' ,
+                                    id: 'Feelsad',
+                                    message: 'คุณต้องการเข้ารับการประเมินเบื้องต้นก่อนหรือไม่' ,
                                     trigger: 'ThankMindbot1',
                                   },
                                   {
@@ -841,7 +877,7 @@ class App extends React.Component {
                                     end: true,
                                   },
                                   {
-                                    id: 'Feelsad',
+                                    id: 'FeelTired',
                                     message: 'ฉันหวังว่าคุณจะมีเวลาได้พักผ่อนบ้างนะ' ,
                                     trigger: 'relex',
                                   },
@@ -864,11 +900,15 @@ class App extends React.Component {
                                       {value:'ดนตรีบำบัด', label: 'ดนตรีบำบัด', trigger: 'TherapyMusic' },
                                     ],
                                   },
-                                    {
-                                      id: 'RelaxMuscle',
-                                      message: 'แสดงข้อมูลการผ่อนคลายกล้ามเนื้อจาก App Mindmood' ,
-                                      trigger: 'RelaxMuscleChoice',
-                                    },
+                                  {
+                                    id: 'RelaxMuscle',
+                                    component: (
+                                      <Image
+                                      style={{ width: 340,height: 300,}} source={require('../assets/image/relaxmuscle.jpg')}
+                                      />
+                                    ),
+                                    trigger: 'RelaxMuscleChoice',
+                                  },
                                     {
                                       id: 'RelaxMuscleChoice',
                                       options: [
@@ -890,6 +930,14 @@ class App extends React.Component {
                                       id: 'HowToSleep',
                                       component: (<Image style={{ width: 340,height: 300,  alignSelf: 'auto',}} source={{uri:'https://scontent.fbkk5-3.fna.fbcdn.net/v/t1.0-9/50058549_1983959065024959_412088230716899328_n.jpg?_nc_cat=105&_nc_ht=scontent.fbkk5-3.fna&oh=5d94fb7978181d3704643d148c187453&oe=5CBD10FC'} } />  ),
                                       trigger: 'HowToSleepChoice',
+                                    },
+                                    {
+                                      id: 'HowToSleep_Sticker',
+                                      component: (
+                                        <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                                      ),
+                                      asMessage:true,
+                                      trigger: 'HowToSleep',
                                     },
                                     {
                                       id: 'HowToSleepChoice',
@@ -939,12 +987,29 @@ class App extends React.Component {
                                       id: 'NeedHelpChoice',
                                       options: [
                                         {value:'ฉันแค่อยากเล่าให้ฟังเฉยๆ', label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'NeedHelp'},
-                                        {value:'ฉันอยากรู้สึกดีขึ้น',  label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'WantToFeelGood'},
+                                        {value:'ฉันอยากรู้สึกดีขึ้น',  label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'WantToFeelGood_Sticker'},
                                       ],
                                     },
                                     {
+                                      id: 'WantToFeelGood_Sticker',
+                                      component: (
+                                        <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                                      ),
+                                      asMessage:true,
+                                      trigger: 'WantToFeelGood',
+                                    },
+                                    {
                                       id: 'WantToFeelGood',
-                                      message: 'โชว์ข้อมูล เทคนิคที่ทำให้รู้สึกดีขึ้นยามป่วย' ,
+                                      component: (
+                                        <Text>
+                                        เทคนิคช่วยให้หายป่วย Inspired by Garoo{'\n'}
+                                        {'\n'}
+                                        • ทานของอุ่นๆ{'\n'}
+                                        • นอนพัก{'\n'}
+                                        • รับประทานอาหารที่มีประโยชน์{'\n'}
+                                        • เคลื่อนไหวร่างกาย
+                                        </Text>
+                                      ),
                                       trigger: 'WantToFeelGoodChoice',
                                     },
                                     {
@@ -992,9 +1057,18 @@ class App extends React.Component {
                                         message: 'ฉันมีของวิเศษ 2 ชิ้นซึ่งช่วยลดอัตราการเต้นของหัวใจคุณ และช่วยให้คุณสงบมากยิ่งขึ้น' ,
                                         trigger: 'FeelAngry1',
                                       },
+                                      
                                       {
                                         id: 'FeelAngry1',
                                         message: 'เลือกได้เลยจ้า' ,
+                                        trigger: 'FeelAngry1_Sticker',
+                                      },
+                                      {
+                                        id: 'FeelAngry1_Sticker',
+                                        component: (
+                                          <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                                        ),
+                                        asMessage:true,
                                         trigger: 'FeelAngryChoice',
                                       },
                                       {
@@ -1028,6 +1102,14 @@ class App extends React.Component {
                                       {
                                         id: 'Meditation3',
                                         message: 'ฉันหวังว่าของวิเศษของฉันจะช่วยให้จิตใจของคุณสงบมากขึ้นนะ' ,
+                                        trigger: 'Meditation3_5',
+                                      },
+                                      {
+                                        id: 'Meditation3_5',
+                                        component: (
+                                          <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
+                                        ),
+                                        asMessage:true,
                                         trigger: 'Meditation4',
                                       },
                                       {
@@ -1104,6 +1186,14 @@ class App extends React.Component {
                                       {
                                         id: 'FeelLonely3',
                                         message: 'ก็คือ ให้คุณค่ากับความสัมพันธ์ต่อเพื่อนและคนที่คุณรัก และนั่นแหละคือสิ่งที่ฉันสัมผัสได้จากตัวคุณ' ,
+                                        trigger: 'FeelLonely3_5',
+                                      },
+                                      {
+                                        id: 'FeelLonely3_5',
+                                        component: (
+                                          <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
+                                        ),
+                                        asMessage:true,
                                         trigger: 'FeelLonelyChoice3',
                                       },
                                       {
@@ -1128,6 +1218,14 @@ class App extends React.Component {
                                       {
                                         id: 'FeelLonely5',
                                         message: 'คุณสามารถเล่าให้ฉันฟังได้เลยจ้า ✏️' ,
+                                        trigger: 'FeelLonely_Sticker',
+                                      },
+                                      {
+                                        id: 'FeelLonely_Sticker',
+                                        component: (
+                                          <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                                        ),
+                                        asMessage:true,
                                         trigger: 'FeelLonelyType',
                                       },
                                       {
