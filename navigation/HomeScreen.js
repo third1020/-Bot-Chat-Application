@@ -167,7 +167,7 @@ class HomeScreen extends React.Component {
         return(
           <View style={styles.container}>
           <Image style={styles.stretch1}
-          source={require('../assets/garoo/4.png')}/>
+          source={require('../assets/garoo/0001.png')}/>
       <View style={styles.row}>
 
         <TouchableOpacity onPress={this.Website} style={styles.item}>
@@ -199,7 +199,7 @@ class HomeScreen extends React.Component {
 
           <TouchableHighlight onPress={this.login}>
           <Image style={styles.stretch}
-          source={require('../assets/garoo/6.png')}/>
+          source={require('../assets/garoo/0001.png')}/>
         </TouchableHighlight>
 
         <View style={styles.row}>

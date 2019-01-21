@@ -17,6 +17,7 @@ import {
 import Add from '../navigation/Add';
 import ChatBot from 'react-native-chatbot';
 import styled from 'styled-components/native';
+import PlaySound from '../AbilityBot/PlaySound';
 
 export default class Let_talk extends React.Component {
     static navigationOptions = {
@@ -39,14 +40,9 @@ export default class Let_talk extends React.Component {
               id: 'start',
               message: 'โอเคจ้า งั้นเรามาเริ่มเปิดใจคุยกันเลยดีกว่า',
 
-              trigger: 'test',
-            },
-            {
-              id: 'test',
-              user: true,
-
               trigger: 'start_sticker',
             },
+
             {
               id: 'start_sticker',
               component: (
@@ -171,12 +167,7 @@ export default class Let_talk extends React.Component {
                 {
                   id: 'TherapyMusic',
                   component: (
-                    <Button
-
-                    title="Play"
-                    color="#841584"
-                accessibilityLabel="Learn more about this purple button"
-                    />
+                  <PlaySound/>
                   ),
                   trigger: 'TherapyMusicChoice',
                 },

@@ -16,6 +16,7 @@ import {
 } from 'react-navigation';
 
 import ChatBot from 'react-native-chatbot';
+import PlaySound from '../AbilityBot/PlaySound';
 
 export default class Check_me extends React.Component {
     static navigationOptions = {
@@ -164,12 +165,7 @@ export default class Check_me extends React.Component {
                 {
                   id: 'TherapyMusic',
                   component: (
-                    <Button
-                    // onPress={onPressLearnMore}
-                    title="Play"
-                    color="#841584"
-                accessibilityLabel="Learn more about this purple button"
-                    />
+                    <PlaySound/>
                   ),
                   trigger: 'TherapyMusicChoice',
                 },
