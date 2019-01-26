@@ -36,8 +36,8 @@ export default class SelfHarm_Normal extends React.Component {
         this.props.navigation.navigate('SelectImage');
     };
 
-    HomeScreen = () => {
-          this.props.navigation.navigate('HomeScreen');
+    FirstOpApp = () => {
+          this.props.navigation.navigate('FirstOpApp');
       };
 
 
@@ -46,11 +46,12 @@ export default class SelfHarm_Normal extends React.Component {
     render() {
         return (
           <ChatBot
+          handleEnd={this.FirstOpApp}
             steps={[
             {
                 id: '1',
                 message: 'ฉันตรวจพบว่าคุณต้องการความช่วยเหลือ',
-                trigger: 'Behavior8_2',
+                trigger: '3',
               },
               {
                 id: '3',
@@ -60,9 +61,16 @@ export default class SelfHarm_Normal extends React.Component {
               {
                 id: '4',
                 options: [
-                  {value:'บุคคลทั่วไป',  label: 'บุคคลทั่วไป', trigger:'5'},
-                  {value:'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์',  label: 'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์', trigger:'6'},
+                  {value:'บุคคลทั่วไป',  label: 'บุคคลทั่วไป', trigger:'5_photo'},
+                  {value:'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์',  label: 'บุคลากร/นักศึกษามหาวิทยาลัยธรรมศาสตร์', trigger:'6_photo'},
                 ],
+              },
+              {
+                id: '5_photo',
+                component: (
+                  <Image style={{ width: 340,height: 300,}} source={require('../assets/02.jpg')}/>
+                ),
+                trigger: '5',
               },
               {
                 id: '5',
@@ -70,8 +78,23 @@ export default class SelfHarm_Normal extends React.Component {
                 trigger: '7',
               },
               {
+                id: '6_photo',
+                component: (
+                  <Image style={{ width: 340,height: 300,}} source={require('../assets/01.jpg')}/>
+                ),
+                trigger: '6',
+              },
+              {
                 id: '6',
-                message: 'สามารถโทรปรึกษากับพี่ๆผู้เชี่ยวชาญได้เลย ที่ 02-564-4440 ต่อ 1282, 6604 ศูนย์สุขภาวะทางจิต มหาวิทยาลัยธรรมศาสตร์ หรือ 1323 สายด่วนกรมสุขภาพจิต ฟรี! ได้ตลอด 24 ชม.',
+                component: (
+                  <Text>สำหรับนักศึกษามหาวิทยาลัยธรรมศาสตร์ สามารถติดต่อขอรับบริการได้ที่
+                  ศูนย์บริการนักศึกษา ชั้นที่ 1{'\n'}
+                  ณ ศูนย์การเรียนรู้เฉลิมพระเกียรติกรมหลวงนราธิวาสราชนครินทร์{'\n'}
+                  มหาวิทยาลัยธรรมศาสตร์ ศูนย์รังสิต วันจันทร์ - วันศุกร์ เวลา 08.30 - 16.30 น.{'\n'}
+                  ยกเว้นวันหยุดราชการ สามารถนัดหมายได้ที่ 02-564-4440 ต่อ 1282 , 6604{'\n'}
+                  บริการ Hotline เวลา 22.00 - 04.00 น. เปิดให้บริการทุกวัน{'\n'}
+                  เบอร์โทร 098-848-8421 , 094-330-2234</Text>
+                ),
                 trigger: '7',
               },
               {
@@ -150,8 +173,8 @@ export default class SelfHarm_Normal extends React.Component {
                     {
                       id: 'cbtlast',
                         options: [
-                          { value:'ขอบคุณนะ Mindbot', label: 'ขอบคุณนะ Mindbot', trigger: 'cbt11' },
-                          { value:'ฉันจะพยายาม Mindbot', label: 'ฉันจะพยายาม Mindbot', trigger: 'cbt11' },
+                          { value:'ขอบคุณนะ น้องการุ', label: 'ขอบคุณนะ น้องการุ', trigger: 'cbt11' },
+                          { value:'ฉันจะพยายาม น้องการุ', label: 'ฉันจะพยายาม น้องการุ', trigger: 'cbt11' },
                         ],
                       },
                       {
@@ -162,8 +185,8 @@ export default class SelfHarm_Normal extends React.Component {
                       {
                         id: 'cbt12',
                           options: [
-                            { value:'ใช่ฉันเลย Mindbot', label: 'ใช่ฉันเลย Mindbot', trigger: 'cbt13' },
-                            { value:'ฉันคิดว่านั่นไม่ใช่ฉันแล้วล่ะ Mindbot', label: 'ฉันคิดว่านั่นไม่ใช่ฉันแล้วล่ะ Mindbot', trigger: 'HowWasIt' },
+                            { value:'ใช่ฉันเลย น้องการุ', label: 'ใช่ฉันเลย น้องการุ', trigger: 'cbt13' },
+                            { value:'ฉันคิดว่านั่นไม่ใช่ฉันแล้วล่ะ น้องการุ', label: 'ฉันคิดว่านั่นไม่ใช่ฉันแล้วล่ะ น้องการุ', trigger: 'HowWasIt' },
                           ],
                         },
                       {
@@ -213,10 +236,18 @@ export default class SelfHarm_Normal extends React.Component {
                                   ],
                                 },
                                 {
-                                    id: 'Behavior8',
-                                    message: 'ใน 1 สัปดาห์นี้ฉันต้องการให้คุณทำกิจกรรมเพื่อการผ่อนคลาย 3 อย่างซึ่งจะเป็นผลดีต่อการพัฒนาทางอารมณ์ของคุณเอง' ,
-                                    trigger: 'Behavior8_2',
-                                  },
+                                  id: 'Behavior8',
+                                  message: 'ใน 1 สัปดาห์นี้ฉันต้องการให้คุณทำกิจกรรมเพื่อการผ่อนคลาย 3 อย่างซึ่งจะเป็นผลดีต่อการพัฒนาทางอารมณ์ของคุณเอง' ,
+                                  trigger: 'Behavior8_sticker',
+                                },
+                                {
+                                  id: 'Behavior8_sticker',
+                                  component: (
+                                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/5.png')}/>
+                                  ),
+                                  asMessage:true,
+                                  trigger: 'Behavior8_2',
+                                },
                                   {
                                     id: 'Behavior8_2',
                                     component: (<View>
@@ -265,16 +296,9 @@ export default class SelfHarm_Normal extends React.Component {
                                   {
                                     id: 'Behavior16',
                                     message: 'แล้วฉันจะมาตรวจการบ้านในอีก 1 สัปดาห์นะ' ,
-                                    trigger: 'Welcome', //GO BACK TO START MENU
+                                    trigger: 'HowWasIt',
                                   },
-                                  {
-                                    id: 'Welcome', // START MENU
-                                    options: [
-                                      { value:'พูดคุยกับฉัน - Lets talk!', label: 'พูดคุยกับฉัน - Lets talk!', trigger:''},
-                                      { value:'ประเมินฉัน - Checkin me!', label: 'ประเมินฉัน - Checkin me!', trigger:''},
-                                      { value:'ต้องการความช่วยเหลือ - Need help!', label: 'ต้องการความช่วยเหลือ - Need help!', trigger:''},
-                                    ],
-                                  },
+
                     {
                       id: 'HowWasIt',
                       message: 'คุณรู้สึกยังไงที่ได้คุยกับฉันในวันนี้' ,
@@ -307,8 +331,8 @@ export default class SelfHarm_Normal extends React.Component {
                           {
                             id: 'seeuChoice',
                               options: [
-                                { value:'แล้วพบกัน Mindbot', label: 'แล้วพบกัน Mindbot', end: true },
-                                { value:'Bye Mindbot', label: 'Bye Mindbot', end: true },
+                                { value:'แล้วพบกัน น้องการุ', label: 'แล้วพบกัน น้องการุ', end: true },
+                                { value:'Bye น้องการุ', label: 'Bye น้องการุ', end: true },
                               ],
                             },
 

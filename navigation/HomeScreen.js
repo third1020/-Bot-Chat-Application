@@ -27,7 +27,9 @@ import { Colors, Fonts } from '../constants';
 
 import Add from './Add';
 import App from './App';
+import Q9 from './Q9';
 import Chats from './Chats';
+import FirstOpApp from './FirstOpApp';
 
 import SelfHarm_Danger from '../screens/SelfHarm_Danger';
 import SelfHarm_NoNeed from '../screens/SelfHarm_NoNeed';
@@ -69,6 +71,9 @@ class HomeScreen extends React.Component {
     App = () => {
       this.props.navigation.navigate('App');
     };
+    Q9 = () => {
+      this.props.navigation.navigate('Q9');
+    };
 
     _AddData = () => {
         this.props.navigation.navigate('Add');
@@ -95,6 +100,9 @@ class HomeScreen extends React.Component {
     };
     SelectImage = () => {
         this.props.navigation.navigate('SelectImage');
+    };
+    FirstOpApp = () => {
+        this.props.navigation.navigate('FirstOpApp');
     };
 
     Website = ()=>{ Linking.openURL('http://www.hospital.tu.ac.th/');
@@ -133,6 +141,7 @@ class HomeScreen extends React.Component {
   login = async () => {
     try {
       await AsyncStorage.setItem("@onBoardingPageLoad:key", "login");
+      this.props.navigation.navigate("App");
 
 
     } catch (error) {
@@ -143,7 +152,7 @@ class HomeScreen extends React.Component {
   GoApp = async () => {
     try {
       await AsyncStorage.setItem("@onBoardingPageLoad:key", "Another");
-      this.props.navigation.navigate("App");
+
 
 
     } catch (error) {
@@ -156,35 +165,9 @@ class HomeScreen extends React.Component {
 
       if (this.state.loadingPage == "Login") {
         return(
-
-          <View>
-
-          <TouchableHighlight onPress={this.GoApp}>
-          <Image style={styles.stretch}
-          source={require('../assets/garoo/6.png')}/>
-        </TouchableHighlight>
-
-        <View style={styles.row}>
-        <TouchableOpacity onPress={this.GoApp} style={styles.item}>
-          <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
-          <Text style={styles.itemText}>สวัสดีฉันชื่อ Garoo เป็นBotChat ประจำอยู่โรงบาลแห่งนี{"\n"}
-                          นายมีปัญหาอะไรสามารถกดปุ่มเพื่อคุยกับฉันได้นะ ฉันยินดีให้คำปรึกษา</Text>
-
-        </TouchableOpacity>
-
-          </View>
-
-        </View>
-
-              );
-
-
-      }
-      else {
-        return (
           <View style={styles.container}>
           <Image style={styles.stretch1}
-          source={require('../assets/garoo/4.png')}/>
+          source={require('../assets/garoo/0001.png')}/>
       <View style={styles.row}>
 
         <TouchableOpacity onPress={this.Website} style={styles.item}>
@@ -197,10 +180,7 @@ class HomeScreen extends React.Component {
           <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>Chats</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.SelectImage} style={styles.item}>
-          <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
-          <Text style={styles.itemText}>Calendar</Text>
-        </TouchableOpacity>
+
         <TouchableOpacity onPress={this.ShowActivity} style={styles.item}>
           <Image resizeMode="contain" source={calendarIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>Calendar</Text>
@@ -208,6 +188,31 @@ class HomeScreen extends React.Component {
 
       </View>
     </View>
+
+              );
+
+
+      }
+      else {
+        return (
+          <View>
+
+          <TouchableHighlight onPress={this.login}>
+          <Image style={styles.stretch}
+          source={require('../assets/garoo/0001.png')}/>
+        </TouchableHighlight>
+
+        <View style={styles.row}>
+        <TouchableOpacity onPress={this.login} style={styles.item}>
+          <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
+          <Text style={styles.itemText}>เริ่มคุยกับฉัน  คลิ๊กเลย!!{"\n"}</Text>
+
+        </TouchableOpacity>
+
+          </View>
+
+        </View>
+
           // <View>
           //           <Button title="Check_me" onPress={this.Check_me}/>
           //           <Button title="Let_talk" onPress={this.Let_talk}/>
@@ -229,6 +234,8 @@ const AppStack = createStackNavigator({   HomeScreen : HomeScreen,
                                           SelectImage: SelectImage,
                                           Chats:Chats,
                                           ShowActivity:ShowActivity,
+                                          Q9:Q9,
+                                          FirstOpApp:FirstOpApp,
 
                                           SelfHarm_Danger: SelfHarm_Danger ,
                                           SelfHarm_NoNeed: SelfHarm_NoNeed,

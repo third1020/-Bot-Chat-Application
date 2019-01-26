@@ -7,6 +7,7 @@ import {
     View,
     Text,
     Button,
+    Image,
 } from 'react-native';
 import {
     createSwitchNavigator,
@@ -15,20 +16,42 @@ import {
 } from 'react-navigation';
 
 import ChatBot from 'react-native-chatbot';
+import PlaySound from '../AbilityBot/PlaySound';
 
 export default class Check_me extends React.Component {
     static navigationOptions = {
         title: 'Check_me',
     };
 
+    HomeScreen = () => {
+      this.props.navigation.navigate('HomeScreen');
+  };
+
+  FirstOpApp = () => {
+    this.props.navigation.navigate('FirstOpApp');
+};
+
     render() {
         return (
           <ChatBot
-          handleEnd={this.handleEnd}
+          handleEnd={this.FirstOpApp}
           steps={[
             {
               id: '1',
               message: 'อาการชนิดไหนที่คุณต้องการเข้ารับการประเมินเบื้องต้น',
+              trigger: 'FeelGood_2',
+            },
+           {
+              id: 'FeelGood_2',
+              component: (
+                <Text>
+                <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/1.png')}/>
+                 {'\n'}
+                 {'\n'}
+                 {'\n'}
+                </Text>
+              ),
+              asMessage:true,
               trigger: '2',
             },
             {
@@ -51,7 +74,7 @@ export default class Check_me extends React.Component {
                   { value:'มีความสุข', label: 'มีความสุข', trigger: 'FeelGood' },
                   { value:'โล่งอก', label: 'โล่งอก', trigger: 'FeelGood' },
                   { value:'เหนื่อย', label: 'เหนื่อย', trigger: 'FeelTired' },
-                  { value:'นอนไม่หลับ', label: 'นอนไม่หลับ', trigger: 'HowToSleep' },
+                  { value:'นอนไม่หลับ', label: 'นอนไม่หลับ', trigger: 'HowToSleep_Sticker' },
                   { value:'ป่วย', label: 'ป่วย', trigger: 'FeelSick' },
                   { value:'เครียด', label: 'เครียด', trigger: 'feedbackreply' }, // need DASS from main app
                   { value:'ซึมเศร้า', label: 'ซึมเศร้า', trigger: 'feedbackreply' }, // need DASS from main app
@@ -63,6 +86,19 @@ export default class Check_me extends React.Component {
               {
                 id: 'FeelGood',
                 message: 'ฉันดีใจมาก ที่คุณรู้สึก{previousValue}' ,
+                trigger: 'FeelGood_2',
+              },
+              {
+                id: 'FeelGood_2',
+                component: (
+                  <Text>
+                  <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
+                   {'\n'}
+                   {'\n'}
+                   {'\n'}
+                  </Text>
+                ),
+                asMessage:true,
                 trigger: 'WhyYouFeel',
               },
               {
@@ -77,14 +113,14 @@ export default class Check_me extends React.Component {
               },
               {
                 id: 'WhyYouFeelTypeAnswer',
-                message: 'ฉันดีใจที่คุณรู้สึกดีนะ และหวังว่าคุณจะแชร์ความรู้สึกดีๆให้ Mindbot รับรู้อีกนะ 😊' ,
+                message: 'น้องการุดีใจที่คุณรู้สึกดีนะ และหวังว่าคุณจะแชร์ความรู้สึกดีๆให้กับน้องการุ รับรู้อีกนะ น้องการุพร้อมจะรับฟังเสมอ! 😊' ,
                 trigger: 'ThankMindbot',
               },
               {
                 id: 'ThankMindbot',
                 options: [
-                  { value:'ขอบคุณนะ Mindbot!', label: 'ขอบคุณนะ Mindbot!', trigger: 'HowWasIt' },
-                  { value:'Thank you Mindbot!', label: 'Thank you Mindbot!', trigger: 'HowWasIt' },
+                  { value:'ขอบคุณนะ น้องการุ!', label: 'ขอบคุณนะ น้องการุ!', trigger: 'HowWasIt' },
+                  { value:'Thank you Garoo!', label: 'Thank you Garoo!', trigger: 'HowWasIt' },
                 ],
               },
               {
@@ -95,8 +131,8 @@ export default class Check_me extends React.Component {
               {
                 id: 'ThankMindbot1',
                 options: [
-                  { value:'ขอบคุณนะ Mindbot!', label: 'ขอบคุณนะ Mindbot!', trigger: 'Tired' },
-                  { value:'Thank you Mindbot!', label: 'Thank you Mindbot!', trigger: 'Tired' },
+                  { value:'ขอบคุณนะ น้องการุ!', label: 'ขอบคุณนะ น้องการุ!', trigger: 'Tired' },
+                  { value:'Thank you Garoo!', label: 'Thank you Garoo!', trigger: 'Tired' },
                 ],
               },
               {
@@ -113,46 +149,49 @@ export default class Check_me extends React.Component {
               },
                 {
                   id: 'RelaxMuscle',
-                  message: 'แสดงข้อมูลการผ่อนคลายกล้ามเนื้อจาก App Mindmood' ,
+                  component: (
+                    <View><Image
+                      source={require('../assets/image/relaxmuscle.jpg')}
+                    /></View>
+                  ),
                   trigger: 'RelaxMuscleChoice',
                 },
                 {
                   id: 'RelaxMuscleChoice',
                   options: [
-                    { value:'เข้าใจแล้ว Mindbot', label: 'เข้าใจแล้ว Mindbot', trigger: 'HowWasIt' },
+                    { value:'เข้าใจแล้ว น้องการุ', label: 'เข้าใจแล้ว น้องการุ', trigger: 'HowWasIt' },
                   ],
                 },
                 {
                   id: 'TherapyMusic',
                   component: (
-                    <Button
-                    // onPress={onPressLearnMore}
-                    title="Play"
-                    color="#841584"
-                accessibilityLabel="Learn more about this purple button"
-                    />
+                    <PlaySound/>
                   ),
                   trigger: 'TherapyMusicChoice',
                 },
                 {
                   id: 'TherapyMusicChoice',
                   options: [
-                    { value:'เรียบร้อยแล้ว Mindbot', label: 'เรียบร้อยแล้ว Mindbot', trigger: 'HowWasIt' },
+                    { value:'เรียบร้อยแล้ว น้องการุ', label: 'เรียบร้อยแล้ว น้องการุ', trigger: 'HowWasIt' },
                   ],
+                },
+
+                {
+                  id: 'HowToSleep_Sticker',
+                  component: (
+                    <Text>
+                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                     {'\n'}
+                     {'\n'}
+                     {'\n'}
+                    </Text>
+                  ),
+                  asMessage:true,
+                  trigger: 'HowToSleep',
                 },
                 {
                   id: 'HowToSleep',
-                  component: (
-                    <Text>
-                    อาการนอนไม่หลับเกิดได้จากหลายสาเหตุ เช่น ความเครียดในชีวิตประจำวันการทำงานเป็นกะที่ต้องเปลี่ยนแปลงช่วงเวลาการนอนอยู่บ่อยๆ การเปลี่ยนแปลงเวลาการนอนอยู่บ่อยๆการเปลี่ยนแปลงเวลานอนเนื่องจากการเดินทางข้ามประเทศหรือทวีปที่เขตเวลาเหลื่อมกันอย่างมาก ปัญหาโรคทางกาย เช่น โรคหัวใจ โรคปอด โรคภูมิแพ้หอบหืด โรคอ้วนที่มีการอุดกั้นทางเดินหายใจเมื่อนอนหลับ โรคไทรอยด์ทำงานเกินปัญหาด้านสุขภาพจิตและโรคจิตเวช และการเข้าสู่วัยสูงอายุเป็นต้น
-                    เทคนิคการนอนให้หลับสนิท{'\n'}
-                    -	หลักเลี่ยงอาหาร เครื่องดื่มที่มีฤทธิ์เป็นสารกระตุ้นเช่น กาแฟ ชา{'\n'}
-                    -	จัดบรรยากาศภายในห้องนอนให้เอื้อต่อการนอนหลับได้ง่าย{'\n'}
-                    -	เข้านอนและตื่นนอนให้เป็นเวลาประจำเพื่อให้นาฬิกาชีวภาพในร่างกายเกิดความคุ้นเคย{'\n'}
-                    -	ออกกำลังกายสม่ำเสมอครั้งละ 30 นาที ประมาณ 3-5 วันต่อสัปดาห์{'\n'}
-                    -	หากิจกรรมเบาๆผ่อนคลายทำก่อนเข้านอน เช่น อาบน้ำอุ่น อ่านหนังสือ หรือร้องเพลง
-                    </Text>
-                  ),
+                  component: (<Image style={{ width: 340,height: 300,  alignSelf: 'auto',}} source={{uri:'https://scontent.fbkk5-3.fna.fbcdn.net/v/t1.0-9/50058549_1983959065024959_412088230716899328_n.jpg?_nc_cat=105&_nc_ht=scontent.fbkk5-3.fna&oh=5d94fb7978181d3704643d148c187453&oe=5CBD10FC'} } />  ),
                   trigger: 'HowToSleepChoice',
                 },
                 {
@@ -165,14 +204,27 @@ export default class Check_me extends React.Component {
                 {
                   id: 'GoodNight',
                   message: 'โอเคจ้า ฝันดีนะ แล้วพบกันใหม่วันพรุ่งนี้' ,
-                  trigger: 'GoodNightChoice',
+                  trigger: 'GoodNight_2',
 
+                },
+                {
+                  id: 'GoodNight_2',
+                  component: (
+                    <Text>
+                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/6.png')}/>
+                     {'\n'}
+                     {'\n'}
+                     {'\n'}
+                    </Text>
+                  ),
+                  asMessage:true,
+                  trigger: 'GoodNightChoice',
                 },
                 {
                   id: 'GoodNightChoice',
                   options: [
-                    { value:'Good Night Mindbot !', label: 'Good Night Mindbot !', end: true },
-                    { value:'ฝันดีนะ Mindbot', label: 'ฝันดีนะ Mindbot', end: true },
+                    { value:'Good Night Garoo!', label: 'Good Night Garoo!', end: true },
+                    { value:'ฝันดีนะ น้องการุ', label: 'ฝันดีนะ น้องการุ', end: true },
                   ],
                 },
                 {
@@ -188,7 +240,7 @@ export default class Check_me extends React.Component {
                 {
                   id: 'FeelSickChoice',
                   options: [
-                    { value:'ขอบคุณนะ Mindbot', label: 'ขอบคุณนะ Mindbot', trigger:'NeedHelp1'},
+                    { value:'ขอบคุณนะ น้องการุ', label: 'ขอบคุณนะ น้องการุ', trigger:'NeedHelp1'},
                     { value:'ขอบคุณค่ะ', label: 'ขอบคุณค่ะ', trigger:'NeedHelp1'},
                   ],
                 },
@@ -205,14 +257,35 @@ export default class Check_me extends React.Component {
                   ],
                 },
                 {
+                  id: 'WantToFeelGood_Sticker',
+                  component: (
+                    <Text>
+                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                     {'\n'}
+                     {'\n'}
+                     {'\n'}
+                    </Text>
+                  ),
+                  asMessage:true,
+                  trigger: 'FeelSick',
+                },
+                {
                   id: 'WantToFeelGood',
-                  message: 'โชว์ข้อมูล เทคนิคที่ทำให้รู้สึกดีขึ้นยามป่วย' ,
+                  component: (
+                    <Text>
+                    เทคนิคช่วยให้หายป่วย Inspired by Garoo{'\n'}
+                    -ทานของอุ่นๆ{'\n'}
+                    -นอนพัก{'\n'}
+                    -รับประทานอาหารที่มีประโยชน์{'\n'}
+                    -เคลื่อนไหวร่างกาย
+                    </Text>
+                  ),
                   trigger: 'WantToFeelGoodChoice',
                 },
                 {
                   id: 'WantToFeelGoodChoice',
                   options: [
-                    { value:'เข้าใจแล้ว Mindbot', label: 'เข้าใจแล้ว Mindbot', trigger:'WantToFeelGoodSum'},
+                    { value:'เข้าใจแล้ว น้องการุ', label: 'เข้าใจแล้ว น้องการุ', trigger:'WantToFeelGoodSum'},
                   ],
                 },
                 {
@@ -243,6 +316,19 @@ export default class Check_me extends React.Component {
                   {
                     id: 'FeelAngry1',
                     message: 'เลือกได้เลยจ้า' ,
+                    trigger: 'FeelAngry1_Sticker',
+                  },
+                  {
+                    id: 'FeelAngry1_Sticker',
+                    component: (
+                      <Text>
+                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                       {'\n'}
+                       {'\n'}
+                       {'\n'}
+                      </Text>
+                    ),
+                    asMessage:true,
                     trigger: 'FeelAngryChoice',
                   },
                   {
@@ -253,13 +339,35 @@ export default class Check_me extends React.Component {
                     ],
                   },
                   {
+                  id: 'WantToFeelGood_Sticker',
+                  component: (
+                    <Text>
+                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                     {'\n'}
+                     {'\n'}
+                     {'\n'}
+                    </Text>
+                  ),
+                  asMessage:true,
+                  trigger: 'FeelSick',
+                },
+                  {
                     id: 'Meditation',
                     message: 'ขั้นตอนแรก ฉันอยากให้คุณนั่งบนพื้น หรือนั่งบนเก้าอี้ก็ได้' ,
                     trigger: 'MeditationChoice',
                   },
                   {
                     id: 'Meditation1',
-                    message: 'หลังจากนั้นเอามือขวาทับมือซ้ายไว้ตรงบริเวณตัก แบบนี้จ้า (ส่งรูปนั่งสมาธิ)' ,
+                    message: 'หลังจากนั้นเอามือขวาทับมือซ้ายไว้ตรงบริเวณตัก แบบนี้จ้า..' ,
+                    trigger: 'MeditationImage',
+                  },
+                  {
+                    id: 'MeditationImage',
+                    component: (
+                      <View><Image
+                      source={require('../assets/image/Meditation_posture.jpg')}
+                    /></View>
+                    ),
                     trigger: 'MeditationChoice1',
                   },
                   {
@@ -270,6 +378,19 @@ export default class Check_me extends React.Component {
                   {
                     id: 'Meditation3',
                     message: 'ฉันหวังว่าของวิเศษของฉันจะช่วยให้จิตใจของคุณสงบมากขึ้นนะ' ,
+                    trigger: 'Meditation3_5',
+                  },
+                  {
+                    id: 'Meditation3_5',
+                    component: (
+                      <Text>
+                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
+                       {'\n'}
+                       {'\n'}
+                       {'\n'}
+                      </Text>
+                    ),
+                    asMessage:true,
                     trigger: 'Meditation4',
                   },
                   {
@@ -285,8 +406,8 @@ export default class Check_me extends React.Component {
                   {
                     id: 'Meditation5Choice',
                     options: [
-                      { value:'ขอบคุณครับ Mindbot', label: 'ขอบคุณครับ Mindbot', trigger:'HowWasIt'},
-                      { value:'ขอบคุณค่ะ Mindbot', label: 'ขอบคุณค่ะ Mindbot', trigger:'HowWasIt'},
+                      { value:'ขอบคุณครับ น้องการุ', label: 'ขอบคุณครับ น้องการุ', trigger:'HowWasIt'},
+                      { value:'ขอบคุณค่ะ น้องการุ', label: 'ขอบคุณค่ะ น้องการุ', trigger:'HowWasIt'},
                     ],
                   },
                   {
@@ -304,7 +425,7 @@ export default class Check_me extends React.Component {
                   {
                     id: 'MeditationChoice2',
                     options: [
-                      { value:'เริ่มเลย Mindbot', label: 'เริ่มเลย Mindbot', trigger:'Meditation3'},
+                      { value:'เริ่มเลย น้องการุ', label: 'เริ่มเลย น้องการุ', trigger:'Meditation3'},
                     ],
                   },
 
@@ -317,7 +438,7 @@ export default class Check_me extends React.Component {
                   {
                     id: 'BreathPracChoice',
                     options: [
-                      { value:'เรียบร้อยแล้ว Mindbot', label: 'เรียบร้อยแล้ว Mindbot', trigger:'cbt2'},
+                      { value:'เรียบร้อยแล้ว น้องการุ', label: 'เรียบร้อยแล้ว น้องการุ', trigger:'cbt2'},
                     ],
                   },
                   {
@@ -328,8 +449,8 @@ export default class Check_me extends React.Component {
                   {
                     id: 'FeelLonelyChoice',
                     options: [
-                      { value:'ขอบคุณครับ Mindbot', label: 'ขอบคุณครับ Mindbot', trigger:'FeelLonely2'},
-                      { value:'ขอบคุณค่ะ Mindbot', label: 'ขอบคุณค่ะ Mindbot', trigger:'FeelLonely2'},
+                      { value:'ขอบคุณครับ น้องการุ', label: 'ขอบคุณครับ น้องการุ', trigger:'FeelLonely2'},
+                      { value:'ขอบคุณค่ะ น้องการุ', label: 'ขอบคุณค่ะ น้องการุ', trigger:'FeelLonely2'},
                     ],
                   },
                   {
@@ -346,6 +467,19 @@ export default class Check_me extends React.Component {
                   {
                     id: 'FeelLonely3',
                     message: 'ก็คือ ให้คุณค่ากับความสัมพันธ์ต่อเพื่อนและคนที่คุณรัก และนั่นแหละคือสิ่งที่ฉันสัมผัสได้จากตัวคุณ' ,
+                    trigger: 'FeelLonely3_5',
+                  },
+                  {
+                    id: 'FeelLonely3_5',
+                    component: (
+                      <Text>
+                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
+                       {'\n'}
+                       {'\n'}
+                       {'\n'}
+                      </Text>
+                    ),
+                    asMessage:true,
                     trigger: 'FeelLonelyChoice3',
                   },
                   {
@@ -370,6 +504,19 @@ export default class Check_me extends React.Component {
                   {
                     id: 'FeelLonely5',
                     message: 'คุณสามารถเล่าให้ฉันฟังได้เลยจ้า ✏️' ,
+                    trigger: 'FeelLonely_Sticker',
+                  },
+                  {
+                    id: 'FeelLonely_Sticker',
+                    component: (
+                      <Text>
+                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                       {'\n'}
+                       {'\n'}
+                       {'\n'}
+                      </Text>
+                    ),
+                    asMessage:true,
                     trigger: 'FeelLonelyType',
                   },
                   {
@@ -392,7 +539,7 @@ export default class Check_me extends React.Component {
                   options: [
                     { value:'ต้องการ', label: 'ต้องการ', trigger: 'selfHarmStart' },
                     { value:'ไม่ต้องการ', label: 'ไม่ต้องการ', trigger: 'startCBT' },
-                    { value:'ช่วยฉันด้วย', label: 'ช่วยฉันด้วย', trigger: 'selfHarmStart' },
+
                   ],
                 },
                 {
@@ -520,11 +667,37 @@ export default class Check_me extends React.Component {
                 {
                   id: 'selfHarmStart',
                   message: 'โอเคจ้า งั้นเรามาเริ่มกันเลย ✌️',
+                  trigger: 'selfHarmStart_2',
+                },
+                {
+                  id: 'selfHarmStart_2',
+                  component: (
+                    <Text>
+                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/1.png')}/>
+                     {'\n'}
+                     {'\n'}
+                     {'\n'}
+                    </Text>
+                  ),
+                  asMessage:true,
                   trigger: 'selfHarmQuestion1',
                 },
                 {
-                  id: 'startCBT',
+                  id: 'startCBT_2',
                   message: 'สวัสดี หลังจากคราวที่แล้วที่เราคุยกัน วันนี้ฉันจึงมีแบบทดสอบให้คุณทำ ซึ่งใช้เวลาเพียง 2 นาทีเท่านั้น',
+                  trigger: 'startCBT',
+                },
+                {
+                  id: 'startCBT',
+                  component: (
+                    <Text>
+                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/6.png')}/>
+                     {'\n'}
+                     {'\n'}
+                     {'\n'}
+                    </Text>
+                  ),
+                  asMessage:true,
                   trigger: 'letstartCBT',
                 },
                 {
@@ -541,8 +714,8 @@ export default class Check_me extends React.Component {
                   id: 'questionCBTchoice',
                     options: [
                       { value:'ฉันจะพยายามทำให้ดีที่สุด', label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'WrongAnswer' },
-                      { value:'ฉันทำไม่ได้แน่ๆ', label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'WrongAnswer' },
-                      { value:'ฉันทำได้ในบางครั้ง', label: 'ฉันทำได้ในบางครั้ง', trigger: 'RightAnswer' },
+                      { value:'ฉันทำไม่ได้แน่ๆ', label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'RightAnswer' },
+                      { value:'ฉันทำได้ในบางครั้ง', label: 'ฉันทำได้ในบางครั้ง', trigger: 'WrongAnswer' },
                       { value:'All-or-Nothing คืออะไร?', label: 'All-or-Nothing คืออะไร?', trigger: 'WhatisAllorNothing' },
 
                     ],
@@ -555,12 +728,30 @@ export default class Check_me extends React.Component {
                   {
                     id: 'RightAnswer',
                     message: 'เย้ๆ เยี่ยมไปเลยจ้า คราวนี้ลองข้อต่อไปนะ 🙂',
+                    trigger: 'RightAnswer_sticker',
+                  },
+                  {
+                    id: 'RightAnswer_sticker',
+                    component: (
+                      <Text>
+                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
+                       {'\n'}
+                       {'\n'}
+                       {'\n'}
+                      </Text>
+                    ),
+                    asMessage:true,
                     trigger: 'questionCBT2',
                   },
+
                   {
                     id: 'WrongAnswer',
                     message: 'ลองคิดใหม่นะจ๊ะ ✌️' ,
                     trigger: 'questionCBTchoice',
+                  }, {
+                    id: 'WrongAnswer2',
+                    message: 'ลองคิดใหม่นะจ๊ะ ✌️' ,
+                    trigger: 'questionCBTchoice2',
                   },
                   {
                     id: 'questionCBT2',
@@ -570,8 +761,8 @@ export default class Check_me extends React.Component {
                   {
                     id: 'questionCBTchoice2',
                       options: [
-                        { value:'ไม่มีใครชอบฉันอีกต่อไป', label: 'ไม่มีใครชอบฉันอีกต่อไป', trigger: 'WrongAnswer' },
-                        { value:'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', label: 'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', trigger: 'WrongAnswer' },
+                        { value:'ไม่มีใครชอบฉันอีกต่อไป', label: 'ไม่มีใครชอบฉันอีกต่อไป', trigger: 'WrongAnswer2' },
+                        { value:'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', label: 'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', trigger: 'WrongAnswer2' },
                         { value:'ฉันคิดว่าแม่ฉันน่าจะงานยุ่งอยู่ เลยอาจจะมาสาย', label: 'ฉันคิดว่าแม่ฉันน่าจะงานยุ่งอยู่ เลยอาจจะมาสาย', trigger: 'RightAnswer2' },
                         { value:'Labeling คืออะไร', label: 'Labeling คืออะไร', trigger: 'WhatisLabeling' },
                       ],
@@ -582,11 +773,16 @@ export default class Check_me extends React.Component {
                       trigger: 'questionCBTchoice3',
                     },
                     {
+                      id: 'WrongAnswer3',
+                      message: 'ลองคิดใหม่นะจ๊ะ ✌️' ,
+                      trigger: 'questionCBTchoice',
+                    },
+                    {
                       id: 'questionCBTchoice3',
                         options: [
-                          { value:'ฉันต้องสอบคิดหมอให้ได้', label: 'ฉันต้องสอบคิดหมอให้ได้', trigger: 'WrongAnswer' },
-                          { value:'ฉันยอมรับในการตัดสินใจของเพื่อน', label: 'ฉันยอมรับในการตัดสินใจของเพื่อน', trigger: 'WrongAnswer' },
-                          { value:'ชีวิตของฉันมีค่า', label: 'ชีวิตของฉันมีค่า', trigger: 'RightAnswer2' },
+                          { value:'ฉันต้องสอบคิดหมอให้ได้', label: 'ฉันต้องสอบคิดหมอให้ได้', trigger: 'RightAnswerFinal' },
+                          { value:'ฉันยอมรับในการตัดสินใจของเพื่อน', label: 'ฉันยอมรับในการตัดสินใจของเพื่อน', trigger: 'WrongAnswer3' },
+                          { value:'ชีวิตของฉันมีค่า', label: 'ชีวิตของฉันมีค่า', trigger: 'WrongAnswer3' },
                           { value:'"Should" and "Must" statement คืออะไร?', label: '"Should" and "Must" statement คืออะไร?', trigger: 'WhatisShouldMust' },
                         ],
                       },
@@ -601,14 +797,47 @@ export default class Check_me extends React.Component {
                       trigger: 'questionCBT',
                     },
                     {
-                      id: 'RightAnswer',
-                      message: 'เย้ๆ เยี่ยมไปเลยจ้า คราวนี้ลองข้อต่อไปนะ 🙂',
-                      trigger: 'questionCBT2',
+                      id: 'RightAnswerFinal',
+                      message: 'สุดยอดที่สุดเลย 🎉 ฉันทึ่งในความสามารถของคุณนะ แล้วก็ใจของคุณด้วย',
+                      trigger: 'RightAnswerFinal_sticker',
+                    },
+                    {
+                      id: 'RightAnswerFinal_sticker',
+                      component: (
+                        <Text>
+                        <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
+                         {'\n'}
+                         {'\n'}
+                         {'\n'}
+                        </Text>
+                      ),
+                      asMessage:true,
+                      trigger: 'ThankGaroo',
+                    },
+                    {
+                      id: 'ThankGaroo',
+                      options: [
+                        { value:'ขอบคุณครับ น้องการุ', label: 'ขอบคุณครับ น้องการุ', trigger:'HowWasIt'},
+                        { value:'ขอบคุณค่ะ น้องการุ', label: 'ขอบคุณค่ะ น้องการุ', trigger:'HowWasIt'},
+                      ],
                     },
                     {
                       id: 'RightAnswer2',
                       message: 'ว้าว! ยอดไปเลย ต่อไปข้อสุดท้ายนะ 🙂',
-                      trigger: 'questionCBT2',
+                      trigger: 'RightAnswer2_sticker',
+                    },
+                    {
+                      id: 'RightAnswer2_sticker',
+                      component: (
+                        <Text>
+                        <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
+                         {'\n'}
+                         {'\n'}
+                         {'\n'}
+                        </Text>
+                      ),
+                      asMessage:true,
+                      trigger: 'questionCBT3',
                     },
                     {
                       id: 'WrongAnswer',
@@ -625,6 +854,19 @@ export default class Check_me extends React.Component {
                     {
                       id: 'cbt2',
                       message: 'ฉันอาจจะใช้ของวิเศษชิ้นนี้ช่วยคุณได้ 🤔' ,
+                      trigger: 'cbt2_Sticker',
+                    },
+                    {
+                      id: 'cbt2_Sticker',
+                      component: (
+                        <Text>
+                        <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
+                         {'\n'}
+                         {'\n'}
+                         {'\n'}
+                        </Text>
+                      ),
+                      asMessage:true,
                       trigger: 'cbt3',
                     },
                     {
@@ -676,13 +918,26 @@ export default class Check_me extends React.Component {
                           {
                             id: 'cbt10',
                             message: 'นี่คือสิ่งที่ทุกคนสามารถขัดเกลาและฝึกฝนตนเองได้แล้วฉันจะคอยอยู่เคียงข้างและช่วยเหลือคุณทุกเมื่อเลยนะ ❤️' ,
+                            trigger: 'cbt10_5',
+                          },
+                          {
+                            id: 'cbt10_5',
+                            component: (
+                              <Text>
+                              <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
+                               {'\n'}
+                               {'\n'}
+                               {'\n'}
+                              </Text>
+                            ),
+                            asMessage:true,
                             trigger: 'cbtlast',
                           },
                           {
                             id: 'cbtlast',
                               options: [
-                                { value:'ขอบคุณนะ Mindbot', label: 'ขอบคุณนะ Mindbot', trigger: 'HowWasIt' },
-                                { value:'ฉันจะพยายาม Mindbot', label: 'ฉันจะพยายาม Mindbot', trigger: 'HowWasIt' },
+                                { value:'ขอบคุณนะ น้องการุ', label: 'ขอบคุณนะ น้องการุ', trigger: 'HowWasIt' },
+                                { value:'ฉันจะพยายาม น้องการุ', label: 'ฉันจะพยายาม น้องการุ', trigger: 'HowWasIt' },
                               ],
                             },
                           {
@@ -717,8 +972,8 @@ export default class Check_me extends React.Component {
                                 {
                                   id: 'seeuChoice',
                                     options: [
-                                      { value:'แล้วพบกัน Mindbot', label: 'แล้วพบกัน Mindbot', end: true },
-                                      { value:'Bye Mindbot', label: 'Bye Mindbot', end: true },
+                                      { value:'แล้วพบกัน น้องการุ', label: 'แล้วพบกัน น้องการุ', end: true },
+                                      { value:'Bye น้องการุ', label: 'Bye น้องการุ', end: true },
                                     ],
                                   },
 

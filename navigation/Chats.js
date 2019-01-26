@@ -93,7 +93,7 @@ export default class Chats extends React.Component {
         return (
           <View style={styles.container}>
           <Image style={styles.stretch1}
-          source={require('../assets/garoo/4.png')}/>
+          source={require('../assets/garoo/0001.png')}/>
       <View style={styles.row}>
 
         <TouchableOpacity onPress={this.Let_talk} style={styles.item}>

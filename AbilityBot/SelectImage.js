@@ -85,6 +85,8 @@ export default class SelectImage extends React.Component {
         {
           super(props);
           this.state = { count: 0,
+                         date : '',
+                         dateend : '',
                          activity:[] }
         }
 
@@ -93,6 +95,9 @@ export default class SelectImage extends React.Component {
 
            if(this.state.count == 0){
            await AsyncStorage.setItem('Activity1', value);
+           await AsyncStorage.setItem('StartTime1', this.state.date);
+           await AsyncStorage.setItem('EndTime1', this.state.dateend);
+
            if(!this.state.activity.includes(value)){
            this.setState(prevState => ({
             activity: [...prevState.activity, value],
@@ -101,6 +106,8 @@ export default class SelectImage extends React.Component {
 
           if(this.state.count == 1){
           await AsyncStorage.setItem('Activity2', value);
+          await AsyncStorage.setItem('StartTime2', this.state.date);
+          await AsyncStorage.setItem('EndTime2', this.state.dateend);
           if(!this.state.activity.includes(value)){
           this.setState(prevState => ({
            activity: [...prevState.activity, value],
@@ -109,6 +116,8 @@ export default class SelectImage extends React.Component {
 
          if(this.state.count == 2){
          await AsyncStorage.setItem('Activity3', value);
+         await AsyncStorage.setItem('StartTime3', this.state.date);
+         await AsyncStorage.setItem('EndTime3', this.state.dateend);
          if(!this.state.activity.includes(value)){
          this.setState(prevState => ({
           activity: [...prevState.activity, value],
@@ -119,6 +128,23 @@ export default class SelectImage extends React.Component {
           console.log("Error saving data" + error);
         }
       }
+      componentWillMount() {
+
+        var that = this;
+      var date = new Date().getDate(); //Current Date
+      var month = new Date().getMonth() + 1; //Current Month
+      var year = new Date().getFullYear(); //Current Year
+      var hours = new Date().getHours(); //Current Hours
+      var min = new Date().getMinutes(); //Current Minutes
+      var sec = new Date().getSeconds(); //Current Seconds
+
+      that.setState({
+        date:  date + '/' + month + '/' + year,
+        dateend: date+7 + '/' + month + '/' + year,
+          // date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec,
+      });
+
+    }
 
 
 
