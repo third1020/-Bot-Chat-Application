@@ -132,43 +132,6 @@ export default class ShowActivity extends React.Component {
 
   render() {
     const { goBack } = this.props.navigation;
-    // if(this.state.count > 3){
-    //   Alert.alert("คุณเลือกกิจกรรมครบ 3 อย่างแล้ว");
-    // }
-    // if(this.state.count == 0){
-    //   Alert.alert("คุณอยากทำอะไรเป็นอย่างแรก" );
-    // }
-    // if(this.state.count == 1){
-    //   Alert.alert("กิจกรรมที่คุณเลือกอย่างที่ 1 คือ "+this.state.activity[0]);
-    //
-    //   async () => {
-    //       try {
-    //     await AsyncStorage.setItem('Activity1', this.state.activity[0]);
-    //   }   catch (error) {
-    //     // Error saving data
-    //   }
-    // }
-    // }
-    // if(this.state.count == 2){
-    //   Alert.alert("กิจกรรมที่คุณเลือกอย่างที่ 2 คือ"+this.state.activity[1]);
-    //   async () => {
-    //       try {
-    //     await AsyncStorage.setItem('Activity2', this.state.activity[1]);
-    //   }   catch (error) {
-    //     // Error saving data
-    //   }
-    // }
-    // }
-    // if(this.state.count == 3){
-    //   Alert.alert("โอเคคุณเลือกกิจกรรม 3 คือ"+this.state.activity[2] +"หวังว่าคุณคงชอบทำกิจกรรมเหล่านี้นะ");
-    //   async () => {
-    //       try {
-    //     await AsyncStorage.setItem('Activity3', this.state.activity[2]);
-    //   }   catch (error) {
-    //     // Error saving data
-    //   }
-    // }
-    // }
 return (
 
   <Swiper
@@ -178,7 +141,7 @@ return (
     >
 
 
-    <View style={styles.slide}  >
+    <View style={styles.slide}>
     <Text style={[styles.container]}></Text>
     <Button title="click" onPress={this.Activity1} />
     <Button title="click" onPress={this.Activity2} />
