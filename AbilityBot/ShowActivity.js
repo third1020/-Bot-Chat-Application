@@ -157,29 +157,6 @@ export default class ShowActivity extends React.Component {
 
   render() {
     const { goBack } = this.props.navigation;
-<<<<<<< HEAD
-return (
-
-  <Swiper
-      style={styles.wrapper}
-      renderPagination={renderPagination}
-      loop={false}
-    >
-
-
-    <View style={styles.slide}>
-    <Text style={[styles.container]}></Text>
-    <Button title="click" onPress={this.Activity1} />
-    <Button title="click" onPress={this.Activity2} />
-    <Button title="click" onPress={this.Activity3} />
-
-    </View>
-
-
-    </Swiper>
-
-    );
-=======
     return (
             <View>
 
@@ -225,7 +202,6 @@ return (
 
             </View>
           );
->>>>>>> edf9e0ca0e19132ca84c1999d1380142ffc227ae
 
     }
 
