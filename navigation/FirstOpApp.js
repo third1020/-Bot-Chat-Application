@@ -52,9 +52,6 @@ const profileIcon = require('../assets/images/pages/profile.png');
 const { height,width } = Dimensions.get('window')
 
 
-
-
-
 export default class FirstOpApp extends React.Component {
   static navigationOptions = {
       title: 'FirstOpApp',

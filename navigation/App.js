@@ -178,6 +178,7 @@ class App extends React.Component {
 
   render() {
 
+
     return (
 
        <ChatBot
@@ -192,14 +193,12 @@ class App extends React.Component {
                 },
                 {
                 id: 'askName',
-
                   user: true,
                   trigger: 'userName',
                 },
                 {
                   id: 'userName',
                   message: 'ยินดีที่ได้รู้จัก {previousValue}!',
-
                   trigger: 'introduce' ,
                 },
 
@@ -265,16 +264,19 @@ class App extends React.Component {
                 {
                   id: 'userAnswer',
                   user: true,
-                  trigger: 'SOS',
+                  validator: (word) => {
+        if (word.includes("ช่วยด้วย")|| word.includes("SOS") || word.includes("Help") || word.includes("ทั้งหมดเป็นความผิดของฉัน")
+        || word.includes("ผิดเอง")|| word.includes("ไม่อยากอยู่อีกต่อไป") || word.includes("อยากตาย")
+        || word.includes("จะฆ่าตัวตาย") || word.includes("ไม่ไหวแล้ว") || word.includes("อยากเจ็บปวด")
+        || word.includes("อยากทำร้ายตัวเอง")  == true) {
+          this.props.navigation.navigate('Let_talk');
+        }
+        return true;
+      },
+                  trigger: 'mood',
 
                 },
-                {
-                  id: 'SOS',
-                  component: (<Checkword/>),
-                  asMessage: true,
-                  trigger:'selfHarmChoice',
 
-                },
                 {
                   id: 'mood',
                   message: 'แล้วอารมณ์ของคุณตอนนี้เป็นอย่างไร',
@@ -318,34 +320,20 @@ class App extends React.Component {
                 {
                   id: 'shareMood',
                   user: true,
-                  trigger: 'selfHarm',
+                  validator: (word) => {
+        if (word.includes("ช่วยด้วย")|| word.includes("SOS") || word.includes("Help") || word.includes("ทั้งหมดเป็นความผิดของฉัน")
+        || word.includes("ผิดเอง")|| word.includes("ไม่อยากอยู่อีกต่อไป") || word.includes("อยากตาย")
+        || word.includes("จะฆ่าตัวตาย") || word.includes("ไม่ไหวแล้ว") || word.includes("อยากเจ็บปวด")
+        || word.includes("อยากทำร้ายตัวเอง")  == true) {
+          this.props.navigation.navigate('Let_talk');
+        }
+        return true;
+      },
+                  trigger: 'HowYouFeel',
                 },
 
-                {
-                  id: 'selfHarm',
-                  component: (<CheckwordMood/>),
-                  asMessage: true,
-                  trigger:'selfHarmChoiceMood',
 
-                },
-                {
-                id: 'selfHarmChoice',
-                  options: [
 
-                    { value:'ต้องการ', label: 'ต้องการ', trigger: 'selfHarmStart' },
-                    { value:'ไม่ต้องการ', label: 'ไม่ต้องการ', trigger: 'mood' },
-
-                  ],
-                },
-                {
-                id: 'selfHarmChoiceMood',
-                  options: [
-
-                    {  value:'ต้องการ', label: 'ต้องการ', trigger: 'selfHarmStart' },
-                    {  value:'ไม่ต้องการ', label: 'ไม่ต้องการ', trigger: 'HowYouFeel' },
-
-                  ],
-                },
                 {
                   id: 'selfHarmQuestion1',
                   message: 'ในเดือนที่ผ่านมาจนถึงวันนี้ คุณได้คิดว่าอยากตายหรือคิดว่าตายไปจะดีกว่าบ้างหรือไม่?',
@@ -578,8 +566,14 @@ class App extends React.Component {
                     {
                       id: 'RightAnswerFinal_sticker',
                       component: (
-                        <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                      ),
+                <Text>
+                <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
+                 {'\n'}
+                 {'\n'}
+                 {'\n'}
+                </Text>
+
+              ),
                       asMessage:true,
                       trigger: 'ThankGaroo',
                     },
@@ -739,7 +733,7 @@ class App extends React.Component {
                                     component: (<View>
                                       <Button title="กดปุ่มนีเพื่อรับความช่วยเหลือแบบเร่งด่วน" onPress={this.SelfHarm_Danger} />
                                     </View>) ,
-                                    end: true,
+
                                   },
 
                                   {
@@ -749,14 +743,14 @@ class App extends React.Component {
 
                                     </View>) ,
 
-                                    end: true,
+
                                   },
 
                                   {
                                     id: 'NoNeed',
                                     component: (<Button title="กดปุ่มนี้เพื่อกลับสู่หน้าหลัก" onPress={this.FirstOpApp} />) ,
 
-                                    end: true,
+
                                   },
 
                                   // Deep-Mind analytic
@@ -794,19 +788,16 @@ class App extends React.Component {
                                   {
                                     id: 'whyYouFeelType',
                                     user: true,
-                                    trigger: 'CheckFeel',
-                                  },
-                                  {
-                                    id: 'CheckFeel',
-                                    component: (<CheckFeel/>),
-                                    trigger: 'HowYouFeelChoice1',
-                                  },
-                                  {
-                                    id: 'HowYouFeelChoice1',
-                                    options: [
-                                      {value:'ต้องการ',  label: 'ต้องการ', trigger: 'selfHarmStart' },
-                                      {value:'ไม่ต้องการ',  label: 'ไม่ต้องการ', trigger: 'WhyYouFeelTypeAnswer' },
-                                    ],
+                                    validator: (word) => {
+                          if (word.includes("ช่วยด้วย")|| word.includes("SOS") || word.includes("Help") || word.includes("ทั้งหมดเป็นความผิดของฉัน")
+                          || word.includes("ผิดเอง")|| word.includes("ไม่อยากอยู่อีกต่อไป") || word.includes("อยากตาย")
+                          || word.includes("จะฆ่าตัวตาย") || word.includes("ไม่ไหวแล้ว") || word.includes("อยากเจ็บปวด")
+                          || word.includes("อยากทำร้ายตัวเอง")  == true) {
+                            this.props.navigation.navigate('Let_talk');
+                          }
+                          return true;
+                        },
+                                    trigger: 'WhyYouFeelTypeAnswer',
                                   },
 
                                   {
@@ -838,7 +829,7 @@ class App extends React.Component {
                                     component: (<View>
                                       <Button title="กดปุ่มนี้เพื่อเข้าทำแบบสอบถาม" onPress={this.Q9} />
                                     </View>) ,
-                                    end: true,
+
                                   },
                                   {
                                     id: 'Feelsad',
@@ -864,11 +855,17 @@ class App extends React.Component {
                                       {value:'ดนตรีบำบัด', label: 'ดนตรีบำบัด', trigger: 'TherapyMusic' },
                                     ],
                                   },
-                                    {
-                                      id: 'RelaxMuscle',
-                                      message: 'แสดงข้อมูลการผ่อนคลายกล้ามเนื้อจาก App Mindmood' ,
-                                      trigger: 'RelaxMuscleChoice',
-                                    },
+                                  {
+                                  id: 'RelaxMuscle',
+                                  component: (
+                                    <Image
+                                    style={{ width: 340,height: 300,}} source={require('../assets/image/relaxmuscle.jpg')}
+                                    />
+                                  ),
+
+                                  trigger: 'RelaxMuscleChoice',
+
+                                },
                                     {
                                       id: 'RelaxMuscleChoice',
                                       options: [

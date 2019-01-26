@@ -243,8 +243,14 @@ export default class SelfHarm_Normal extends React.Component {
                                 {
                                   id: 'Behavior8_sticker',
                                   component: (
-                                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/5.png')}/>
-                                  ),
+                  <Text>
+                  <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/5.png')}/>
+                   {'\n'}
+                   {'\n'}
+                   {'\n'}
+                  </Text>
+
+                ),
                                   asMessage:true,
                                   trigger: 'Behavior8_2',
                                 },

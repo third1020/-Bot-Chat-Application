@@ -16,12 +16,138 @@ import {
 } from 'react-navigation';
 import Add from '../navigation/Add';
 import ChatBot from 'react-native-chatbot';
-import styled from 'styled-components/native';
+
 import PlaySound from '../AbilityBot/PlaySound';
 
-export default class Let_talk extends React.Component {
+import Checkword from '../AbilityBot/Checkword';
+import CheckwordMood from '../AbilityBot/CheckwordMood';
+import CheckFeel from '../AbilityBot/CheckFeel';
+import CheckSick from '../AbilityBot/CheckSick';
+import HomeScreen from '../navigation/HomeScreen';
+import FirstOpApp from '../navigation/FirstOpApp';
+import Q9 from '../navigation/Q9';
+import SelfHarm_Normal from './SelfHarm_Normal';
+import SelfHarm_NoNeed from './SelfHarm_NoNeed';
+import SelfHarm_Danger from './SelfHarm_Danger';
+
+import PropTypes from 'prop-types';
+
+class ShowResult extends React.Component {
     static navigationOptions = {
-        title: 'Let_talk',
+        title: 'ShowResult',
+    };
+
+
+
+    constructor(props) {
+    super(props);
+
+
+
+
+
+    this.state = {
+      askName: '',
+
+      selfHarmQuestionChoice: '',
+      selfHarmQuestionChoice2: '',
+      selfHarmQuestionChoice3: '',
+      selfHarmQuestionChoice3_1: '',
+      selfHarmQuestionChoice4: '',
+      selfHarmQuestionChoice5: '',
+      selfHarmQuestionChoice6: '',
+      selfHarmQuestionChoice7: '',
+      selfHarmQuestionChoice8: '',
+
+
+    };
+  }
+
+  componentWillMount() {
+    const { steps } = this.props;
+
+
+    const { askName,selfHarmQuestionChoice,selfHarmQuestionChoice2,
+            selfHarmQuestionChoice3,selfHarmQuestionChoice3_1,
+            selfHarmQuestionChoice4,selfHarmQuestionChoice5,selfHarmQuestionChoice6,
+            selfHarmQuestionChoice7,selfHarmQuestionChoice8} = steps;
+
+    this.setState({ askName,selfHarmQuestionChoice,selfHarmQuestionChoice2,
+            selfHarmQuestionChoice3,selfHarmQuestionChoice3_1,
+            selfHarmQuestionChoice4,selfHarmQuestionChoice5,selfHarmQuestionChoice6,
+            selfHarmQuestionChoice7,selfHarmQuestionChoice8});
+
+
+                      score = selfHarmQuestionChoice.value+selfHarmQuestionChoice2.value+selfHarmQuestionChoice3.value
+                              +selfHarmQuestionChoice4.value+selfHarmQuestionChoice5.value+selfHarmQuestionChoice3_1.value
+                              +selfHarmQuestionChoice6.value+selfHarmQuestionChoice7.value+selfHarmQuestionChoice8.value;
+
+
+
+                    if (score == 0) {word = " จากการประเมินเบื้องต้นเราพบว่าคุณไม่มีความเสี่ยงในการทำร้ายตนเองและการฆ่าตัวตาย"
+
+                                     // ,help="ขอบคุณนะ Mindbot",
+                                     // nohelp="แล้วเจอกันอีกนะ Mindbot",
+                                     // patch="{() => this.props.navigation.navigate('SCORE5T8')}"
+
+
+                                   } //score =0
+                    else if (score > 0 && score < 2 ) {word =" จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับปานกลาง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย"
+                                                       // ,help="ขอบคุณนะ Mindbot",
+                                                       // nohelp="แล้วเจอกันอีกนะ Mindbot"
+                                                     }//score =1-2
+
+                    else if (score >= 2 && score < 5 ) {word =" จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับสูง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย"
+                                                       // ,help="ฉันต้องกำรควำมช่วยเหลือ",
+                                                       // nohelp="ฉันยังไม่ต้องกำรควำมช่วยเหลือ"
+                                                     }//score =3-4
+
+                    else if (score >= 5 && score < 9) {word =" จากการประเมินเบื้องต้นเราพบว่าึถณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และความเสี่ยงในการฆ่าตัวตายในระดับน้อย"
+                                                       // ,help="ฉันต้องกำรควำมช่วยเหลือ",
+                                                       // nohelp="ฉันยังไม่ต้องกำรควำมช่วยเหลือ"
+                                                     }//score =5-9
+
+                    else if (score >= 9 && score < 17) {word =" จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และความเสี่ยงในการฆ่าตัวตายในระดับปานกลาง"
+                                                       // ,help="ฉันต้องกำรควำมช่วยเหลืออย่างเร่งด่วน",
+                                                       // nohelp="ฉันต้องกำรควำมช่วยเหลือ"
+                                                     }//score =10-16
+
+                    else if (score >= 17) { word =" จากการประเมินเบื้องต้นเราพบว่าคุณมีความเสี่ยงในการทำร้ายตัวเองในระดับรุนแรง และมีความเสี่ยงในการฆ่าตัวตายในระดับสูง"
+                                                       // ,help="ฉันต้องกำรควำมช่วยเหลืออย่างเร่งด่วน",
+                                                       // nohelp="ฉันต้องกำรควำมช่วยเหลือ"
+                                                     }//score > 16
+                    else { word= "Error" }
+
+  }
+
+  render() {
+    const { askName,selfHarmQuestionChoice,selfHarmQuestionChoice2,
+            selfHarmQuestionChoice3,selfHarmQuestionChoice3_1,
+            selfHarmQuestionChoice4,selfHarmQuestionChoice5,selfHarmQuestionChoice6,
+            selfHarmQuestionChoice7,selfHarmQuestionChoice8} = this.state;
+
+
+    return (
+
+            <Text> คะแนนที่คุณได้คือ {score}{word}</Text>
+    );
+  }
+}
+
+
+ShowResult.propTypes = {
+  steps: PropTypes.object,
+};
+
+ShowResult.defaultProps = {
+  steps: undefined,
+};
+
+
+
+class Let_talk extends React.Component {
+    static navigationOptions = {
+        title: 'SelfHarm',
     };
 
     HomeScreen = () => {
@@ -31,6 +157,19 @@ export default class Let_talk extends React.Component {
     this.props.navigation.navigate('FirstOpApp');
 };
 
+  SelfHarm_Normal = () => {
+      this.props.navigation.navigate('SelfHarm_Normal');
+  };
+  SelfHarm_NoNeed = () => {
+      this.props.navigation.navigate('SelfHarm_NoNeed');
+  };
+  SelfHarm_Danger = () => {
+      this.props.navigation.navigate('SelfHarm_Danger');
+  };
+  Q9 = () => {
+      this.props.navigation.navigate('Q9');
+  };
+
     render() {
         return (
           <ChatBot
@@ -38,582 +177,10 @@ export default class Let_talk extends React.Component {
           steps={[
             {
               id: 'start',
-              message: 'โอเคจ้า งั้นเรามาเริ่มเปิดใจคุยกันเลยดีกว่า',
-
-              trigger: 'start_sticker',
+              message: 'ฉันตรวจสอบคำที่คุณต้องการความช่วยเหลือ หรือจะเป็นอันตรายต่อคุณ คุณต้องเข้ารับการประเมินเบื้องต้น ใช้เวลาแค่ 2 นาที และจะเป็นประโยชน์ต่อตัวคุณมากๆเลยนะ 🙂',
+              trigger: 'selfHarmQuestion1',
             },
 
-            {
-              id: 'start_sticker',
-              component: (
-                <Text>
-                <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                 {'\n'}
-                 {'\n'}
-                 {'\n'}
-                </Text>
-
-              ),
-              asMessage:true,
-              trigger: 'heart',
-            },
-              {
-                id: 'heart',
-                options: [
-                  { value:0, label: '❤️', trigger: 'HowYouFeel' },
-                ],
-              },
-              // Deep-Mind analytic
-              {
-                id: 'HowYouFeel',
-                message: 'ตอนนี้คุณรู้สึกอย่างไร' ,
-                trigger: 'HowYouFeelChoice',
-              },
-              {
-                id: 'HowYouFeelChoice',
-                options: [
-                  { value:'ดี', label: 'ดี', trigger: 'FeelGood' },
-                  { value:'มีความสุข', label: 'มีความสุข', trigger: 'FeelGood' },
-                  { value:'โล่งอก', label: 'โล่งอก', trigger: 'FeelGood' },
-                  { value:'เหนื่อย', label: 'เหนื่อย', trigger: 'FeelTired' },
-                  { value:'นอนไม่หลับ', label: 'นอนไม่หลับ', trigger: 'HowToSleep_Sticker' },
-                  { value:'ป่วย', label: 'ป่วย', trigger: 'FeelSick' },
-                  { value:'เครียด', label: 'เครียด', trigger: 'feedbackreply' }, // need DASS from main app
-                  { value:'ซึมเศร้า', label: 'ซึมเศร้า', trigger: 'feedbackreply' }, // need DASS from main app
-                  { value:'วิตกกังวล', label: 'วิตกกังวล', trigger: 'feedbackreply' }, // need DASS from main app
-                  { value:'โกรธ', label: 'โกรธ', trigger: 'FeelAngry' },
-                  { value:'เหงา', label: 'เหงา', trigger: 'FeelLonely' },
-                ],
-              },
-              {
-                id: 'FeelGood',
-                message: 'ฉันดีใจมาก ที่คุณรู้สึก{previousValue}' ,
-                trigger: 'FeelGood_2',
-              },
-              {
-                id: 'FeelGood_2',
-                component: (
-                  <Text>
-                  <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                   {'\n'}
-                   {'\n'}
-                   {'\n'}
-                  </Text>
-                ),
-                asMessage:true,
-                trigger: 'WhyYouFeel',
-              },
-              {
-                id: 'WhyYouFeel',
-                message: 'บอกให้ฉันรู้ได้ไหมว่ามีอะไรเกิดขึ้น แล้วทำให้คุณรู้สึก{previousValue}' ,
-                trigger: 'WhyYouFeelType',
-              },
-              {
-                id: 'WhyYouFeelType',
-                user: true,
-                trigger: 'WhyYouFeelTypeAnswer',
-              },
-              {
-                id: 'WhyYouFeelTypeAnswer',
-                message: 'ฉันดีใจที่คุณรู้สึกดีนะ และหวังว่าคุณจะแชร์ความรู้สึกดีๆให้ น้องการุ รับรู้อีกนะ 😊' ,
-                trigger: 'ThankMindbot',
-              },
-              {
-                id: 'ThankMindbot',
-                options: [
-                  { value:'ขอบคุณนะ น้องการุ!', label: 'ขอบคุณนะ น้องการุ!', trigger: 'HowWasIt' },
-                  { value:'Thank you น้องการุ!', label: 'Thank you น้องการุ!', trigger: 'HowWasIt' },
-                ],
-              },
-              {
-                id: 'FeelTired',
-                message: 'ฉันหวังว่าคุณจะได้พักผ่อนบ้างนะ' ,
-                trigger: 'ThankMindbot1',
-              },
-              {
-                id: 'ThankMindbot1',
-                options: [
-                  { value:'ขอบคุณนะ น้องการุ!', label: 'ขอบคุณนะ น้องการุ!', trigger: 'Tired' },
-                  { value:'Thank you น้องการุ!', label: 'Thank you น้องการุ!', trigger: 'Tired' },
-                ],
-              },
-              {
-                id: 'Tired',
-                message: 'ฉันมีของวิเศษซึ่งจะช่วยผ่อนคลายความเหนื่อยล้าให้คุณได้' ,
-                trigger: 'TiredChoice',
-              },
-              {
-                id: 'TiredChoice',
-                options: [
-                  { value:'ผ่อนคลายกล้ามเนื้อ', label: 'ผ่อนคลายกล้ามเนื้อ', trigger: 'RelaxMuscle' },
-                  { value:'ดนตรีบำบัด', label: 'ดนตรีบำบัด', trigger: 'TherapyMusic' },
-                ],
-              },
-              {
-                id: 'RelaxMuscle',
-                component: (
-                  <View><Image
-                    source={require('../assets/image/relaxmuscle.jpg')}
-                  /></View>
-                ),
-                trigger: 'RelaxMuscleChoice',
-              },
-                {
-                  id: 'RelaxMuscleChoice',
-                  options: [
-                    { value:'เข้าใจแล้ว น้องการุ', label: 'เข้าใจแล้ว น้องการุ', trigger: 'HowWasIt' },
-                  ],
-                },
-                {
-                  id: 'TherapyMusic',
-                  component: (
-                  <PlaySound/>
-                  ),
-                  trigger: 'TherapyMusicChoice',
-                },
-                {
-                  id: 'TherapyMusicChoice',
-                  options: [
-                    { value:'เรียบร้อยแล้ว น้องการุ', label: 'เรียบร้อยแล้ว น้องการุ', trigger: 'HowWasIt' },
-                  ],
-                },
-                {
-                  id: 'HowToSleep_Sticker',
-                  component: (
-                    <Text>
-                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
-                     {'\n'}
-                     {'\n'}
-                     {'\n'}
-                    </Text>
-
-                  ),
-                  asMessage:true,
-                  trigger: 'HowToSleep',
-                },
-                {
-                  id: 'HowToSleep',
-                  component: (<Image style={{ width: 340,height: 300,  alignSelf: 'auto',}} source={{uri:'https://scontent.fbkk5-3.fna.fbcdn.net/v/t1.0-9/50058549_1983959065024959_412088230716899328_n.jpg?_nc_cat=105&_nc_ht=scontent.fbkk5-3.fna&oh=5d94fb7978181d3704643d148c187453&oe=5CBD10FC'} } />  ),
-                  trigger: 'HowToSleepChoice',
-                },
-                {
-                  id: 'HowToSleepChoice',
-                  options: [
-                    { value:'ฉันง่วงนอนแล้วล่ะ', label: 'ฉันง่วงนอนแล้วล่ะ 😴', trigger: 'GoodNight' },
-                    { value:'ฉันจะพยายามทำตามคำแนะนำนะ', label: 'ฉันจะพยายามทำตามคำแนะนำนะ 👌', trigger: 'HowToSleep1' },
-                  ],
-                },
-                {
-                  id: 'GoodNight',
-                  message: 'โอเคจ้า ฝันดีนะ แล้วพบกันใหม่วันพรุ่งนี้' ,
-                  trigger: 'GoodNight_2',
-
-                },
-                {
-                  id: 'GoodNight_2',
-                  component: (
-                    <Text>
-                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/6.png')}/>
-                     {'\n'}
-                     {'\n'}
-                     {'\n'}
-                    </Text>
-
-                  ),
-                  asMessage:true,
-                  trigger: 'GoodNightChoice',
-                },
-                {
-                  id: 'GoodNightChoice',
-                  options: [
-                    { value:'Good Night น้องการุ', label: 'Good Night Garoo', end: true },
-                    { value:'ฝันดีนะ น้องการุ', label: 'ฝันดีนะ น้องการุ', end: true },
-                  ],
-                },
-                {
-                  id: 'HowToSleep1',
-                  message: 'บางทีการคุยกับฉันบนหน้าจออาจจะทำให้คุณหลับยากยิ่งขึ้น ฉันจึงอยากให้คุณหลีกเลี่ยงกิจกรรมอื่นๆ บนหน้าจอของคุณบ้างนะ 😟' ,
-                  trigger: 'GoodNightChoice',
-                },
-                {
-                  id: 'FeelSick',
-                  message: 'ฉันขอให้คุณหายจากอาการป่วยในเร็ววันนะ' ,
-                  trigger: 'FeelSickChoice',
-                },
-                {
-                  id: 'FeelSickChoice',
-                  options: [
-                    { value:'ขอบคุณนะ น้องการุ', label: 'ขอบคุณนะ น้องการุ', trigger:'NeedHelp1'},
-                    { value:'ขอบคุณค่ะ', label: 'ขอบคุณค่ะ', trigger:'NeedHelp1'},
-                  ],
-                },
-                {
-                  id: 'NeedHelp1',
-                  message: 'คุณต้องการให้ฉันช่วยอะไรคุณไหม?' ,
-                  trigger: 'NeedHelpChoice',
-                },
-                {
-                  id: 'NeedHelpChoice',
-                  options: [
-                    { value:'ฉันแค่อยากเล่าให้ฟังเฉยๆ', label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'NeedHelp'},
-                    { value:'ฉันอยากรู้สึกดีขึ้น', label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'WantToFeelGood'},
-                  ],
-                },
-                {
-                  id: 'WantToFeelGood_Sticker',
-                  component: (
-                    <Text>
-                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
-                     {'\n'}
-                     {'\n'}
-                     {'\n'}
-                    </Text>
-
-                  ),
-                  asMessage:true,
-                  trigger: 'FeelSick',
-                },
-                {
-                  id: 'WantToFeelGood',
-                  component: (
-                    <Text>
-                    เทคนิคช่วยให้หายป่วย Inspired by Garoo{'\n'}
-                    -ทานของอุ่นๆ{'\n'}
-                    -นอนพัก{'\n'}
-                    -รับประทานอาหารที่มีประโยชน์{'\n'}
-                    -เคลื่อนไหวร่างกาย
-                    </Text>
-                  ),
-                  trigger: 'WantToFeelGoodChoice',
-                },
-                {
-                  id: 'WantToFeelGoodChoice',
-                  options: [
-                    { value:'เข้าใจแล้ว น้องการุ', label: 'เข้าใจแล้ว น้องการุ', trigger:'WantToFeelGoodSum'},
-                  ],
-                },
-                {
-                  id: 'WantToFeelGoodSum',
-                  message: 'ฉันหวังว่าเทคนิคเหล่านี้จะช่วยให้คุณรู้สึกดีขึ้นและขอให้คุณหายป่วยแล้วกลับมาแข็งแรงในเร็ววันนะ 💪' ,
-                  trigger: 'HowWasIt',
-                },
-                {
-                  id: 'NeedHelp',
-                  message: 'คุณสามารถเล่าให้ฉันฟังได้เลยนะ ฉันพร้อมรับฟังคุณทุกเมื่อ' ,
-                  trigger: 'NeedHelpChoice',
-                },
-                {
-                  id: 'TellStory1',
-                    user: true,
-                    trigger: 'FeelSick2',//trigger: 'userName',
-                  },
-                  {
-                    id: 'FeelSick2',
-                    message: 'ฉันขอให้คุณหายป่วย กลับมาแข็งแรงในเร็ววันนะ 💪' ,
-                    trigger: 'HowWasIt',
-                  },
-                  {
-                    id: 'FeelAngry',
-                    message: 'ฉันมีของวิเศษ 2 ชิ้นซึ่งช่วยลดอัตราการเต้นของหัวใจคุณ และช่วยให้คุณสงบมากยิ่งขึ้น' ,
-                    trigger: 'FeelAngry1',
-                  },
-                  {
-                    id: 'FeelAngry1',
-                    message: 'เลือกได้เลยจ้า' ,
-                    trigger: 'FeelAngry1_Sticker',
-                  },
-                  {
-                    id: 'FeelAngry1_Sticker',
-                    component: (
-                      <Text>
-                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
-                    ),
-                    asMessage:true,
-                    trigger: 'FeelAngryChoice',
-                  },
-                  {
-                    id: 'FeelAngryChoice',
-                    options: [
-                      { value:'ฝึกการหายใจ', label: 'ฝึกการหายใจ', trigger:'BreathPrac'},
-                      { value:'นั่งสมาธิ', label: 'นั่งสมาธิ', trigger:'Meditation'},
-                    ],
-                  },
-                  {
-                    id: 'Meditation',
-                    message: 'ขั้นตอนแรก ฉันอยากให้คุณนั่งบนพื้น หรือนั่งบนเก้าอี้ก็ได้' ,
-                    trigger: 'MeditationChoice',
-                  },
-                  {
-                    id: 'Meditation1',
-                    message: 'หลังจากนั้นเอามือขวาทับมือซ้ายไว้ตรงบริเวณตัก แบบนี้จ้า..' ,
-                    trigger: 'MeditationImage',
-                  },
-                  {
-                    id: 'MeditationImage',
-                    component: (
-                      <View><Image
-                      source={require('../assets/image/Meditation_posture.jpg')}
-                    /></View>
-                    ),
-                    trigger: 'MeditationChoice1',
-                  },
-                  {
-                    id: 'Meditation2',
-                    message: 'หลับตาแล้วทำจิตใจให้สงบประมาณ 5 นาทีนะ ⏱️' ,
-                    trigger: 'MeditationChoice2',
-                  },
-                  {
-                    id: 'Meditation3',
-                    message: 'ฉันหวังว่าของวิเศษของฉันจะช่วยให้จิตใจของคุณสงบมากขึ้นนะ' ,
-                    trigger: 'Meditation3_5',
-                  },
-                  {
-                    id: 'Meditation3_5',
-                    component: (
-                      <Text>
-                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
-                    ),
-                    asMessage:true,
-                    trigger: 'Meditation4',
-                  },
-                  {
-                    id: 'Meditation4',
-                    message: 'ฉันอยากให้คุณรู้ว่าบางทีอารมณ์โกรธอาจจะทำให้คุณขาดสติจนทำให้ปัญหาบานปลาย สิ่งที่ฉันทำได้คือการช่วยให้คุณสงบ และมีสติที่เพียบพร้อมต่อการแก้ไขปัญหาที่คุณเผชิญอยู่ตรงหน้า' ,
-                    trigger: 'Meditation5',
-                  },
-                  {
-                    id: 'Meditation5',
-                    message: 'ฉันขอให้คุณผ่านพ้นปัญหาเหล่านี้ไปได้ด้วยดี อย่างที่ฉันพูดทุกครั้งฉันจะอยู่เคียงข้างคุณเสมอ 👌' ,
-                    trigger: 'Meditation5Choice',
-                  },
-                  {
-                    id: 'Meditation5Choice',
-                    options: [
-                      { value:'ขอบคุณครับ น้องการุ', label: 'ขอบคุณครับ น้องการุ', trigger:'HowWasIt'},
-                      { value:'ขอบคุณค่ะ น้องการุ', label: 'ขอบคุณค่ะ น้องการุ', trigger:'HowWasIt'},
-                    ],
-                  },
-                  {
-                    id: 'MeditationChoice',
-                    options: [
-                      { value:'ขั้นตอนต่อไป', label: 'ขั้นตอนต่อไป', trigger:'MeditationChoice1'},
-                    ],
-                  },
-                  {
-                    id: 'MeditationChoice1',
-                    options: [
-                      { value:'ขั้นตอนต่อไป', label: 'ขั้นตอนต่อไป', trigger:'MeditationChoice2'},
-                    ],
-                  },
-                  {
-                    id: 'MeditationChoice2',
-                    options: [
-                      { value:'เริ่มเลย น้องการุ', label: 'เริ่มเลย น้องการุ', trigger:'Meditation3'},
-                    ],
-                  },
-
-
-                  {
-                    id: 'BreathPrac',
-                    message: 'นำเข้าสู่ Feature ฝึกการหายใจของ App Mindmood' ,
-                    trigger: 'BreathPracChoice',
-                  },
-                  {
-                    id: 'BreathPracChoice',
-                    options: [
-                      { value:'เรียบร้อยแล้ว น้องการุ', label: 'เรียบร้อยแล้ว น้องการุ', trigger:'cbt2'},
-                    ],
-                  },
-                  {
-                    id: 'FeelLonely',
-                    message: 'ฉันเข้าใจคุณนะ ฉันรู้ว่ามันไม่ใช่ความรู้สึกที่ดีเลย' ,
-                    trigger: 'FeelLonelyChoice',
-                  },
-                  {
-                    id: 'FeelLonelyChoice',
-                    options: [
-                      { value:'ขอบคุณครับ น้องการุ', label: 'ขอบคุณครับ น้องการุ', trigger:'FeelLonely2'},
-                      { value:'ขอบคุณค่ะ น้องการุ', label: 'ขอบคุณค่ะ น้องการุ', trigger:'FeelLonely2'},
-                    ],
-                  },
-                  {
-                    id: 'FeelLonely2',
-                    message: 'แต่ในขณะเดียวกัน ฉันก็พบความพิเศษบางอย่างที่อยู่ในตัวคุณ 😊' ,
-                    trigger: 'FeelLonelyChoice2',
-                  },
-                  {
-                    id: 'FeelLonelyChoice2',
-                    options: [
-                      { value:'คืออะไรเหรอ?', label: 'คืออะไรเหรอ?', trigger:'FeelLonely3'},
-                    ],
-                  },
-                  {
-                    id: 'FeelLonely3',
-                    message: 'ก็คือ ให้คุณค่ากับความสัมพันธ์ต่อเพื่อนและคนที่คุณรัก และนั่นแหละคือสิ่งที่ฉันสัมผัสได้จากตัวคุณ' ,
-                    trigger: 'FeelLonely3_5',
-                  },
-                  {
-                    id: 'FeelLonely3_5',
-                    component: (
-                      <Text>
-                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
-                    ),
-                    asMessage:true,
-                    trigger: 'FeelLonelyChoice3',
-                  },
-                  {
-                    id: 'FeelLonelyChoice3',
-                    options: [
-                      { value:'emoji_55', label: '😳', trigger:'FeelLonely4'},
-                      { value:'enoji_56', label: '😢', trigger:'FeelLonely4'},
-                    ],
-                  },
-                  {
-                    id: 'FeelLonely4',
-                    message: 'คุณต้องการให้ฉันช่วยอะไรคุณไหม?' ,
-                    trigger: 'FeelLonelyChoice4',
-                  },
-                  {
-                    id: 'FeelLonelyChoice4',
-                    options: [
-                      { value:'ฉันอยากรู้สึกดีขึ้น', label: 'ฉันอยากรู้สึกดีขึ้น', trigger:'FeelLonely5'},//trigger:'begavior'
-                      { value:'ฉันแค่อยากเล่าให้ฟังเฉยๆ', label: 'ฉันแค่อยากเล่าให้ฟังเฉยๆ', trigger:'FeelLonely5'},
-                    ],
-                  },
-                  {
-                    id: 'FeelLonely5',
-                    message: 'คุณสามารถเล่าให้ฉันฟังได้เลยจ้า ✏️' ,
-                    trigger: 'FeelLonely_Sticker',
-                  },
-                  {
-                    id: 'FeelLonely_Sticker',
-                    component: (
-                      <Text>
-                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
-                    ),
-                    asMessage:true,
-                    trigger: 'FeelLonelyType',
-                  },
-                  {
-                    id: 'FeelLonelyType',
-                      user: true,
-                      trigger: 'FeelLonelySum',
-                    },
-                    {
-                      id: 'FeelLonelySum',
-                      message: 'ฉันหวังว่าเมื่อถึงเวลาจะมีใครสักคนที่เห็นคุณค่าในตัวคุณ เหมือนที่ฉันเห็นนะ' ,
-                      trigger: 'HowWasIt',
-                    },
-
-              {
-                id: 'userAnswer',
-                user: true,
-                trigger: 'SOSorDoing',
-
-              },
-              {
-                id: 'SOSorDoing',
-                message:'คุณต้องการความช่วยเหลือมั้ย?',
-                trigger: 'SOSorDoingChoice',
-              },
-              {
-                id: 'SOSorDoingChoice',
-                options: [
-                  { value:'ฉันต้องการความช่วยเหลือ', label: 'ฉันต้องการความช่วยเหลือ', trigger: 'selfHarm' },
-                  { value:'ช่วยฉันด้วย', label: 'ช่วยฉันด้วย 🆘', trigger: 'cbt1' },
-                  { value:'ฉันไม่ต้องการความเหลือ', label: 'ฉันไม่ต้องการความเหลือ', trigger: 'IfHaveProblem' },
-                ],
-              },
-              {
-                id: 'IfHaveProblem',
-                message:'ถ้ามีเรื่องอะไรอยากให้น้องการุ ดูแลใจให้คุณอีก สามารถเรียกได้ตลอดเลยนะ 😉',
-                trigger: 'IfHaveProblemChoice',
-              },
-              {
-                id: 'IfHaveProblemChoice',
-                options: [
-                  { value:'ขอบคุณครับ น้องการุ', label: 'ขอบคุณครับ น้องการุ', trigger: 'HowWasIt' },
-                  { value:'ขอบคุณค่ะ น้องการุ', label: 'ขอบคุณค่ะ น้องการุ', trigger: 'HowWasIt' },
-                ],
-              },
-              {
-                id: 'mood',
-                message: 'แล้วอารมณ์ของคุณตอนนี้เป็นอย่างไร',
-                trigger: 'moodChoice',
-              },
-              {
-                id: 'moodChoice',
-                options: [
-                  { value:'ดีมาก', label: 'ดีมาก', trigger: 'veryGood' },
-                  { value:'ดี', label: 'ดี', trigger: 'Good' },
-                  { value:'เฉยๆ', label: 'เฉยๆ', trigger: 'notBothered' },
-                  { value:'ไม่ค่อยดี', label: 'ไม่ค่อยดี', trigger: 'quiteBad' },
-                  { value:'แย่มาก', label: 'แย่มาก', trigger: 'bad' },
-                ],
-              },
-              {
-                id: 'veryGood',
-                message: 'ว้าว! ฉันอยากให้คุณแชร์ให้ฉันรู้หน่อยว่า ทำไมตอนนี้คุณถึงรู้สึกดี',
-                trigger: 'shareMood',
-              },
-              {
-                id: 'Good',
-                message: 'ว้าว! ฉันอยากให้คุณแชร์ให้ฉันรู้หน่อยว่า ทำไมตอนนี้คุณถึงรู้สึกดี',
-                trigger: 'shareMood',
-              },
-              {
-                id: 'notBothered',
-                message: 'งั้นเหรอ ฉันอยากให้คุณแชร์ให้ฉันรู้หน่อยว่าทำไม ตอนนี้คุณถึงรู้สึกเฉยๆ',
-                trigger: 'shareMood',
-              },
-              {
-                id: 'quiteBad',
-                message: 'ฉันพร้อมที่จะอยู่เคียงข้างเธอเสมอนะ! แชร์ให้ฉันรู้หน่อยว่าทำไมตอนนี้คุณถึงรู้สึกแย่ ✏️',
-                trigger: 'shareMood',
-              },
-              {
-                id: 'bad',
-                message: 'ฉันพร้อมที่จะอยู่เคียงข้างเธอเสมอนะ! แชร์ให้ฉันรู้หน่อยว่าทำไมตอนนี้คุณถึงรู้สึกแย่ ✏️',
-                trigger: 'shareMood',
-              },
-              {
-                id: 'shareMood',
-                user: true,
-                trigger: 'selfHarm',
-              },
-              {
-                id: 'selfHarm',
-                message: 'ฉันตรวจสอบคำที่คุณต้องการความช่วยเหลือ หรือจะเป็นอันตรายต่อคุณ คุณต้องการเข้ารับการประเมินเบื้องต้นหรือไม่ ใช้เวลาแค่ 2 นาที และจะเป็นประโยชน์ต่อตัวคุณมากๆเลยนะ 🙂',
-                trigger: 'selfHarmChoice',
-              },
-              {
-              id: 'selfHarmChoice',
-                options: [
-                  { value:'ต้องการ', label: 'ต้องการ', trigger: 'selfHarmStart' },
-                  { value:'ไม่ต้องการ', label: 'ไม่ต้องการ', trigger: 'selfHarmStart' },//trigger:startCBT
-                  { value:'ช่วยฉันด้วย', label: 'ช่วยฉันด้วย', trigger: 'selfHarmStart' },
-                ],
-              },
               {
                 id: 'selfHarmQuestion1',
                 message: 'ในเดือนที่ผ่านมาจนถึงวันนี้ คุณได้คิดว่าอยากตายหรือคิดว่าตายไปจะดีกว่าบ้างหรือไม่?',
@@ -631,14 +198,10 @@ export default class Let_talk extends React.Component {
               },
               {
                 id: 'selfHarmQuestion3_1',
-                message: 'แล้วคุณสามารถควมคุมความอยากฆ่าตัวตายที่คุณคิดอยู่ในขณะนั้นได้หรือไม่?',
+                message: 'คุณสามารถควมคุมความอยากฆ่าตัวตายที่คุณคิดอยู่ได้หรือไม่?',
                 trigger: 'selfHarmQuestionChoice3_1',
               },
-              {
-                id: 'selfHarmQuestion3_2',
-                message: 'ดีแล้วแหละครับ คุณจะไม่ฆ่าตัวตายแน่นอนใช่ไหม?',
-                trigger: 'selfHarmQuestionChoice3_2',
-              },
+
               {
                 id: 'selfHarmQuestion4',
                 message: 'ในเดือนที่ผ่านมาจนถึงวันนี้ คุณได้มีแผนการที่จะฆ่าตัวตายบ้างหรือไม่?',
@@ -667,401 +230,101 @@ export default class Let_talk extends React.Component {
               {
               id: 'selfHarmQuestionChoice',
                 options: [
-                  { value:2, label: 'ใช่', trigger: 'selfHarmQuestion2' },
-                  { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion2' },
+                  { value:1, label: 'ใช่', trigger: 'selfHarmQuestion2' },
+                  { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion2' },
                 ],
               },
               {
                 id: 'selfHarmQuestionChoice2',
                   options: [
-                    { value:3, label: 'ใช่', trigger: 'selfHarmQuestion3' },
-                    { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3' },
+                    { value:2, label: 'ใช่', trigger: 'selfHarmQuestion3' },
+                    { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3' },
                   ],
                 },
                 {
                   id: 'selfHarmQuestionChoice3',
                     options: [
-                      { value:7, label: 'ใช่', trigger: 'selfHarmQuestion3_1' },
-                      { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3_2' },
+                      { value:6, label: 'ใช่', trigger: 'selfHarmQuestion3_1' },
+                      { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion3_1' },
                     ],
                   },
 
                   {
                     id: 'selfHarmQuestionChoice3_1',
                       options: [
-                        { value:1, label: 'ควบคุมได้', trigger: 'selfHarmQuestion4' },
-                        { value:9, label: 'ควบคุมไม่ได้', trigger: 'selfHarmQuestion4' },
+                        { value:0, label: 'ควบคุมได้', trigger: 'selfHarmQuestion4' },
+                        { value:8, label: 'ควบคุมไม่ได้', trigger: 'selfHarmQuestion4' },
                       ],
                     },
-                    {
-                      id: 'selfHarmQuestionChoice3_2',
-                        options: [
-                          { value:1, label: 'แน่นอน', trigger: 'selfHarmQuestion4' },
 
-                        ],
-                      },
                   {
                     id: 'selfHarmQuestionChoice4',
                       options: [
-                        { value:9, label: 'มี', trigger: 'selfHarmQuestion5' },
-                        { value:1, label: 'ไม่มี', trigger: 'selfHarmQuestion5' },
+                        { value:8, label: 'มี', trigger: 'selfHarmQuestion5' },
+                        { value:0, label: 'ไม่มี', trigger: 'selfHarmQuestion5' },
                       ],
                     },
 
                     {
                       id: 'selfHarmQuestionChoice5',
                         options: [
-                          { value:10, label: 'ใช่', trigger: 'selfHarmQuestion6' },
-                          { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion6' },
+                          { value:9, label: 'ใช่', trigger: 'selfHarmQuestion6' },
+                          { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion6' },
                         ],
                       },
                       {
                         id: 'selfHarmQuestionChoice6',
                           options: [
-                            { value:5, label: 'ใช่', trigger: 'selfHarmQuestion7' },
-                            { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion7' },
+                            { value:4, label: 'ใช่', trigger: 'selfHarmQuestion7' },
+                            { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion7' },
                           ],
                         },
                         {
                           id: 'selfHarmQuestionChoice7',
                             options: [
-                              { value:11, label: 'ใช่', trigger: 'selfHarmQuestion8' },
-                              { value:1, label: 'ไม่ใช่', trigger: 'selfHarmQuestion8' },
+                              { value:10, label: 'ใช่', trigger: 'selfHarmQuestion8' },
+                              { value:0, label: 'ไม่ใช่', trigger: 'selfHarmQuestion8' },
                             ],
                           },
                           {
                             id: 'selfHarmQuestionChoice8',
                               options: [
-                                { value:5, label: 'ใช่', trigger: 'HowWasIt' },
-                                { value:1, label: 'ไม่ใช่', trigger: 'HowWasIt' },
+                                { value:4, label: 'ใช่', trigger: 'intheend' },
+                                { value:0, label: 'ไม่ใช่', trigger: 'intheend' },
                               ],
                             },
                             {
-                              id: 'selfHarmStart',
-                              message: 'โอเคจ้า งั้นเรามาเริ่มกันเลย ✌️',
-                              trigger: 'selfHarmStart_2',
+                              id: 'intheend',
+                            component: (<ShowResult />),
+                            trigger: 'endtest'
                             },
                             {
-                              id: 'selfHarmStart_2',
-                              component: (
-                                <Text>
-                                <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/1.png')}/>
-                                 {'\n'}
-                                 {'\n'}
-                                 {'\n'}
-                                </Text>
-
-                              ),
-                              asMessage:true,
-                              trigger: 'selfHarmQuestion1',
-                            },
-              {
-                id: 'startCBT_2',
-                message: 'สวัสดี หลังจากคราวที่แล้วที่เราคุยกัน วันนี้ฉันจึงมีแบบทดสอบให้คุณทำ ซึ่งใช้เวลาเพียง 2 นาทีเท่านั้น',
-                trigger: 'startCBT',
-              },
-              {
-                id: 'startCBT',
-                component: (
-                  <Text>
-                  <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/6.png')}/>
-                   {'\n'}
-                   {'\n'}
-                   {'\n'}
-                  </Text>
-
-                ),
-                asMessage:true,
-                trigger: 'letstartPostCBT',
-              },
-              {
-                id: 'letstartPostCBT',
-                message: 'งั้นเรามาเริ่มกันเลยดีกว่า ✌️',
-                trigger: 'questionCBT',
-              },
-              {
-                id: 'questionCBT',
-                message: 'ข้อใดมีการใช้ความคิดแบบ All-or-Nothing',
-                trigger: 'questionCBTchoice',
-              },
-              {
-                id: 'questionCBTchoice',
-                  options: [
-                    { value:'ฉันจะพยายามทำให้ดีที่สุด', label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'WrongAnswer' },
-                    { value:'ฉันทำไม่ได้แน่ๆ', label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'RightAnswer' },
-                    { value:'ฉันทำได้ในบางครั้ง', label: 'ฉันทำได้ในบางครั้ง', trigger: 'WrongAnswer' },
-                    { value:'All-or-Nothing คืออะไร?', label: 'All-or-Nothing คืออะไร?', trigger: 'WhatisAllorNothing' },
-
-                  ],
-                },
-                {
-                  id: 'WhatisAllorNothing',
-                  message: 'All-or-Nothing คือความคิดสุดขั้วในด้านใดด้านหนึ่ง เป็นดำหรือขาวไปหมด เป็นบวกหรือลบไปหมด โดยไม่สามารถมองอะไรกลางๆได้',
-                  trigger: 'questionCBT',
-                },
-                {
-                  id: 'RightAnswer',
-                  message: 'เย้ๆ เยี่ยมไปเลยจ้า คราวนี้ลองข้อต่อไปนะ 🙂',
-                  trigger: 'RightAnswer_sticker',
-                },
-                {
-                  id: 'RightAnswer_sticker',
-                  component: (
-                    <Text>
-                    <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                     {'\n'}
-                     {'\n'}
-                     {'\n'}
-                    </Text>
-
-                  ),
-                  asMessage:true,
-                  trigger: 'questionCBT2',
-                },
-                {
-                  id: 'WrongAnswer',
-                  message: 'ลองคิดใหม่นะจ๊ะ ✌️' ,
-                  trigger: 'questionCBTchoice',
-                },
-                {
-                  id: 'WrongAnswer2',
-                  message: 'ลองคิดใหม่นะจ๊ะ ✌️' ,
-                  trigger: 'questionCBTchoice2',
-                },
-                {
-                  id: 'WrongAnswer3',
-                  message: 'ลองคิดใหม่นะจ๊ะ ✌️' ,
-                  trigger: 'questionCBTchoice3',
-                },
-                {
-                id: 'questionCBTchoice',
-                  options: [
-                    {  value:'ฉันจะพยายามทำให้ดีที่สุด', label: 'ฉันจะพยายามทำให้ดีที่สุด', trigger: 'selfHarmStart' },
-                    {  value:'ฉันทำไม่ได้แน่ๆ', label: 'ฉันทำไม่ได้แน่ๆ', trigger: 'Good' },
-                    {  value:'ฉันทำได้ในบางครั้ง', label: 'ฉันทำได้ในบางครั้ง', trigger: 'Good' },
-                    {  value:'ฉันทำได้ในบางครั้ง', label: 'ฉันทำได้ในบางครั้ง', trigger: 'Good' },
-                  ],
-                },
-                {
-                  id: 'questionCBT2',
-                  message: 'ข้อใดไม่มีการใช้ความคิดแบบ Labeling',
-                  trigger: 'questionCBTchoice',
-                },
-                {
-                  id: 'questionCBTchoice2',
-                    options: [
-                      {  value:'ไม่มีใครชอบฉันอีกต่อไป', label: 'ไม่มีใครชอบฉันอีกต่อไป', trigger: 'WrongAnswer2' },
-                      {  value:'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', label: 'ฉันไม่สามารถเป็นเพื่อนกับใครได้อีก', trigger: 'WrongAnswer2' },
-                      {  value:'ฉันคิดว่าแม่ฉันน่าจะงานยุ่งอยู่ เลยอาจจะมาสาย', label: 'ฉันคิดว่าแม่ฉันน่าจะงานยุ่งอยู่ เลยอาจจะมาสาย', trigger: 'RightAnswer2' },
-                      {  value:'Labeling คืออะไร', label: 'Labeling คืออะไร', trigger: 'WhatisLabeling' },
-                    ],
-                  },
-                  {
-                    id: 'questionCBT3',
-                    message: 'ข้อใดใช้ความคิดแบบ "Should" and "Must" statement',
-                    trigger: 'questionCBTchoice3',
-                  },
-                  {
-                    id: 'questionCBTchoice3',
-                      options: [
-                        { value:'ฉันต้องสอบติดหมอให้ได้', label: 'ฉันต้องสอบติดหมอให้ได้', trigger: 'RightAnswerFinal' },
-                        { value:'ฉันยอมรับในการตัดสินใจของเพื่อน', label: 'ฉันยอมรับในการตัดสินใจของเพื่อน', trigger: 'WrongAnswer3' },
-                        { value:'ชีวิตของฉันมีค่า', label: 'ชีวิตของฉันมีค่า', trigger: 'WrongAnswer3' },
-                        { value:'"Should" and "Must" statement คืออะไร?', label: '"Should" and "Must" statement คืออะไร?', trigger: 'WhatisShouldMust' },
-                      ],
-                    },
-                  {
-                    id: 'WhatisLabeling',
-                    message: 'Labeling คือการตีตราตนเอง หรือ คนอื่นในทางลบ ไม่ว่าจะทำอะไรก็มักจะยึดติดกับความรู้สึกที่ตนได้ตีตราไว้',
-                    trigger: 'questionCBT',
-                  },
-                  {
-                    id: 'WhatisShouldMust',
-                    message: '"Should and "Must" statement คือการคิดความหวังให้ตนเองหรือคนอื่นเป็นอย่างนั้นอย่างนี้ตามที่ตนคาดหวัง หรือตามความต้องการของตน',
-                    trigger: 'questionCBT',
-                  },
-                  {
-                    id: 'RightAnswerFinal',
-                    message: 'สุดยอดที่สุดเลย 🎉 ฉันทึ่งในความสามารถของคุณนะ แล้วก็ใจของคุณด้วย',
-                    trigger: 'RightAnswerFinal_sticker',
-                  },
-                  {
-                    id: 'RightAnswerFinal_sticker',
-                    component: (
-                      <Text>
-                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
-                    ),
-                    asMessage:true,
-                    trigger: 'ThankGaroo',
-                  },
-                  {
-                    id: 'ThankGaroo',
-                    options: [
-                      { value:'ขอบคุณครับ น้องการุ', label: 'ขอบคุณครับ น้องการุ', trigger:'HowWasIt'},
-                      { value:'ขอบคุณค่ะ น้องการุ', label: 'ขอบคุณค่ะ น้องการุ', trigger:'HowWasIt'},
-                    ],
-                  },
-                  {
-                    id: 'RightAnswer2',
-                    message: 'ว้าว! ยอดไปเลย ต่อไปข้อสุดท้ายนะ 🙂',
-                    trigger: 'RightAnswer2_sticker',
-                  },
-                  {
-                    id: 'RightAnswer2_sticker',
-                    component: (
-                      <Text>
-                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/2.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
-                    ),
-                    asMessage:true,
-                    trigger: 'questionCBT3',
-                  },
-                  {
-                    id: 'WrongAnswer',
-                    message: 'ลองคิดใหม่นะจ๊ะ ✌️' ,
-                    trigger: 'questionCBTchoice',
-                  },
-                  {
-                    id: 'cbt1',
-                    message: 'ฉันเข้าใจความรู้สึกของคุณนะ' ,
-                    trigger: 'cbt2',
-                  },
-                  {
-                    id: 'cbt2',
-                    message: 'ฉันอาจจะใช้ของวิเศษชิ้นนี้ช่วยคุณได้ 🤔' ,
-                    trigger: 'cbt2_Sticker',
-                  },
-                  {
-                    id: 'cbt2_Sticker',
-                    component: (
-                      <Text>
-                      <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/3.png')}/>
-                       {'\n'}
-                       {'\n'}
-                       {'\n'}
-                      </Text>
-
-                    ),
-                    asMessage:true,
-                    trigger: 'cbt3',
-                  },
-                  {
-                    id: 'cbt3',
-                    message: 'งั้นเรามาเริ่มกันเลยดีกว่า! ฉันจะยกตัวอย่างประโยคให้คุณดังนี้' ,
-                    trigger: 'cbt4',
-                  },
-                  {
-                    id: 'cbt4',
-                    message: '"ทั้งหมดเป็นความผิดของฉัน"' ,
-                    trigger: 'cbt5',
-                  },
-                  {
-                    id: 'cbt5',
-                      options: [
-                        { value:'ทั้งหมด', label: 'ทั้งหมด', trigger: 'cbt7' },
-                        { value:'ความผิด', label: 'ความผิด', trigger: 'cbt6' },
-                      ],
-                    },
-                    {
-                      id: 'cbt6',
-                      message: 'หืม... ฉันอยากให้คุณคิดอีกที คำว่า "ความผิด" ที่คุณคิดอยู่เป็นความจริงใช่หรือไม่ หรือเป็นความคิดที่แต่งเติมขึ้นมาจากความรู้สึกเราเอง' ,
-                      trigger: 'cbt8',
-                    },
-                    {
-                      id: 'cbt7',
-                      message: 'ถูกต้องแล้วจ้า! ฉันคิดว่า "ความผิด" คือความจริง แต่ความคิดที่แต่งเติมคือคำว่า "ทั้งหมด" เพราะบางทีเราก็ไม่ได้เป็นคนผิดทั้งหมดเสมอไปนะ' ,
-                      trigger: 'cbt9',
-                    },
-                    {
-                      id: 'cbt8',
-                        options: [
-                          { value:'ใช่', label: 'ใช่', trigger: 'cbt7' },
-                          { value:'ความคิดที่แต่งเติม?', label: 'ความคิดที่แต่งเติม?', trigger: 'cbt6' },
-                        ],
-                      },
-                      {
-                        id: 'cbt8',
-                          options: [
-                            { value:'emoji_44', label: '😊', trigger: 'cbt9' },
-                            { value:'emoji_45', label: '😢', trigger: 'cbt9' },
-                          ],
-                        },
-                        {
-                          id: 'cbt9',
-                          message: 'บางทีการเปลี่ยนแปลงอาจจะเป็นสิ่งที่ยาก แต่การที่คุณได้พูดคุยกับฉันในวันนี้ จะเป็น "จุดเริ่มต้นที่ดี" ในการเปลี่ยนแปลงอารมณ์ของคุณ ✌️' ,
-                          trigger: 'cbt10',
-                        },
-                        {
-                          id: 'cbt10',
-                          message: 'นี่คือสิ่งที่ทุกคนสามารถขัดเกลาและฝึกฝนตนเองได้แล้วฉันจะคอยอยู่เคียงข้างและช่วยเหลือคุณทุกเมื่อเลยนะ ❤️' ,
-                          trigger: 'cbt10_5',
-                        },
-                        {
-                          id: 'cbt10_5',
-                          component: (
-                            <Text>
-                            <Image style={{ width: 90,height: 100,}} source={require('../assets/garoo/4.png')}/>
-                             {'\n'}
-                             {'\n'}
-                             {'\n'}
-                            </Text>
-
-                          ),
-                          asMessage:true,
-                          trigger: 'cbtlast',
-                        },
-                        {
-                          id: 'cbtlast',
-                            options: [
-                              { value:'ขอบคุณนะ น้องการุ', label: 'ขอบคุณนะ น้องการุ', trigger: 'HowWasIt' },
-                              { value:'ฉันจะพยายาม น้องการุ', label: 'ฉันจะพยายาม น้องการุ', trigger: 'HowWasIt' },
-                            ],
-                          },
-                        {
-                          id: 'HowWasIt',
-                          message: 'คุณรู้สึกยังไงที่ได้คุยกับฉันในวันนี้' ,
-                          trigger: 'HowWasItChoice',
-                        },
-                        {
-                          id: 'HowWasItChoice',
-                            options: [
-                              { value:'emoji_35', label: '👍', trigger: 'feedbackreply' },
-                              { value:'emoji_34', label: '👎', trigger: 'feedbackreply' },
-                            ],
-                          },
-                          {
-                            id: 'feedbackreply',
-                            message: 'ขอบคุณสำหรับการติชม ฉันมีความสุขทุกครั้งที่ได้เป็นเพื่อนดูแลใจของคุณ 😊' ,
-                            trigger: 'feedbackemoji',
-                          },
-                          {
-                            id: 'feedbackemoji',
-                              options: [
-                                { value:'emoji_23', label: '❤️', trigger: 'seeu' },
-                              ],
-                            },
+                              id: 'endtest',
+                                options: [
+                                  {value:'ฉันต้องการความช่วยเหลืออย่างเร่งด่วน', label: 'ฉันต้องการความช่วยเหลืออย่างเร่งด่วน', trigger: 'Danger' },
+                                  {value:'ฉันต้องการความช่วยเหลือ', label: 'ฉันต้องการความช่วยเหลือ',trigger: 'Normal' },
+                                  {value:'ฉันไม่ต้องการความช่วยเหลือ', label: 'ฉันไม่ต้องการความช่วยเหลือ',trigger: 'NoNeed'}
+                                ],
+                              },
                               {
-                                id: 'seeu',
-                                message: 'แล้วพบกันอีกนะ  😊' ,
-                                trigger: 'seeuChoice',
+                                id: 'Danger',
+                                component: (<View>
+                                  <Button title="กดปุ่มนีเพื่อรับความช่วยเหลือแบบเร่งด่วน" onPress={this.SelfHarm_Danger} />
+                                </View>) ,
+                              },
+                              {
+                                id: 'Normal',
+                                component: (<View>
+                                  <Button title="กดปุ่มนีเพื่อรับความช่วยเหลือ" onPress={this.SelfHarm_Normal} />
+
+                                </View>) ,
+                              },
+                              {
+                                id: 'NoNeed',
+                                component: (<Button title="กดปุ่มนี้เพื่อกลับสู่หน้าหลัก" onPress={this.FirstOpApp} />) ,
                               },
 
-                              {
-                                id: 'seeuChoice',
-                                  options: [
-                                    { value:'แล้วพบกัน น้องการุ', label: 'แล้วพบกัน น้องการุ', end: true },
-                                    { value:'Bye น้องการุ', label: 'Bye Garoo', end: true },
-                                  ],
-                                },
+
           ]}
         />
 
@@ -1076,3 +339,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+export default Let_talk;

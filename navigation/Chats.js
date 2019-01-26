@@ -96,7 +96,7 @@ export default class Chats extends React.Component {
           source={require('../assets/garoo/0001.png')}/>
       <View style={styles.row}>
 
-        <TouchableOpacity onPress={this.Let_talk} style={styles.item}>
+        <TouchableOpacity onPress={this.App} style={styles.item}>
           <Image resizeMode="contain" source={chatIcon} style={styles.itemImage} />
           <Text style={styles.itemText}>พูดคุยกับฉัน</Text>
         </TouchableOpacity>

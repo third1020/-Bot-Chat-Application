@@ -7,6 +7,7 @@ import {
     View,
     Text,
     Button,
+    Image,
 } from 'react-native';
 import {
     createSwitchNavigator,
